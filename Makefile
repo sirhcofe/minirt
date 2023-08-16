@@ -31,10 +31,11 @@ OBJS_DIR	=	objects/
 OBJS		=	$(addprefix $(OBJS_DIR), $(notdir $(SRC:.c=.o)))
 
 # source files here #
-SRC			=	
+SRC			=	error.c	\
 
 # source directory here #
 SRC_DIR		=	$(LIBX)	\
+				src	\
 
 vpath %.c $(SRC_DIR)
 
