@@ -15,6 +15,10 @@ void	arg_check(int argc, char **argv)
 
 int	main(int argc, char **argv)
 {
+	t_data	file_data;
+
 	arg_check(argc, argv);
+	parse_file(&file_data, argv[1]);
+	free_data(&file_data);
 	exit(EXIT_SUCCESS);
 }
