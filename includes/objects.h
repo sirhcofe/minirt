@@ -28,7 +28,7 @@ typedef struct s_cam
 	int		flag;
 	t_coord	point;
 	t_coord	orient_vector;
-	int		fov;
+	double	fov;
 }	t_cam;
 
 typedef struct s_light
