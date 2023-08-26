@@ -23,11 +23,11 @@ void	process_line(t_data *f_data, char *line)
 	else if (ft_strnstr(line, "L ", 2))
 		flag = add_light(&(f_data->light), split_ret);
 	else if (ft_strnstr(line, "sp ", 3))
-		add_sphere(f_data, split_ret, &flag);
+		flag = add_sphere(f_data, split_ret);
 	else if (ft_strnstr(line, "pl ", 3))
-		add_plane(f_data, split_ret, &flag);
+		flag = add_plane(f_data, split_ret);
 	else if (ft_strnstr(line, "cy ", 3))
-		add_cylinder(f_data, split_ret, &flag);
+		flag = add_cylinder(f_data, split_ret);
 	free_split(split_ret);
 	if (flag)
 		error_free(flag, f_data, line);

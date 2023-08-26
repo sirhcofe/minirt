@@ -41,6 +41,7 @@ typedef struct s_light
 
 typedef struct s_sp
 {
+	int		flag;
 	t_coord	center;
 	double	dia;
 	t_rgb	colour;
@@ -48,6 +49,7 @@ typedef struct s_sp
 
 typedef struct s_pl
 {
+	int		flag;
 	t_coord	point;
 	t_coord	normal_vector;
 	t_rgb	colour;
@@ -55,6 +57,7 @@ typedef struct s_pl
 
 typedef struct s_cy
 {
+	int		flag;
 	t_coord	center;
 	t_coord	axis_vector;
 	double	dia;

@@ -18,6 +18,11 @@ void	free_split(char **head);
 
 /* -.- Parsing -.- */
 
+// add_shapes.c
+int		add_sphere(t_data *f_data, char **arr);
+int		add_plane(t_data *f_data, char **arr);
+int		add_cylinder(t_data *f_data, char **arr);
+
 // add_single.c
 int		add_ambience(t_amb *obj , char **arr);
 int		add_camera(t_cam *obj, char **arr);
