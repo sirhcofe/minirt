@@ -14,7 +14,7 @@ void	process_line(t_data *f_data, char *line)
 
 	flag = 2;
 	split_ret = ft_split(line, ' ');
-	if (split_ret[0] == '\n')
+	if (split_ret[0][0] == '\n')
 		flag = 0;
 	else if (ft_strnstr(line, "A ", 2))
 		flag = add_ambience(&(f_data->ambience), split_ret);

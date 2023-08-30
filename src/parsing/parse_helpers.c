@@ -42,7 +42,7 @@ void	assign_coord(int *flag, t_coord *obj, char *str)
 		*flag = -1;
 	else
 	{
-		ft_bzero(temp, 4);
+		temp = ft_calloc(4, sizeof(double));
 		i = -1;
 		while (++i < 3)
 		{
