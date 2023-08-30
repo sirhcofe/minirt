@@ -31,11 +31,22 @@ OBJS_DIR	=	objects/
 OBJS		=	$(addprefix $(OBJS_DIR), $(notdir $(SRC:.c=.o)))
 
 # source files here #
-SRC			=	error.c	\
+SRC			=	error.c			\
+				get_next_line.c	\
+				free.c			\
+				add_shapes.c	\
+				add_single.c	\
+				parse_helpers.c	\
+				parse.c			\
+				general_utils.c	\
+				parse_utils.c	\
 
 # source directory here #
-SRC_DIR		=	$(LIBX)	\
-				src	\
+SRC_DIR		=	$(LIBX)			\
+				src				\
+				src/mem_free	\
+				src/parsing		\
+				src/utils		\
 
 vpath %.c $(SRC_DIR)
 
@@ -60,9 +71,11 @@ clean:
 			@rm -rf objects
 			@rm -rf resolution
 			@make -C $(LIBX) clean
+			@make -C libft/ clean
 			@echo "Done!"
 
 fclean:		clean
+			@make -C libft/ fclean
 			@rm -rf $(NAME) minirt
 			@echo "Done!"
 
