@@ -36,13 +36,13 @@ void	assign_vector(int *flag, t_coord *obj, char *str);
 double	assign_fov(int *flag, char *str);
 
 /* parse.c */
-void	parse_file(t_data *f_data, char *file);
+t_data	*parse_file(char *file);
 
 /* -.- Utils -.- */
 
 // general_utils.c
 double	ft_atod(const char *str);
-int		ft_arrlen(void *arr);
+int		ft_arrlen(char *arr);
 int		ft_inrange(double num, double low, double high);
 int		ft_isdouble(char *str);
 
