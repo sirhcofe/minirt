@@ -7,7 +7,7 @@ double	assign_ratio(int *flag, char *str)
 	if (ft_isdouble(str) == 0)
 		*flag = -1;
 	conv_ratio = ft_atod(str);
-	if (conv_ratio < 0.0 || conv_ratio > 0.2)
+	if (conv_ratio < 0.0 || conv_ratio > 1.0)
 		*flag = -1;
 	return (conv_ratio);
 }
