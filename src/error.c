@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-void	error(int status)
+void	arg_error(int status)
 {
 	if (status == 1)
 		ft_putstr_fd("Usage: ./miniRT <MAP FILE>\n", 2);
