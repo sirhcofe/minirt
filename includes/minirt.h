@@ -163,20 +163,82 @@ t_data	*parse_file(char *file);
 /* -.- Utils -.- */
 
 // general_utils.c
+/**
+ * @brief Converts a string to a double
+ * @return A double
+ * @param str The string to be converted
+*/
 double	ft_atod(const char *str);
-int		ft_arrlen(char *arr);
+/**
+ * @brief Counts the length of a null-terminated array of strings
+ * @return The length of the array, not inclusive of the null element
+ * @param arr A pointer to the first element of the array of strings
+*/
+int		ft_arrlen(char **arr);
+/**
+ * @brief Checks if a number is within a specified range, limits included
+ * @return An int that is to be used as a flag
+ * @retval 0 if the number is outside the range
+ * @retval 1 if the number is within the range
+ * @param num The number to be checked
+ * @param low The lower limit of the range
+ * @param high The upper limit of the range
+*/
 int		ft_inrange(double num, double low, double high);
+/**
+ * @brief Checks if a string is a rational number or integer. A rational
+ * number is defined here as either a positive or negative number that has
+ * only one period (.) between two or more numbers
+ * @return An int that is to be used as a flag
+ * @retval 0 if the number is not a valid double
+ * @retval 1 if the number is a valid double
+ * @param str The string to be checked
+*/
 int		ft_isdouble(char *str);
 
 // parse_utils.c
+/**
+ * @brief Checks if a string is formatted as an RGB [xxx,xxx,xxx]
+ * @warning Does not check if the integer parts are within the colour range
+ * [0, 255]
+ * @return An int that is to be used as a flag
+ * @retval 0 if the string is not in an RGB format
+ * @retval 1 if the string follows the RGB format
+ * @param str The string to be checked
+*/
 int		ft_isrgb(char *str);
+/**
+ * @brief Sets the values of a t_coord struct
+ * @return Function returns nothing
+ * @param obj Pointer to the t_coord variable
+ * @param temp Pointer to an array of doubles that represent (x, y, z)
+*/
 void	set_coord(t_coord *obj, double *temp);
 
 /* error.c */
-void	error(int status);
+/**
+ * @brief Exits the program with an error message for errors regarding
+ * command line arguments
+ * @return Function returns nothing
+ * @param status The flag that determines which error message to display
+*/
+void	arg_error(int status);
+/**
+ * @brief Exits the program after freeing the t_data struct from memory
+ * @return Function returns nothing
+ * @param flag The flag that determins which error message to display
+ * @param f_data Pointer to the t_data variable to be freed
+ * @param gnl Pointer to a line allocated by the get_next_line function to
+ * be freed if necessary
+*/
 void	error_free(int flag, t_data *f_data, char *gnl);
 
 /* get_next_line.c */
+/**
+ * @brief Reads a file and returns its contents line by line
+ * @return A malloc'd string representing a line from the read file
+ * @param fd The file descriptor of the file to be read
+*/
 char	*get_next_line(int fd);
 
 #endif
