@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-void	arg_check(int argc, char **argv)
+void arg_check(int argc, char **argv)
 {
 	char	*period;
 
@@ -15,10 +15,12 @@ void	arg_check(int argc, char **argv)
 
 int	main(int argc, char **argv)
 {
-	t_data	file_data;
+	t_minirt	rt;
+	t_data		file_data;
 
 	arg_check(argc, argv);
+	init_mlx_window(&rt);
 	parse_file(&file_data, argv[1]);
 	free_data(&file_data);
-	exit(EXIT_SUCCESS);
+	// exit(EXIT_SUCCESS);
 }
