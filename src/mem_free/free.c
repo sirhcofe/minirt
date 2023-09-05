@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-void	free_data(t_data *f_data)
+void	free_data(t_data *f_data, t_minirt *rt)
 {
 	if (f_data->num_sp > 0)
 		ft_lstclear(&(f_data->spheres), free);

@@ -16,7 +16,7 @@
 /**
  * hello world
  */
-void free_data(t_data *f_data);
+void free_data(t_data *f_data, t_minirt *rt);
 /**
  * @brief Function frees char double-array memory.
  * @return Function does not return.
@@ -69,8 +69,11 @@ int ft_isdouble(char *str);
 int ft_isrgb(char *str);
 void set_coord(t_coord *obj, double *temp);
 
+// set_controls.c
+void	set_controls(t_data *f_data, t_minirt *rt);
+
 /* error.c */
-void error(int status);
+void error(char *err_msg);
 void error_free(int flag, t_data *f_data, char *gnl);
 
 /* get_next_line.c */

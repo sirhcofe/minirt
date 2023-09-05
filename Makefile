@@ -6,7 +6,7 @@
 #    By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 21:28:59 by chenlee           #+#    #+#              #
-#    Updated: 2023/09/05 22:24:55 by chenlee          ###   ########.fr        #
+#    Updated: 2023/09/06 00:46:04 by chenlee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,18 +15,18 @@ UNAME		:=	$(shell uname)
 ifeq ($(UNAME), Linux)
 	LIBX = minilibx/minilibx_linux/
 	COMPILE = -L$(LIBX) -lmlx_Linux -L/usr/lib -I$(LIBX) -lXext -lX11 -lm -lz
-	PREBUILD = xrandr | awk '/XWAYLAND0 connected/ {getline; print $$1}' > resolution
+	PREBUILD = xrandr | awk '/XWAYLAND0 connected/ {getline; print $$1}' > resolution && echo Linux > os
 endif
 ifeq ($(UNAME), Darwin)
 	LIBX = minilibx/minilibx_macos/
 	COMPILE = -L$(LIBX) -lmlx -framework OpenGL -framework AppKit
-	PREBUILD = system_profiler SPDisplaysDataType | awk '/Resolution/ {print $$2, $$3, $$4}' > resolution
+	PREBUILD = system_profiler SPDisplaysDataType | awk '/Resolution/ {print $$2, $$3, $$4}' > resolution && echo Darwin > os
 endif
 
 $(shell $(PREBUILD))
 
 NAME		=	libminirt.a
-FLAGS		=	-Wall -Wextra -Werror
+FLAGS		=	
 OBJS_DIR	=	objects/
 OBJS		=	$(addprefix $(OBJS_DIR), $(notdir $(SRC:.c=.o)))
 
@@ -41,6 +41,7 @@ SRC			=	error.c				\
 				parse.c				\
 				general_utils.c		\
 				parse_utils.c		\
+				set_controls.c
 
 # source directory here #
 SRC_DIR		=	$(LIBX)			\
@@ -68,11 +69,10 @@ $(OBJS_DIR)%.o:	%.c
 
 minirt:		src/main.c $(OBJS)
 			@echo "Compiling: src/main.c"
-			@gcc $(FLAGS) -g3 src/main.c -L. -lminirt -Llibft -lft $(INCLUDES) $(COMPILE) -o miniRT
+			@gcc $(FLAGS) -g3 src/main.c -L. -lminirt -Llibft -lft $(INCLUDES) $(COMPILE) -o minirt
 
 clean:
-			@rm -rf objects
-			@rm -rf resolution
+			@rm -rf objects resolution os
 			@make -C $(LIBX) clean
 			@make -C libft/ clean
 			@echo "clean done!"

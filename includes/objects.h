@@ -89,6 +89,7 @@ typedef struct s_minirt
 	int		endian;
 	int		window_h;
 	int		window_w;
+	int		os;
 	t_data	*file_data;
 }	t_minirt;
 

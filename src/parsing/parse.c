@@ -54,7 +54,7 @@ void	parse_file(t_data *f_data, char *file)
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		error(2);
+		error("Invalid map file.\n");
 	init_data_struct(f_data);
 	while (1)
 	{
