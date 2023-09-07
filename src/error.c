@@ -9,7 +9,7 @@ void	arg_error(int status)
 	exit(EXIT_FAILURE);
 }
 
-void	error_free(int status, t_data *f_data, char *gnl)
+void	error_free(int status, t_data *f_data)
 {
 	ft_putstr_fd("Error\n", 2);
 	if (status == 1)
@@ -19,7 +19,5 @@ void	error_free(int status, t_data *f_data, char *gnl)
 	else if (status == 3)
 		ft_putstr_fd("More than one Camera, Light or Ambience object\n", 2);
 	free_data(f_data);
-	if (gnl)
-		free(gnl);
 	exit (EXIT_FAILURE);
 }
