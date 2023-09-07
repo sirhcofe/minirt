@@ -13,10 +13,12 @@ double	ft_atod(const char *str)
 		return (whole_num);
 	temp += 1;
 	power = ft_strlen(temp);
+	if (power == 0)
+		return (whole_num);
 	fractional = ft_atoi(temp);
-	if (whole_num < 0)
-		return ((whole_num - fractional) / power);
-	return ((whole_num + fractional) / power);
+	if (str[0] == '-')
+		return (whole_num - (double)(fractional / pow(10, power)));
+	return (whole_num + (double)(fractional / pow(10, power)));
 }
 
 int	ft_arrlen(char **arr)
