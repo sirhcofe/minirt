@@ -16,7 +16,7 @@
 /**
  * hello world
  */
-void free_data(t_data *f_data, t_minirt *rt);
+void free_data(t_minirt *rt);
 /**
  * @brief Function frees char double-array memory.
  * @return Function does not return.
@@ -46,16 +46,16 @@ double assign_fov(int *flag, char *str);
 // parse.c
 void parse_file(t_data *f_data, char *file);
 
-/* -.- mlx -.- */
+/* -.- initialization -.- */
 
 /**
- * @brief Initialization of graphic application on screen using MiniLibX
- * library. 
+ * @brief Initialization of the mlx graphical system with the MiniLibX library
+ * along with a struct initialized for data extraction from `.rt` file.
  * 
- * @param rt The main struct containing all data relevant to project.
- * @return Function does not return.
+ * @return Function return a struct containing the mlx graphical system and
+ * data extraction from `.rt` file
 */
-void	init_mlx_window(t_minirt *rt);
+t_minirt	*init_mlx_window(void);
 
 /* -.- Utils -.- */
 
@@ -70,7 +70,7 @@ int ft_isrgb(char *str);
 void set_coord(t_coord *obj, double *temp);
 
 // set_controls.c
-void	set_controls(t_data *f_data, t_minirt *rt);
+void	set_controls(t_minirt *rt);
 
 /* error.c */
 void error(char *err_msg);
