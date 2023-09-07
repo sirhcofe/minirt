@@ -7,7 +7,7 @@ double	assign_ratio(int *flag, char *str)
 	if (ft_isdouble(str) == 0)
 		*flag = -1;
 	conv_ratio = ft_atod(str);
-	if (conv_ratio < 0.0 || conv_ratio > 0.2)
+	if (conv_ratio < 0.0 || conv_ratio > 1.0)
 		*flag = -1;
 	return (conv_ratio);
 }
@@ -38,7 +38,7 @@ void	assign_coord(int *flag, t_coord *obj, char *str)
 	double	*temp;
 
 	arr = ft_split(str, ',');
-	if (ft_arrlen(arr) != 4)
+	if (ft_arrlen(arr) != 3)
 		*flag = -1;
 	else
 	{
