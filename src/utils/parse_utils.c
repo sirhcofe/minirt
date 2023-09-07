@@ -19,7 +19,7 @@ int	ft_isrgb(char *str)
 	}
 	if (comma_cnt != 2)
 		return (0);
-	return(1);
+	return (1);
 }
 
 void	set_coord(t_coord *obj, double *temp)
