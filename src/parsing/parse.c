@@ -33,29 +33,30 @@ void	process_line(t_data *f_data, char *line)
 		error_free(flag, f_data, line);
 }
 
-void	init_data_struct(t_data *f_data)
+void	init_data_struct(t_data **f_data)
 {
-	f_data = malloc(sizeof(t_data));
-	f_data->num_sp = 0;
-	f_data->num_pl = 0;
-	f_data->num_cy = 0;
-	f_data->spheres = NULL;
-	f_data->planes = NULL;
-	f_data->cylinders = NULL;
-	f_data->ambience.flag = 0;
-	f_data->camera.flag = 0;
-	f_data->light.flag = 0;
+	*(f_data) = malloc(sizeof(t_data));
+	(*f_data)->num_sp = 0;
+	(*f_data)->num_pl = 0;
+	(*f_data)->num_cy = 0;
+	(*f_data)->spheres = NULL;
+	(*f_data)->planes = NULL;
+	(*f_data)->cylinders = NULL;
+	(*f_data)->ambience.flag = 0;
+	(*f_data)->camera.flag = 0;
+	(*f_data)->light.flag = 0;
 }
 
-void	parse_file(t_data *f_data, char *file)
+t_data	*parse_file(char *file)
 {
+	t_data	*ret;
 	int		fd;
 	char	*line;
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		arg_error(2);
-	init_data_struct(f_data);
+	init_data_struct(&ret);
 	while (1)
 	{
 		line = get_next_line(fd);
@@ -65,4 +66,5 @@ void	parse_file(t_data *f_data, char *file)
 		free(line);
 	}
 	close(fd);
+	return (ret);
 }
