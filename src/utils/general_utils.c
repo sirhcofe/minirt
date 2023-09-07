@@ -45,7 +45,9 @@ int	ft_isdouble(char *str)
 	period = 0;
 	if (str[ft_strlen(str)] == '.')
 		return (0);
-	while (str)
+	if (str[0] == '+' || str[0] == '-')
+		str++;
+	while (*str)
 	{
 		if (ft_isdigit(*str) == 0)
 		{
