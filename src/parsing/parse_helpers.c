@@ -54,9 +54,9 @@ void	assign_coord(int *flag, t_coord *obj, char *str)
 			temp[i] = ft_atod(arr[i]);
 		}
 		set_coord(obj, temp);
+		free(temp);
 	}
 	free_split(arr);
-	free(temp);
 }
 
 void	assign_vector(int *flag, t_coord *obj, char *str)
