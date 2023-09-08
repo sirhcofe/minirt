@@ -1,30 +1,28 @@
 #ifndef MINIRT_H
-# define MINIRT_H
+#define MINIRT_H
 
-# define BUFFER_SIZE 50
+#define BUFFER_SIZE 50
 
-# include <stdlib.h>
-# include <stdio.h>
-# include <math.h>
-# include <fcntl.h>
-# include "libft.h"
-# include "mlx.h"
-# include "objects.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <math.h>
+#include <fcntl.h>
+#include "libft.h"
+#include "mlx.h"
+#include "objects.h"
 
 /* -.- Memory Freeing -.- */
-// free.c
+
 /**
- * @brief Function frees the t_data struct allocated in memory
- * @return Function does not return
- * @param f_data Pointer to t_data variable to be freed
-*/
-void	free_data(t_data *f_data);
+ * hello world
+ */
+void free_data(t_minirt *rt);
 /**
- * @brief Function frees char double-array memory
- * @return Function does not return
- * @param head double-char-array to be freed
-*/
-void	free_split(char **head);
+ * @brief Function frees char double-array memory.
+ * @return Function does not return.
+ * @param head Double-char-array to be freed.
+ */
+void free_split(char **head);
 
 /* -.- Parsing -.- */
 
@@ -160,6 +158,17 @@ void	init_data_struct(t_data **f_data);
 */
 t_data	*parse_file(char *file);
 
+/* -.- initialization -.- */
+
+/**
+ * @brief Initialization of the mlx graphical system with the MiniLibX library
+ * along with a struct initialized for data extraction from `.rt` file.
+ * 
+ * @return Function return a struct containing the mlx graphical system and
+ * data extraction from `.rt` file
+*/
+t_minirt	*init_mlx_window(void);
+
 /* -.- Utils -.- */
 
 // general_utils.c
@@ -220,9 +229,9 @@ void	set_coord(t_coord *obj, double *temp);
  * @brief Exits the program with an error message for errors regarding
  * command line arguments
  * @return Function returns nothing
- * @param status The flag that determines which error message to display
+ * @param err_msg The error message to display
 */
-void	arg_error(int status);
+void	arg_error(char *err_msg);
 /**
  * @brief Exits the program after freeing the t_data struct from memory
  * @return Function returns nothing

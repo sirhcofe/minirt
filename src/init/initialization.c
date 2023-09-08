@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/06 16:31:29 by chenlee           #+#    #+#             */
-/*   Updated: 2023/09/07 17:01:38 by chenlee          ###   ########.fr       */
+/*   Created: 2023/08/29 16:16:57 by chenlee           #+#    #+#             */
+/*   Updated: 2023/09/07 16:29:59 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void arg_check(int argc, char **argv)
-{
-	char	*period;
-
-	if (argc != 2)
-		arg_error("Usage: ./miniRT <MAP FILE>\n");
-	period = ft_strchr(argv[1], '.');
-	if (!period)
-		arg_error("Invalid map file.\n");
-	if (ft_strncmp(period, ".rt", 4) != 0)
-		arg_error("Invalid map file.\n");
-}
-
-int	main(int argc, char **argv)
+t_minirt	*init_mlx_window(void)
 {
 	t_minirt	*rt;
 
-	arg_check(argc, argv);
-	rt = init_mlx_window();
-	rt->file_data = parse_file(argv[1]);
-	set_controls(rt);
-	mlx_loop(rt->mlx);
+	rt = malloc(sizeof(t_minirt));
+	rt->mlx = mlx_init();
+	rt->mlx_win = mlx_new_window(rt->mlx, 1280, 720, "minirt");
+	rt->img = mlx_new_image(rt->mlx, 1280, 720);
+	rt->addr = mlx_get_data_addr(rt->img, &(rt->bits_per_pixel),
+			&(rt->line_len), &(rt->endian));
+	rt->file_data = malloc(sizeof(t_data));
+	return (rt);
 }

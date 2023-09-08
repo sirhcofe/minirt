@@ -54,7 +54,7 @@ t_data	*parse_file(char *file)
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		arg_error(2);
+		arg_error("Invalid .rt file.\n");
 	init_data_struct(&ret);
 	while (1 == 1)
 	{

@@ -1,11 +1,8 @@
 #include "minirt.h"
 
-void	arg_error(int status)
+void	arg_error(char *err_msg)
 {
-	if (status == 1)
-		ft_putstr_fd("Usage: ./miniRT <MAP FILE>\n", 2);
-	if (status == 2)
-		ft_putstr_fd("Invalid map file.\n", 2);
+	ft_putstr_fd(err_msg, 2);
 	exit(EXIT_FAILURE);
 }
 

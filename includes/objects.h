@@ -78,4 +78,16 @@ typedef struct s_data
 	t_list	*cylinders;
 }	t_data;
 
+typedef struct s_minirt
+{
+	void	*mlx;
+	void	*mlx_win;
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_len;
+	int		endian;
+	t_data	*file_data;
+}	t_minirt;
+
 #endif
