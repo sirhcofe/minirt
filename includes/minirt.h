@@ -8,7 +8,7 @@
 # include <math.h>
 # include <fcntl.h>
 # include "libft.h"
-# include "mlx.h"
+// # include "mlx.h"
 # include "objects.h"
 
 /* -.- Memory Freeing -.- */
@@ -238,5 +238,8 @@ void	error_free(int flag, t_data *f_data);
  * @param fd The file descriptor of the file to be read
 */
 char	*get_next_line(int fd);
+
+/* Testing */
+void	test_parser(t_data *f_data);
 
 #endif
