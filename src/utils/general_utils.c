@@ -13,18 +13,20 @@ double	ft_atod(const char *str)
 		return (whole_num);
 	temp += 1;
 	power = ft_strlen(temp);
+	if (power == 0)
+		return (whole_num);
 	fractional = ft_atoi(temp);
-	if (whole_num < 0)
-		return ((whole_num - fractional) / power);
-	return ((whole_num + fractional) / power);
+	if (str[0] == '-')
+		return (whole_num - (double)(fractional / pow(10, power)));
+	return (whole_num + (double)(fractional / pow(10, power)));
 }
 
-int	ft_arrlen(void *arr)
+int	ft_arrlen(char **arr)
 {
 	int	i;
 
 	i = 0;
-	while (arr++)
+	while (arr[i])
 		i++;
 	return (i);
 }
@@ -43,7 +45,9 @@ int	ft_isdouble(char *str)
 	period = 0;
 	if (str[ft_strlen(str)] == '.')
 		return (0);
-	while (str)
+	if (str[0] == '+' || str[0] == '-')
+		str++;
+	while (*str)
 	{
 		if (ft_isdigit(*str) == 0)
 		{

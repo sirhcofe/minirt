@@ -17,12 +17,12 @@ void arg_check(int argc, char **argv)
 	char	*period;
 
 	if (argc != 2)
-		error("Usage: ./miniRT <MAP FILE>\n");
+		arg_error("Usage: ./miniRT <MAP FILE>\n");
 	period = ft_strchr(argv[1], '.');
 	if (!period)
-		error("Invalid map file.\n");
+		arg_error("Invalid map file.\n");
 	if (ft_strncmp(period, ".rt", 4) != 0)
-		error("Invalid map file.\n");
+		arg_error("Invalid map file.\n");
 }
 
 int	main(int argc, char **argv)
@@ -31,9 +31,7 @@ int	main(int argc, char **argv)
 
 	arg_check(argc, argv);
 	rt = init_mlx_window();
-	// parse_file(&file_data, argv[1]);
-	// free_data(&file_data);
-	// exit(EXIT_SUCCESS);
+	rt->file_data = parse_file(argv[1]);
 	set_controls(rt);
 	mlx_loop(rt->mlx);
 }

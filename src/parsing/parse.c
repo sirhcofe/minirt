@@ -14,9 +14,7 @@ void	process_line(t_data *f_data, char *line)
 
 	flag = 2;
 	split_ret = ft_split(line, ' ');
-	if (split_ret[0][0] == '\n')
-		flag = 0;
-	else if (ft_strnstr(line, "A ", 2))
+	if (ft_strnstr(line, "A ", 2))
 		flag = add_ambience(&(f_data->ambience), split_ret);
 	else if (ft_strnstr(line, "C ", 2))
 		flag = add_camera(&(f_data->camera), split_ret);
@@ -29,40 +27,31 @@ void	process_line(t_data *f_data, char *line)
 	else if (ft_strnstr(line, "cy ", 3))
 		flag = add_cylinder(f_data, split_ret);
 	free_split(split_ret);
+	free(line);
 	if (flag)
-		error_free(flag, f_data, line);
+		error_free(flag, f_data);
 }
 
-void	init_data_struct(t_data *f_data)
+t_data	*parse_file(char *file)
 {
-	f_data = malloc(sizeof(t_data));
-	f_data->num_sp = 0;
-	f_data->num_pl = 0;
-	f_data->num_cy = 0;
-	f_data->spheres = NULL;
-	f_data->planes = NULL;
-	f_data->cylinders = NULL;
-	f_data->ambience.flag = 0;
-	f_data->camera.flag = 0;
-	f_data->light.flag = 0;
-}
-
-void	parse_file(t_data *f_data, char *file)
-{
+	t_data	*ret;
 	int		fd;
 	char	*line;
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		error("Invalid map file.\n");
-	init_data_struct(f_data);
-	while (1)
+		arg_error("Invalid .rt file.\n");
+	init_data_struct(&ret);
+	while (1 == 1)
 	{
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		process_line(f_data, line);
+		if (line[0] == '\n') ;
+		else
+			process_line(ret, ft_strtrim(line, "\n"));
 		free(line);
 	}
 	close(fd);
+	return (ret);
 }

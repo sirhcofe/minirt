@@ -25,3 +25,17 @@ t_minirt	*init_mlx_window(void)
 	rt->file_data = malloc(sizeof(t_data));
 	return (rt);
 }
+
+void	init_data_struct(t_data **f_data)
+{
+	*(f_data) = malloc(sizeof(t_data));
+	(*f_data)->num_sp = 0;
+	(*f_data)->num_pl = 0;
+	(*f_data)->num_cy = 0;
+	(*f_data)->spheres = NULL;
+	(*f_data)->planes = NULL;
+	(*f_data)->cylinders = NULL;
+	(*f_data)->ambience.flag = 0;
+	(*f_data)->camera.flag = 0;
+	(*f_data)->light.flag = 0;
+}
