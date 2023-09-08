@@ -57,3 +57,5 @@ dkms.conf
 minirt
 resolution
 keycode
+test
+*.rt
