@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jthor <jthor@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/13 20:02:31 by jthor             #+#    #+#             */
+/*   Updated: 2023/09/13 20:02:37 by jthor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 void	free_rt(t_minirt *rt)
@@ -12,13 +24,13 @@ void	free_rt(t_minirt *rt)
 
 void	free_data(t_minirt *rt)
 {
-	// if (f_data->num_sp > 0)
-	// 	ft_lstclear(&(f_data->spheres), free);
-	// if (f_data->num_pl > 0)
-	// 	ft_lstclear(&(f_data->planes), free);
-	// if (f_data->num_cy > 0)
-	// 	ft_lstclear(&(f_data->cylinders), free);
-	// free(f_data);
+	if (rt->file_data->num_sp > 0)
+		ft_lstclear(&(rt->file_data->spheres), free);
+	if (rt->file_data->num_pl > 0)
+		ft_lstclear(&(rt->file_data->planes), free);
+	if (rt->file_data->num_cy > 0)
+		ft_lstclear(&(rt->file_data->cylinders), free);
+	free(rt->file_data);
 	free_rt(rt);
 }
 
