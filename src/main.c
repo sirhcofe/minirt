@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-void arg_check(int argc, char **argv)
+void	arg_check(int argc, char **argv)
 {
 	char	*period;
 
