@@ -6,7 +6,7 @@
 #    By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 21:28:59 by chenlee           #+#    #+#              #
-#    Updated: 2023/09/07 03:37:17 by chenlee          ###   ########.fr        #
+#    Updated: 2023/09/14 23:54:16 by chenlee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,19 +30,22 @@ OBJS		=	$(addprefix $(OBJS_DIR), $(notdir $(SRC:.c=.o)))
 SRC			=	error.c				\
 				initialization.c	\
 				get_next_line.c		\
-				free.c				\
+				parse.c				\
+				parse_helpers.c		\
 				add_shapes.c		\
 				add_single.c		\
-				parse_helpers.c		\
-				parse.c				\
 				general_utils.c		\
 				parse_utils.c		\
-				set_controls.c
+				geom_trans.c		\
+				vector_algebra.c	\
+				set_controls.c		\
+				free.c				\
 
 # source directory here #
 SRC_DIR		=	$(LIBX)			\
 				src				\
-				src/init			\
+				src/init		\
+				src/math		\
 				src/mem_free	\
 				src/parsing		\
 				src/utils		\
