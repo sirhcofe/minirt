@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jthor <jthor@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/13 20:04:00 by jthor             #+#    #+#             */
+/*   Updated: 2023/09/13 20:04:02 by jthor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 /**
@@ -47,7 +59,8 @@ t_data	*parse_file(char *file)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		if (line[0] == '\n') ;
+		if (line[0] == '\n')
+			;
 		else
 			process_line(ret, ft_strtrim(line, "\n"));
 		free(line);
