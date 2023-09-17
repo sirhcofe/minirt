@@ -90,5 +90,5 @@ double	assign_fov(int *flag, char *str)
 	fov = ft_atod(str);
 	if (ft_inrange(fov, 0, 180) == 0)
 		*flag = -1;
-	return (fov);
+	return (fov * 3.14159 / 180);
 }
