@@ -34,10 +34,10 @@ int	ft_isrgb(char *str)
 	return (1);
 }
 
-void	set_coord(t_coord *obj, double *temp)
+void	set_coord(t_coord *obj, double x, double y, double z)
 {
-	obj->x = temp[0];
-	obj->y = temp[1];
-	obj->z = temp[2];
+	obj->x = x;
+	obj->y = y;
+	obj->z = z;
 	obj->w = 1.0;
 }

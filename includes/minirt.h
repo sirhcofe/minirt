@@ -11,20 +11,18 @@
 #include "mlx.h"
 #include "objects.h"
 
-/* -.- Memory Freeing -.- */
+/*************************** -.- initialization -.- ***************************/
 
 /**
- * hello world
- */
-void free_data(t_minirt *rt);
-/**
- * @brief Function frees char double-array memory.
- * @return Function does not return.
- * @param head Double-char-array to be freed.
- */
-void free_split(char **head);
+ * @brief Initialization of the mlx graphical system with the MiniLibX library
+ * along with a struct initialized for data extraction from `.rt` file.
+ * 
+ * @return Function return a struct containing the mlx graphical system and
+ * data extraction from `.rt` file
+*/
+t_minirt	*init_mlx_window(void);
 
-/* -.- Parsing -.- */
+/******************************* -.- Parsing -.- ******************************/
 
 // add_shapes.c
 /**
@@ -137,7 +135,7 @@ void	assign_vector(int *flag, t_coord *obj, char *str);
 */
 double	assign_fov(int *flag, char *str);
 
-/* parse.c */
+// parse.c
 /**
  * @brief Takes a line from the file, and determines if it is an element or not
  * @return Function does not return
@@ -158,18 +156,85 @@ void	init_data_struct(t_data **f_data);
 */
 t_data	*parse_file(char *file);
 
-/* -.- initialization -.- */
+/**************************** -.- Mathematics -.- *****************************/
+
+// geom_trans.c
+/**
+ * @brief Function calculates the translation vector to move an object to the
+ * origin in a 3D Cartesian plane.
+ * @param object The object's current x,y,z position
+ * @return 3D vector (x, y, z) representing the translation needed to bring the
+ * object to the origin.
+*/
+t_coord	translation(t_coord *object);
+/**
+ * @brief Function applies Rodrigues' rotation formula to find the new position
+ * of a vector after it has been rotated about an arbitrary axis.
+ * @param vector The original 3D vector.
+ * @param angle The angle of rotation in radians.
+ * @return Function returns a new position of a vector after it has been
+ * rotated.
+*/
+t_coord	rotation(t_coord *vector, double angle);
+
+// vector_algebra.c
+/**
+ * @brief Function performs dot product operation on two vectors in a 3D
+ * oriented Euclidean vector space.
+ * @param a The first vector.
+ * @param b The second vector.
+ * @return Function returns a scalar number that is a measure of how closely the
+ * two vectors align.
+*/
+double	dot_prod(t_coord *a, t_coord *b);
+/**
+ * @brief Function performs cross product operation on two vectors in a 3D
+ * oriented Euclidean vector space.
+ * @param a The first vector.
+ * @param b The second vector.
+ * @return Function returns a new vector that is perpendicular to both a and b,
+ * thus normal to the plane containing them (assuming a and b are linearly
+ * independent).
+*/
+t_coord	cross_prod(t_coord *a, t_coord *b);
+/**
+ * @brief Function performs scalar multiplication on a vector, where each
+ * components of the vector is multiplied by the specified value.
+ * @param vector The vector for multiplication.
+ * @param value The value to be multiplied for each component of the vector.
+ * @return Function returns a new vector as the product of the arithmetic
+ * operation.
+*/
+t_coord	vect_mult(t_coord vector, double value);
+/**
+ * @brief Function performs summation of two (or three) vectors.
+ * @param a The first vector.
+ * @param b The second vector.
+ * @return Function returns a resulting vector of the vectors parsed.
+*/
+t_coord vect_add(t_coord a, t_coord b);
+/**
+ * @brief Function performs subtraction of two (or three) vectors.
+ * @param a The first vector.
+ * @param b The second vector.
+ * @return Function returns a resulting vector of the vectors parsed.
+*/
+t_coord vect_subt(t_coord a, t_coord b);
+
+/*************************** -.- Memory Freeing -.- ***************************/
 
 /**
- * @brief Initialization of the mlx graphical system with the MiniLibX library
- * along with a struct initialized for data extraction from `.rt` file.
- * 
- * @return Function return a struct containing the mlx graphical system and
- * data extraction from `.rt` file
-*/
-t_minirt	*init_mlx_window(void);
+ * hello world
+ */
+void free_data(t_minirt *rt);
+/**
+ * @brief Function frees char double-array memory.
+ * @return Function does not return.
+ * @param head Double-char-array to be freed.
+ */
+void free_split(char **head);
 
-/* -.- Utils -.- */
+/******************************** -.- Utils -.- *******************************/
 
 // general_utils.c
 /**
@@ -220,9 +285,11 @@ int		ft_isrgb(char *str);
  * @brief Sets the values of a t_coord struct
  * @return Function returns nothing
  * @param obj Pointer to the t_coord variable
- * @param temp Pointer to an array of doubles that represent (x, y, z)
+ * @param x The x-component of the vector
+ * @param y The y-component of the vector
+ * @param z The z-component of the vector
 */
-void	set_coord(t_coord *obj, double *temp);
+void	set_coord(t_coord *obj, double x, double y, double z);
 
 /* error.c */
 /**
