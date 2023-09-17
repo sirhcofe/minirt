@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:52:10 by chenlee           #+#    #+#             */
-/*   Updated: 2023/09/15 19:36:41 by chenlee          ###   ########.fr       */
+/*   Updated: 2023/09/17 16:01:13 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,10 @@ t_coord	rotation(t_coord *vector, double angle)
 
 /**
  * v' = v * cos(θ) + (k x v) * sin(θ) + k * (k ⋅ v) * (1 - cos(θ))
-
-Where:
-
-v is the original vector.
-k is the unit vector representing the axis of rotation.
-θ is the angle of rotation in radians.
-x denotes the cross product of two vectors.
-⋅ denotes the dot product of two vectors.
+ * Where:
+ * v is the original vector.
+ * k is the unit vector representing the axis of rotation.
+ * θ is the angle of rotation in radians.
+ * x denotes the cross product of two vectors.
+ * ⋅ denotes the dot product of two vectors.
 */
