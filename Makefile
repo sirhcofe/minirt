@@ -6,7 +6,7 @@
 #    By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 21:28:59 by chenlee           #+#    #+#              #
-#    Updated: 2023/09/14 23:54:16 by chenlee          ###   ########.fr        #
+#    Updated: 2023/09/17 16:52:28 by chenlee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRC			=	error.c				\
 				parse_utils.c		\
 				geom_trans.c		\
 				vector_algebra.c	\
+				vector_arithmetic.c	\
 				set_controls.c		\
 				free.c				\
 

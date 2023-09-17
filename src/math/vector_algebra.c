@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 23:51:18 by chenlee           #+#    #+#             */
-/*   Updated: 2023/09/15 19:35:08 by chenlee          ###   ########.fr       */
+/*   Updated: 2023/09/17 16:32:20 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,33 +28,14 @@ t_coord	cross_prod(t_coord *a, t_coord *b)
 	return (cross_product);
 }
 
-t_coord	vect_mult(t_coord vector, double value)
+t_coord	normalize(t_coord *a)
 {
-	t_coord	ret;
+	t_coord	unit_vect;
+	double	magnitude;
 
-	ret.x = vector.x * value;
-	ret.y = vector.y * value;
-	ret.z = vector.z * value;
-	ret.w = vector.w;
-	return (ret);
-}
-
-t_coord	vect_add(t_coord a, t_coord b)
-{
-	t_coord	ret;
-
-	ret.x = a.x + b.x;
-	ret.y = a.y + b.y;
-	ret.z = a.z + b.z;
-	return (ret);
-}
-
-t_coord	vect_subt(t_coord a, t_coord b)
-{
-	t_coord ret;
-
-	ret.x = a.x - b.x;
-	ret.y = a.y - b.y;
-	ret.z = a.z - b.z;
-	return (ret);
+	magnitude = sqrt(a->x * a->x + a->y * a->y + a->z * a->z);
+	unit_vect.x = a->x / magnitude;
+	unit_vect.y = a->y / magnitude;
+	unit_vect.z = a->z / magnitude;
+	return (unit_vect);
 }

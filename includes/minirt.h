@@ -197,6 +197,9 @@ double	dot_prod(t_coord *a, t_coord *b);
  * independent).
 */
 t_coord	cross_prod(t_coord *a, t_coord *b);
+t_coord	normalize(t_coord *a);
+
+// vector_arithmetic.c
 /**
  * @brief Function performs scalar multiplication on a vector, where each
  * components of the vector is multiplied by the specified value.
