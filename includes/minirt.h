@@ -227,7 +227,9 @@ t_coord vect_subt(t_coord a, t_coord b);
 /*************************** -.- Memory Freeing -.- ***************************/
 
 /**
- * hello world
+ * @brief Function frees all malloc'd data related to this project.
+ * @return Function does not return.
+ * @param rt Pointer to the t_minirt struct that holds everything.
  */
 void free_data(t_minirt *rt);
 /**
@@ -236,6 +238,41 @@ void free_data(t_minirt *rt);
  * @param head Double-char-array to be freed.
  */
 void free_split(char **head);
+
+/******************************* -.- Driver -.- *******************************/
+
+// print_img.c
+/**
+ * @brief The driver function for rendering the image to the screen.
+ * @return Function does not return.
+ * @param rt Pointer to the t_minirt struct that holds everything.
+*/
+void	print_image(t_minirt *rt);
+/**
+ * @brief Renders the pixel if the ray that comes from it goes to infinity
+ * @return Function does not return.
+ * @param rt Pointer to the t_minirt struct that holds everything.
+ * @param idx Location of the pixel, to be broken down to the x and y values
+ * 
+*/
+void	void_pixel(t_minirt *rt, int idx);
+/**
+ * @brief Function that prints an empty map, in the absence of objects.
+ * @return Function does not return.
+ * @param rt Pointer to the t_minirt struct that holds everything.
+*/
+void	empty_protocol(t_minirt *rt);
+
+// draw.c
+/**
+ * @brief Function that replaces mlx_pixel_put cause its dong.
+ * @return Function does not return.
+ * @param rt Pointer to the t_minirt struct that holds everything.
+ * @param x The x-coordinate of the pixel to be coloured.
+ * @param y The y-coordinate of the pixel to be coloured.
+ * @param colour The intended colour of the pixel.
+*/
+void	put_pxl(t_minirt *rt, int x, int y, int colour);
 
 /******************************** -.- Utils -.- *******************************/
 
