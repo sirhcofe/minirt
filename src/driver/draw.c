@@ -19,3 +19,11 @@ void	put_pxl(t_minirt *rt, int x, int y, int colour)
 	dst = rt->addr + (y * rt->line_len + x * (rt->bits_per_pixel / 8));
 	*(unsigned int *)dst = colour;
 }
+
+void	void_pixel(t_minirt *rt, int idx)
+{
+	int	colour;
+
+	colour = create_colour(rt->file_data->ambience);
+	put_pxl(rt, idx % rt->height, idx / rt->height, colour);
+}

@@ -16,36 +16,26 @@
 
 void	print_image(t_minirt *rt)
 {
-	t_list	*objects;
 	t_coord	*ray_vector;
 	size_t	ctr;
 	int		index;
 
-	objects = combine_lists(rt);
-	if (!objects)
+	if (rt->file_data->num_sp + rt->file_data->num_pl + rt->file_data->num_cy)
 	{
+		ctr = -1;
+		while (++ctr < (rt->height * rt->width))
+		{
+			ray_vector = get_ray_vector(rt, ctr);
+			index = get_touchy(rt, ray_vector);
+			if (index == -1)
+				void_pixel(rt, ctr);
+			else
+				colour_pixel(rt, ray_vector, index, ctr);
+			free(ray_vector);
+		}
+	}
+	else
 		empty_protocol(rt);
-		return ;
-	}
-	ctr = -1;
-	while (++ctr < (rt->height * rt->width))
-	{
-		ray_vector = get_ray_vector(rt->file_data->camera, ctr);
-		index = get_touchy(rt, ray_vector, objects);
-		if (index == -1)
-			void_pixel(rt, ctr);
-		else
-			colour_pixel(rt, ray_vector, index, ctr);
-		free(ray_vector);
-	}
-}
-
-void	void_pixel(t_minirt *rt, int idx)
-{
-	int	colour;
-
-	colour = create_colour(rt->file_data->ambience);
-	put_pxl(rt, idx % rt->height, idx / rt->height, colour);
 }
 
 void	empty_protocol(t_minirt *rt)
