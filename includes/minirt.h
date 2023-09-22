@@ -264,6 +264,23 @@ int		get_touchy(t_data *f_data, t_coord *ray_vector);
  * @param rt Pointer to the t_minirt struct that holds everything.
 */
 void	empty_protocol(t_minirt *rt);
+/**
+ * @brief Goes through a linked list of an object and with the ray directional
+ * vector, applies the appropriate intersection function on each of them.
+ * @return Function does not return
+ * @param data Pointer to an array of three doubles;
+ * @param data[0] The index of the closest object from the camera, following
+ * the ray
+ * @param data[1] Counter to keep track of the objects while looping through
+ * the linked list
+ * @param data[2] The distance between the closest object and the camera,
+ * following the ray
+ * @param r_vect Pointer to the t_coord struct that holds the directional
+ * vecotr of the ray
+ * @param lst Pointer to a linked list of objects
+ * @param f Pointer to the intersection function
+ */
+void	scroll_obj(double *data[3], t_coord *r_vect, t_list *lst, double (*f)(t_coord *, void *));
 
 // draw.c
 /**

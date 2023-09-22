@@ -44,7 +44,7 @@ double	get_cy_dist(t_coord *ray_vector, t_cy *cylinder);
 
 /**
  * data[] ;
- * data[0] -> index to return, should be the index of the closest obj.
+ * data[0] -> index to return, should be the index of the closest obj. -1 if no intersection
  * data[1] -> index counter, use to keep track of which objet we looking at.
  * data[2] -> distance between the closest object and the camera.
  */
@@ -76,5 +76,28 @@ void	empty_protocol(t_minirt *rt)
 
 void	scroll_obj(double *data[3], t_coord *r_vect, t_list *lst, double (*f)(t_coord *, void *))
 {
-	
+	double	temp;
+
+	while (lst) // iter through the linked list
+	{
+		temp = (*f)(r_vect, lst->content); // get the distance.
+		if (temp) // there is an intersection
+		{
+			if (*data[0] == -1) // no intersection as of yet
+			{
+				*data[0] = *data[1]; // get the index
+				*data[2] = temp; // track the minimum distance
+			}
+			else // there is an intersection before, so need to check for min distance
+			{
+				if (temp < *data[2]) // current object is closer
+				{
+					*data[0] = *data[1];
+					*data[2] = temp;
+				}
+			}
+		}
+		*data[1] += 1;
+		lst = lst->next;
+	}
 }
