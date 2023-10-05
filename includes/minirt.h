@@ -166,7 +166,7 @@ t_data	*parse_file(char *file);
  * @return 3D vector (x, y, z) representing the translation needed to bring the
  * object to the origin.
 */
-t_coord	translation(t_coord *object);
+t_coord	translation(t_coord object);
 /**
  * @brief Function applies Rodrigues' rotation formula to find the new position
  * of a vector after it has been rotated about an arbitrary axis.
