@@ -6,18 +6,18 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 23:51:18 by chenlee           #+#    #+#             */
-/*   Updated: 2023/09/17 16:32:20 by chenlee          ###   ########.fr       */
+/*   Updated: 2023/10/24 15:50:04 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-double	dot_prod(t_coord *a, t_coord *b)
+double dot_prod(t_coord *a, t_coord *b)
 {
 	return ((a->x * b->x) + (a->y * b->y) + (a->z * b->z));
 }
 
-t_coord	cross_prod(t_coord *a, t_coord *b)
+t_coord cross_prod(t_coord *a, t_coord *b)
 {
 	t_coord	cross_product;
 
@@ -28,14 +28,14 @@ t_coord	cross_prod(t_coord *a, t_coord *b)
 	return (cross_product);
 }
 
-t_coord	normalize(t_coord *a)
+t_coord normalize(t_coord a)
 {
 	t_coord	unit_vect;
 	double	magnitude;
 
-	magnitude = sqrt(a->x * a->x + a->y * a->y + a->z * a->z);
-	unit_vect.x = a->x / magnitude;
-	unit_vect.y = a->y / magnitude;
-	unit_vect.z = a->z / magnitude;
+	magnitude = sqrt(a.x * a.x + a.y * a.y + a.z * a.z);
+	unit_vect.x = a.x / magnitude;
+	unit_vect.y = a.y / magnitude;
+	unit_vect.z = a.z / magnitude;
 	return (unit_vect);
 }

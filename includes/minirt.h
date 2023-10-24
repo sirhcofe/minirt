@@ -11,6 +11,8 @@
 #include "mlx.h"
 #include "objects.h"
 
+#define MAX_INT 2147483647
+
 /*************************** -.- initialization -.- ***************************/
 
 /**
@@ -197,7 +199,7 @@ double	dot_prod(t_coord *a, t_coord *b);
  * independent).
 */
 t_coord	cross_prod(t_coord *a, t_coord *b);
-t_coord	normalize(t_coord *a);
+t_coord	normalize(t_coord a);
 
 // vector_arithmetic.c
 /**
