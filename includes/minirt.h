@@ -275,12 +275,11 @@ void	empty_protocol(t_minirt *rt);
  * the linked list
  * @param data[2] The distance between the closest object and the camera,
  * following the ray
- * @param r_vect Pointer to the t_coord struct that holds the directional
- * vecotr of the ray
- * @param lst Pointer to a linked list of objects
+ * @param f_data Temporary struct to hold the ray vector, camera object and
+ * linked list of the object
  * @param f Pointer to the intersection function
  */
-void	scroll_obj(double *data[3], t_coord *r_vect, t_list *lst, double (*f)(t_coord *, void *));
+void	scroll_obj(double *data[3], t_intrsct f_data, double (*f)(t_coord *, void *, t_cam));
 
 // draw.c
 /**
@@ -381,5 +380,21 @@ void	error_free(int flag, t_data *f_data);
  * @param fd The file descriptor of the file to be read
 */
 char	*get_next_line(int fd);
+
+/******************************* -.- Shapes -.- *******************************/
+
+/* plane_intersection.c */
+
+/**
+ * @brief Determines if the ray_vector intersects with the plane and calculates
+ * the distance between them if there is an intersection
+ * @param ray_vector The directional vector from the viewer
+ * @param plane The struct holding the data of the plane object
+ * @param camera The camera object
+ * @retval 0 if there is no intersection, a positive number of type double otherwise
+ * @return The distance between the viewer amd the object, if it is within the
+ * field of vision.
+*/
+double	get_pl_dist(t_coord *ray_vector, t_pl *plane, t_cam camera);
 
 #endif
