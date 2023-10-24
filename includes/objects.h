@@ -87,6 +87,8 @@ typedef struct s_minirt
 	int		bits_per_pixel;
 	int		line_len;
 	int		endian;
+	int		width;
+	int		height;
 	t_data	*file_data;
 }	t_minirt;
 
