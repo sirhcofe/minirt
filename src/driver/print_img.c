@@ -79,6 +79,13 @@ void	empty_protocol(t_minirt *rt)
 		void_pixel(rt, ctr);
 }
 
+/**
+ * WARNING: There is currently no difference between the two scenarios;
+ * 1. The object does not intersect with the ray
+ * 2. The object is right in front of the camera (distance is 0)
+ * 
+ * INTERSECTION FUNCTION FOR BOTH SCENARIOS RETURNS 0
+*/
 void	scroll_obj(double *data[3], t_intrsct i_data, double (*f)(t_coord *, void *, t_cam))
 {
 	double	temp;
