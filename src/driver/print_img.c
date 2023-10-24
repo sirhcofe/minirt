@@ -38,9 +38,8 @@ void	print_image(t_minirt *rt)
 		empty_protocol(rt);
 }
 
-double	get_sp_dist(t_coord *ray_vector, t_sp *sphere);
-double	get_pl_dist(t_coord *ray_vector, t_pl *plane);
-double	get_cy_dist(t_coord *ray_vector, t_cy *cylinder);
+double	get_sp_dist(t_coord *ray_vector, t_sp *sphere, t_cam camera);
+double	get_cy_dist(t_coord *ray_vector, t_cy *cylinder, t_cam camera);
 
 /**
  * data[] ;
@@ -51,16 +50,22 @@ double	get_cy_dist(t_coord *ray_vector, t_cy *cylinder);
 
 int		get_touchy(t_data *f_data, t_coord *ray_vector)
 {
-	double	data[3];
+	double		data[3];
+	t_intrsct	temp;
 
 	data[0] = -1;
 	data[1] = 0;
+	temp.r_vect = ray_vector;
+	temp.camera = f_data->camera;
+	temp.obj_lst = f_data->spheres;
 	if (f_data->num_sp)
-		scroll_obj(&data, ray_vector, f_data->spheres, get_sp_dist);
+		scroll_obj(&data, temp, get_sp_dist);
+	temp.obj_lst = f_data->planes;
 	if (f_data->num_pl)
-		scroll_obj(&data, ray_vector, f_data->planes, get_pl_dist);
+		scroll_obj(&data, temp, get_pl_dist);
+	temp.obj_lst = f_data->cylinders;
 	if (f_data->cylinders)
-		scroll_obj(&data, ray_vector, f_data->cylinders, get_cy_dist);
+		scroll_obj(&data, temp, get_cy_dist);
 	return ((int)(data[0]));
 }
 
@@ -74,13 +79,13 @@ void	empty_protocol(t_minirt *rt)
 		void_pixel(rt, ctr);
 }
 
-void	scroll_obj(double *data[3], t_coord *r_vect, t_list *lst, double (*f)(t_coord *, void *))
+void	scroll_obj(double *data[3], t_intrsct i_data, double (*f)(t_coord *, void *, t_cam))
 {
 	double	temp;
 
-	while (lst) // iter through the linked list
+	while (i_data.obj_lst) // iter through the linked list
 	{
-		temp = (*f)(r_vect, lst->content); // get the distance.
+		temp = (*f)(i_data.r_vect, i_data.obj_lst->content, i_data.camera); // get the distance.
 		if (temp) // there is an intersection
 		{
 			if (*data[0] == -1) // no intersection as of yet
@@ -98,6 +103,6 @@ void	scroll_obj(double *data[3], t_coord *r_vect, t_list *lst, double (*f)(t_coo
 			}
 		}
 		*data[1] += 1;
-		lst = lst->next;
+		i_data.obj_lst = i_data.obj_lst->next;
 	}
 }
