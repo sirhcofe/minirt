@@ -284,8 +284,38 @@ void	empty_protocol(t_minirt *rt);
  */
 void	scroll_obj(double *data[3], t_coord *r_vect, t_list *lst, double (*f)(t_coord *, void *));
 
-
+// get_cy_dist.c
+/**
+ * @brief Function determines if an intersection on the cylinder occured on the
+ * ray vector originating from camera origin. In order to ray trace a cylinder,
+ * geometric transformations is required to scale, rotate, and translate the
+ * primitives into desired locations. As a finite unit cylinder equation is a
+ * quadratic equation of second order: x^2 + y^2 = 1, z_min <= z <= z_max. The
+ * equation will give two values of t, and the smallest non-negative value will
+ * be the intersection distance, while the intersection point can be defined by
+ * E + tD
+ * @param dist The distance between the intersect and camera origin
+ * @param ray_vec The ray vector (D) originating from camera origin (E)
+ * @param ray_ori The coordinates of the caemra origin
+ * @param cy The cylinder object
+ * @return Function returns true if an intersection occured; otherwise, returns
+ * false 
+*/
 int	get_cy_dist(double *dist, t_coord ray_vec, t_coord ray_ori, t_cy *cy);
+
+// get_sp_dist.c
+/**
+ * @brief Function determines if an intersection on the sphere occured on the
+ * ray vector. If the discriminant is non-negative, that means that there is
+ * intersection between the ray and the sphere. Solving the quadratic equation
+ * will return either 1 or 2 real values for t, and the smallest, non-negative
+ * value will be the intersection point.
+ * @param dist The distance between the intersect and camera origin
+ * @param ray_vec The ray vector originating from camera origin
+ * @param ray_ori The coordinates of camera origin
+ * @param sp The sphere object
+*/
+int	get_sp_dist(double *dist, t_coord ray_vec, t_coord ray_ori, t_sp *sp);
 
 // draw.c
 /**
