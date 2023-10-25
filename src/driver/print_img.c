@@ -39,9 +39,6 @@ void	print_image(t_minirt *rt)
 }
 
 double	get_sp_dist(t_coord *ray_vector, t_sp *sphere, t_cam camera);
-double	get_cy_dist(t_coord *ray_vector, t_cy *cylinder, t_cam camera);
-// int	get_cy_dist(double *dist, t_coord ray_vec, t_coord ray_ori, t_cy *cy) // true or false
-
 /**
  * data[] ;
  * data[0] -> index to return, should be the index of the closest obj. -1 if no intersection
@@ -49,7 +46,7 @@ double	get_cy_dist(t_coord *ray_vector, t_cy *cylinder, t_cam camera);
  * data[2] -> distance between the closest object and the camera.
  */
 
-int		get_touchy(t_data *f_data, t_coord *ray_vector)
+int	get_touchy(t_data *f_data, t_coord *ray_vector)
 {
 	double		data[3];
 	t_intrsct	temp;
@@ -80,22 +77,24 @@ void	empty_protocol(t_minirt *rt)
 		void_pixel(rt, ctr);
 }
 
-void	scroll_obj(double *data[3], t_intrsct i_data, int (*f)(double *, t_coord, t_coord, void *))
+void	scroll_obj(double *data[3], t_intrsct i_data,
+			int (*f)(double *, t_coord, t_coord, void *))
 {
 	double	dist_res;
 
-	while (i_data.obj_lst) // iter through the linked list
+	while (i_data.obj_lst)
 	{
-		if ((*f)(&dist_res, i_data.r_vect, i_data.cam_pt, i_data.obj_lst->content)) // there is an intersection
+		if ((*f)(&dist_res, i_data.r_vect,
+			i_data.cam_pt, i_data.obj_lst->content))
 		{
-			if (*data[0] == -1) // no intersection as of yet
+			if (*data[0] == -1)
 			{
-				*data[0] = *data[1]; // get the index
-				*data[2] = dist_res; // track the minimum distance
+				*data[0] = *data[1];
+				*data[2] = dist_res;
 			}
-			else // there is an intersection before, so need to check for min distance
+			else
 			{
-				if (dist_res < *data[2]) // current object is closer
+				if (dist_res < *data[2])
 				{
 					*data[0] = *data[1];
 					*data[2] = dist_res;
