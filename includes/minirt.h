@@ -11,6 +11,8 @@
 #include "mlx.h"
 #include "objects.h"
 
+#define MAX_INT 2147483647
+
 /*************************** -.- initialization -.- ***************************/
 
 /**
@@ -166,7 +168,7 @@ t_data	*parse_file(char *file);
  * @return 3D vector (x, y, z) representing the translation needed to bring the
  * object to the origin.
 */
-t_coord	translation(t_coord *object);
+t_coord	translation(t_coord object);
 /**
  * @brief Function applies Rodrigues' rotation formula to find the new position
  * of a vector after it has been rotated about an arbitrary axis.
@@ -186,7 +188,7 @@ t_coord	rotation(t_coord *vector, double angle);
  * @return Function returns a scalar number that is a measure of how closely the
  * two vectors align.
 */
-double	dot_prod(t_coord *a, t_coord *b);
+double	dot_prod(t_coord a, t_coord b);
 /**
  * @brief Function performs cross product operation on two vectors in a 3D
  * oriented Euclidean vector space.
@@ -196,8 +198,8 @@ double	dot_prod(t_coord *a, t_coord *b);
  * thus normal to the plane containing them (assuming a and b are linearly
  * independent).
 */
-t_coord	cross_prod(t_coord *a, t_coord *b);
-t_coord	normalize(t_coord *a);
+t_coord	cross_prod(t_coord a, t_coord b);
+t_coord	normalize(t_coord a);
 
 // vector_arithmetic.c
 /**
@@ -281,6 +283,9 @@ void	empty_protocol(t_minirt *rt);
  * @param f Pointer to the intersection function
  */
 void	scroll_obj(double *data[3], t_coord *r_vect, t_list *lst, double (*f)(t_coord *, void *));
+
+
+int	get_cy_dist(double *dist, t_coord ray_vec, t_coord ray_ori, t_cy *cy);
 
 // draw.c
 /**
