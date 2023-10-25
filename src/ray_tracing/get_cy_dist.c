@@ -6,11 +6,29 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 23:13:20 by chenlee           #+#    #+#             */
-/*   Updated: 2023/10/25 11:51:13 by chenlee          ###   ########.fr       */
+/*   Updated: 2023/10/25 16:53:39 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+double	handle_found(double t[2])
+{
+	if (t[0] >= 0 && t[1] >= 0)
+	{
+		if (t[0] < t[1])
+			return (t[0]);
+		else
+			return (t[1]);
+	}
+	else
+	{
+		if (t[0] >= 0)
+			return (t[0]);
+		else
+			return (t[1]);
+	}
+}
 
 int	found_intersection(double intersection[2], t_coord t_ray_vec,
 		t_coord t_ray_ori, t_cy *cylinder)
@@ -52,21 +70,6 @@ t_coord	transform_to_cylinder_space(t_coord ray, t_cy *cylinder, int mode)
 		return (vect_subt(rotation(&ray, rotation_angle), cylinder->center));
 }
 
-
-/**
- * @brief Function determines if an intersection on the cylinder occured on the
- * ray vector originating from camera origin. In order to ray trace a cylinder,
- * geometric transformations is required to scale, rotate, and translate the
- * primitives into desired locations. As a finite unit cylinder equation is a
- * quadratic equation of second order: x^2 + y^2 = 1, z_min < z < z_max. The
- * equation will give two values of t
- * @param dist The distance between the intersect and camera origin
- * @param ray_vec The ray vector originating from camera origin
- * @param ray_ori The coordinates of the caemra origin
- * @param cy The cylinder object
- * @return Function returns true if an intersection occured; otherwise, returns
- * false 
-*/
 int	get_cy_dist(double *dist, t_coord ray_vec, t_coord ray_ori, t_cy *cy)
 {
 	t_coord	trans_ray_vec;
@@ -77,10 +80,7 @@ int	get_cy_dist(double *dist, t_coord ray_vec, t_coord ray_ori, t_cy *cy)
 	trans_ray_ori = transform_to_cylinder_space(ray_ori, cy, 2);
 	if (found_intersection(t, trans_ray_vec, trans_ray_ori, cy))
 	{
-		if (t[0] >= 0)
-			*dist = t[0];
-		else
-			*dist = t[1];
+		*dist = handle_found(t);
 		return 1;
 	}
 	else
