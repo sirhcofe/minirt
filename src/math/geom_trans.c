@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:52:10 by chenlee           #+#    #+#             */
-/*   Updated: 2023/10/24 17:06:01 by chenlee          ###   ########.fr       */
+/*   Updated: 2023/10/25 11:49:59 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ t_coord	rotation(t_coord *vector, double angle)
 
 	set_coord(&z_axis, 0.0, 0.0, 1.0);
 	rot_vect = vect_add(vect_mult(*vector, cos(angle)),
-				vect_add(vect_mult(cross_prod(&z_axis, vector), sin(angle)),
-						vect_mult(vect_mult(z_axis, dot_prod(&z_axis, vector)),
+				vect_add(vect_mult(cross_prod(z_axis, *vector), sin(angle)),
+						vect_mult(vect_mult(z_axis, dot_prod(z_axis, *vector)),
 								(1 - cos(angle)))));
 }
 

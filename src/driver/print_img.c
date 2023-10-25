@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_img.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jthor <jthor@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 00:01:41 by jthor             #+#    #+#             */
-/*   Updated: 2023/09/18 00:01:44 by jthor            ###   ########.fr       */
+/*   Updated: 2023/10/25 09:36:03 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	print_image(t_minirt *rt)
 
 double	get_sp_dist(t_coord *ray_vector, t_sp *sphere);
 double	get_pl_dist(t_coord *ray_vector, t_pl *plane);
-double	get_cy_dist(t_coord *ray_vector, t_cy *cylinder);
+// int	get_cy_dist(double *dist, t_coord ray_vec, t_coord ray_ori, t_cy *cy) // true or false
 
 /**
  * data[] ;

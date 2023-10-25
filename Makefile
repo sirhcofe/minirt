@@ -6,7 +6,7 @@
 #    By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 21:28:59 by chenlee           #+#    #+#              #
-#    Updated: 2023/09/17 16:52:28 by chenlee          ###   ########.fr        #
+#    Updated: 2023/10/25 08:15:21 by chenlee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,8 +39,9 @@ SRC			=	error.c				\
 				geom_trans.c		\
 				vector_algebra.c	\
 				vector_arithmetic.c	\
+				get_cy_dist.c		\
 				set_controls.c		\
-				free.c				\
+				free.c
 
 # source directory here #
 SRC_DIR		=	$(LIBX)			\
