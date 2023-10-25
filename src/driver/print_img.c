@@ -56,8 +56,8 @@ int		get_touchy(t_data *f_data, t_coord *ray_vector)
 
 	data[0] = -1;
 	data[1] = 0;
-	temp.r_vect = ray_vector;
-	temp.camera = f_data->camera;
+	temp.r_vect = *ray_vector;
+	temp.cam_pt = f_data->camera.point;
 	temp.obj_lst = f_data->spheres;
 	if (f_data->num_sp)
 		scroll_obj(&data, temp, get_sp_dist);
@@ -80,26 +80,25 @@ void	empty_protocol(t_minirt *rt)
 		void_pixel(rt, ctr);
 }
 
-void	scroll_obj(double *data[3], t_intrsct i_data, double (*f)(t_coord *, void *, t_cam))
+void	scroll_obj(double *data[3], t_intrsct i_data, int (*f)(double *, t_coord, t_coord, void *))
 {
-	double	temp;
+	double	dist_res;
 
 	while (i_data.obj_lst) // iter through the linked list
 	{
-		temp = (*f)(i_data.r_vect, i_data.obj_lst->content, i_data.camera); // get the distance.
-		if (temp >= 0) // there is an intersection
+		if ((*f)(&dist_res, i_data.r_vect, i_data.cam_pt, i_data.obj_lst->content)) // there is an intersection
 		{
 			if (*data[0] == -1) // no intersection as of yet
 			{
 				*data[0] = *data[1]; // get the index
-				*data[2] = temp; // track the minimum distance
+				*data[2] = dist_res; // track the minimum distance
 			}
 			else // there is an intersection before, so need to check for min distance
 			{
-				if (temp < *data[2]) // current object is closer
+				if (dist_res < *data[2]) // current object is closer
 				{
 					*data[0] = *data[1];
-					*data[2] = temp;
+					*data[2] = dist_res;
 				}
 			}
 		}
