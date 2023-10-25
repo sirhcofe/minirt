@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_img.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jthor <jthor@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 00:01:41 by jthor             #+#    #+#             */
-/*   Updated: 2023/09/18 00:01:44 by jthor            ###   ########.fr       */
+/*   Updated: 2023/10/25 09:36:03 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	print_image(t_minirt *rt)
 
 double	get_sp_dist(t_coord *ray_vector, t_sp *sphere, t_cam camera);
 double	get_cy_dist(t_coord *ray_vector, t_cy *cylinder, t_cam camera);
+// int	get_cy_dist(double *dist, t_coord ray_vec, t_coord ray_ori, t_cy *cy) // true or false
 
 /**
  * data[] ;
@@ -79,13 +80,6 @@ void	empty_protocol(t_minirt *rt)
 		void_pixel(rt, ctr);
 }
 
-/**
- * WARNING: There is currently no difference between the two scenarios;
- * 1. The object does not intersect with the ray
- * 2. The object is right in front of the camera (distance is 0)
- * 
- * INTERSECTION FUNCTION FOR BOTH SCENARIOS RETURNS 0
-*/
 void	scroll_obj(double *data[3], t_intrsct i_data, double (*f)(t_coord *, void *, t_cam))
 {
 	double	temp;
@@ -93,7 +87,7 @@ void	scroll_obj(double *data[3], t_intrsct i_data, double (*f)(t_coord *, void *
 	while (i_data.obj_lst) // iter through the linked list
 	{
 		temp = (*f)(i_data.r_vect, i_data.obj_lst->content, i_data.camera); // get the distance.
-		if (temp) // there is an intersection
+		if (temp >= 0) // there is an intersection
 		{
 			if (*data[0] == -1) // no intersection as of yet
 			{
