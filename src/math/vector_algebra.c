@@ -12,12 +12,12 @@
 
 #include "minirt.h"
 
-double dot_prod(t_coord a, t_coord b)
+double	dot_prod(t_coord a, t_coord b)
 {
 	return ((a.x * b.x) + (a.y * b.y) + (a.z * b.z));
 }
 
-t_coord cross_prod(t_coord a, t_coord b)
+t_coord	cross_prod(t_coord a, t_coord b)
 {
 	t_coord	cross_product;
 
@@ -28,7 +28,7 @@ t_coord cross_prod(t_coord a, t_coord b)
 	return (cross_product);
 }
 
-t_coord normalize(t_coord a)
+t_coord	normalize(t_coord a)
 {
 	t_coord	unit_vect;
 	double	magnitude;
