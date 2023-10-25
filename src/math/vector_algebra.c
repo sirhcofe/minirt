@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-double dot_prod(t_coord a, t_coord b)
+double	dot_prod(t_coord a, t_coord b)
 {
 	return ((a.x * b.x) + (a.y * b.y) + (a.z * b.z));
 }

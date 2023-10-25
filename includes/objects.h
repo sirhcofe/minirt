@@ -92,4 +92,11 @@ typedef struct s_minirt
 	t_data	*file_data;
 }	t_minirt;
 
+typedef struct s_intrsct
+{
+	t_coord	r_vect;
+	t_list	*obj_lst;
+	t_coord	cam_pt;
+}	t_intrsct;
+
 #endif
