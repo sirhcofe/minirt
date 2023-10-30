@@ -100,54 +100,69 @@ void	print_light(t_light obj)
 	print_colour(obj.colour);
 }
 
-void	print_spheres(t_sp *obj)
+void	print_spheres(t_sp obj)
 {
 	static int	count = 1;
 
-	if (obj->flag == -1) {
+	if (obj.flag == -1) {
 		printf("Expected error on sphere no. %d\n", count);
 	}
 	printf("===================================\n");
-	print_point(obj->center, 1);
-	printf("2r     = %f\n", obj->dia);
-	print_colour(obj->colour);
+	print_point(obj.center, 1);
+	printf("2r     = %f\n", obj.dia);
+	print_colour(obj.colour);
 	printf("===================================\n");
 	count++;
 }
 
-void	print_planes(t_pl *obj)
+void	print_planes(t_pl obj)
 {
 	static int	count = 1;
 
-	if (obj->flag == -1) {
+	if (obj.flag == -1) {
 		printf("Expected error on plane no. %d\n", count);
 	}
 	printf("===================================\n");
-	print_point(obj->point, 1);
-	print_point(obj->normal_vector, 0);
-	print_colour(obj->colour);
+	print_point(obj.point, 1);
+	print_point(obj.normal_vector, 0);
+	print_colour(obj.colour);
 	printf("===================================\n");
 	count++;
 }
 
-void	print_cylinders(t_cy *obj)
+void	print_cylinders(t_cy obj)
 {
 	static int	count = 1;
 
-	if (obj->flag == -1) {
+	if (obj.flag == -1) {
 		printf("Expected error on plane no. %d\n", count);
 	}
 	printf("===================================\n");
-	print_point(obj->center, 1);
-	print_point(obj->axis_vector, 0);
-	printf("2r     = %f\n", obj->dia);
-	printf("Height = %f\n", obj->height);
-	print_colour(obj->colour);
+	print_point(obj.center, 1);
+	print_point(obj.axis_vector, 0);
+	printf("2r     = %f\n", obj.dia);
+	printf("Height = %f\n", obj.height);
+	print_colour(obj.colour);
 	printf("===================================\n");
 	count++;
 }
 
-void	print_shape(int type, int num, t_list *lst)
+void	ft_iter_shapes(void *content)
+{
+	t_object	*data;
+
+	data = (t_object *)content;
+	if (data->e_idx == sp)
+		print_spheres(data->obj.sphere);
+	else if (data->e_idx == pl)
+		print_planes(data->obj.plane);
+	else if (data->e_idx == cy)
+		print_cylinders(data->obj.cylinder);
+	else
+		printf("Object not found!\n");
+}
+
+void	print_shape(int num, t_list *lst)
 {
 	if (num == 0 && lst == NULL) {
 		printf("No objects found!\n");
@@ -164,13 +179,7 @@ void	print_shape(int type, int num, t_list *lst)
 	if (num != ft_lstsize(lst)) {
 		printf("Number of objects does not correspond with list length!\n");
 	}
-	printf("Count  = %d\n", num);
-	if (type == 0)
-		ft_lstiter(lst, (void *)print_spheres);
-	else if (type == 1)
-		ft_lstiter(lst, (void *)print_planes);
-	else
-		ft_lstiter(lst, (void *)print_cylinders);
+	ft_lstiter(lst, ft_iter_shapes);
 }
 
 void	test_parser(t_data *f_data)
@@ -185,13 +194,18 @@ void	test_parser(t_data *f_data)
 	// Light
 	print_header("Checking light object");
 	print_light(f_data->light);
+	// Objects
+	print_header("Checking shape objects");
+	int	temp = f_data->num_cy + f_data->num_pl + f_data->num_sp;
+	print_shape(temp, f_data->objects);
+
 	// Sphere
-	print_header("Checking sphere objects");
-	print_shape(0, f_data->num_sp, f_data->spheres);
-	// Planes
-	print_header("Checking plane objects");
-	print_shape(1, f_data->num_pl, f_data->planes);
-	// Cylinders
-	print_header("Checking cylinder objects");
-	print_shape(2, f_data->num_cy, f_data->cylinders);
+	// print_header("Checking sphere objects");
+	// print_shape(0, f_data->num_sp, f_data->spheres);
+	// // Planes
+	// print_header("Checking plane objects");
+	// print_shape(1, f_data->num_pl, f_data->planes);
+	// // Cylinders
+	// print_header("Checking cylinder objects");
+	// print_shape(2, f_data->num_cy, f_data->cylinders);
 }

@@ -14,7 +14,7 @@
 
 void	free_rt(t_minirt *rt)
 {
-	mlx_destroy_window(rt->mlx, rt->mlx_win);
+	// mlx_destroy_window(rt->mlx, rt->mlx_win);
 	free(rt->img);
 	free(rt->addr);
 	rt->img = NULL;

@@ -36,11 +36,8 @@ SRC			=	error.c				\
 				add_single.c		\
 				general_utils.c		\
 				parse_utils.c		\
-				geom_trans.c		\
-				vector_algebra.c	\
-				vector_arithmetic.c	\
-				get_cy_dist.c		\
-				set_controls.c		\
+				test_parser.c		\
+				test_utils.c		\
 				free.c
 
 # source directory here #
@@ -51,6 +48,7 @@ SRC_DIR		=	$(LIBX)			\
 				src/mem_free	\
 				src/parsing		\
 				src/utils		\
+				src/tests
 
 vpath %.c $(SRC_DIR)
 
