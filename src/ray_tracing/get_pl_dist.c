@@ -1,43 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_utils.c                                      :+:      :+:    :+:   */
+/*   get_pl_dist.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jthor <jthor@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/13 20:04:57 by jthor             #+#    #+#             */
-/*   Updated: 2023/09/13 20:04:59 by jthor            ###   ########.fr       */
+/*   Created: 2023/10/25 12:34:29 by jthor             #+#    #+#             */
+/*   Updated: 2023/10/25 12:34:33 by jthor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	ft_isrgb(char *str)
+int	get_pl_dist(double *dist, t_coord ray_vector, t_coord ray_ori, t_pl *plane)
 {
-	int	comma_cnt;
-	int	i;
+	double	denom;
+	double	numer;
+	double	res;
 
-	comma_cnt = 0;
-	i = -1;
-	while (str[++i])
-	{
-		if (ft_isdigit(str[i]) == 0)
-		{
-			if (str[i] == ',')
-				comma_cnt += 1;
-			else
-				return (0);
-		}
-	}
-	if (comma_cnt != 2)
+	denom = dot_prod(ray_vector, plane->normal_vector);
+	if (denom == 0)
 		return (0);
+	numer = dot_prod(plane->normal_vector, vect_subt(plane->point, ray_ori));
+	res = numer / denom;
+	if (res < 0)
+		return (0);
+	*dist = res;
 	return (1);
-}
-
-void	set_coord(t_coord *obj, double x, double y, double z)
-{
-	obj->x = x;
-	obj->y = y;
-	obj->z = z;
-	obj->w = 1.0;
 }

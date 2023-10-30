@@ -1,43 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_utils.c                                      :+:      :+:    :+:   */
+/*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jthor <jthor@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/13 20:04:57 by jthor             #+#    #+#             */
-/*   Updated: 2023/09/13 20:04:59 by jthor            ###   ########.fr       */
+/*   Created: 2023/09/18 00:40:05 by jthor             #+#    #+#             */
+/*   Updated: 2023/09/18 00:40:07 by jthor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	ft_isrgb(char *str)
+void	put_pxl(t_minirt *rt, int x, int y, int colour)
 {
-	int	comma_cnt;
-	int	i;
+	char	*dst;
 
-	comma_cnt = 0;
-	i = -1;
-	while (str[++i])
-	{
-		if (ft_isdigit(str[i]) == 0)
-		{
-			if (str[i] == ',')
-				comma_cnt += 1;
-			else
-				return (0);
-		}
-	}
-	if (comma_cnt != 2)
-		return (0);
-	return (1);
+	dst = rt->addr + (y * rt->line_len + x * (rt->bits_per_pixel / 8));
+	*(unsigned int *)dst = colour;
 }
 
-void	set_coord(t_coord *obj, double x, double y, double z)
+void	void_pixel(t_minirt *rt, int idx)
 {
-	obj->x = x;
-	obj->y = y;
-	obj->z = z;
-	obj->w = 1.0;
+	int	colour;
+
+	colour = create_colour(rt->file_data->ambience);
+	put_pxl(rt, idx % rt->height, idx / rt->height, colour);
 }

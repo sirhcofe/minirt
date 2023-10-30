@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_helpers.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/13 20:03:37 by jthor             #+#    #+#             */
+/*   Updated: 2023/09/17 21:18:19 by chenlee          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 double	assign_ratio(int *flag, char *str)
@@ -27,7 +39,7 @@ void	assign_rgb(int *flag, t_rgb *obj, char *str)
 	obj->blue = ft_atoi(arr[2]);
 	free_split(arr);
 	if (!(ft_inrange(obj->red, 0, 255) && ft_inrange(obj->green, 0, 255)
-		&& ft_inrange(obj->blue, 0, 255)))
+			&& ft_inrange(obj->blue, 0, 255)))
 		*flag = -1;
 }
 
@@ -53,7 +65,7 @@ void	assign_coord(int *flag, t_coord *obj, char *str)
 			}
 			temp[i] = ft_atod(arr[i]);
 		}
-		set_coord(obj, temp);
+		set_coord(obj, temp[0], temp[1], temp[2]);
 		free(temp);
 	}
 	free_split(arr);
@@ -65,7 +77,7 @@ void	assign_vector(int *flag, t_coord *obj, char *str)
 	if (*flag == -1)
 		return ;
 	if (!(ft_inrange(obj->x, -1, 1) && ft_inrange(obj->y, -1, 1)
-		&& ft_inrange(obj->z, -1, 1)))
+			&& ft_inrange(obj->z, -1, 1)))
 		*flag = -1;
 }
 
@@ -78,5 +90,5 @@ double	assign_fov(int *flag, char *str)
 	fov = ft_atod(str);
 	if (ft_inrange(fov, 0, 180) == 0)
 		*flag = -1;
-	return (fov);
+	return (fov * 3.14159 / 180);
 }

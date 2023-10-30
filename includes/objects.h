@@ -1,6 +1,13 @@
 #ifndef OBJECTS_H
 # define OBJECTS_H
 
+enum e_index
+{
+	sp,
+	pl,
+	cy
+};
+
 typedef struct s_rgb
 {
 	unsigned char	red;
@@ -65,6 +72,20 @@ typedef struct s_cy
 	t_rgb	colour;
 }	t_cy;
 
+union u_objects
+{
+	t_sp	sphere;
+	t_pl	plane;
+	t_cy	cylinder;
+};
+
+typedef struct s_object
+{
+	char			e_idx;
+	union u_objects	obj;
+}	t_object;
+
+
 typedef struct s_data
 {
 	int		num_sp;
@@ -73,9 +94,28 @@ typedef struct s_data
 	t_amb	ambience;
 	t_cam	camera;
 	t_light	light;
-	t_list	*spheres;
-	t_list	*planes;
-	t_list	*cylinders;
+	t_list	*objects;
 }	t_data;
+
+typedef struct s_minirt
+{
+	void	*mlx;
+	void	*mlx_win;
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_len;
+	int		endian;
+	int		width;
+	int		height;
+	t_data	*file_data;
+}	t_minirt;
+
+typedef struct s_intrsct
+{
+	t_coord	r_vect;
+	t_list	*obj_lst;
+	t_coord	cam_pt;
+}	t_intrsct;
 
 #endif

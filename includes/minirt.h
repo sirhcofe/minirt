@@ -1,32 +1,30 @@
 #ifndef MINIRT_H
-# define MINIRT_H
+#define MINIRT_H
 
-# define BUFFER_SIZE 50
+#define BUFFER_SIZE 50
 
-# include <stdlib.h>
-# include <stdio.h>
-# include <math.h>
-# include <fcntl.h>
-# include "libft.h"
-// # include "mlx.h"
-# include "objects.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <math.h>
+#include <fcntl.h>
+#include "libft.h"
+#include "mlx.h"
+#include "objects.h"
 
-/* -.- Memory Freeing -.- */
-// free.c
+#define MAX_INT 2147483647
+
+/*************************** -.- initialization -.- ***************************/
+
 /**
- * @brief Function frees the t_data struct allocated in memory
- * @return Function does not return
- * @param f_data Pointer to t_data variable to be freed
+ * @brief Initialization of the mlx graphical system with the MiniLibX library
+ * along with a struct initialized for data extraction from `.rt` file.
+ * 
+ * @return Function return a struct containing the mlx graphical system and
+ * data extraction from `.rt` file
 */
-void	free_data(t_data *f_data);
-/**
- * @brief Function frees char double-array memory
- * @return Function does not return
- * @param head double-char-array to be freed
-*/
-void	free_split(char **head);
+t_minirt	*init_mlx_window(void);
 
-/* -.- Parsing -.- */
+/******************************* -.- Parsing -.- ******************************/
 
 // add_shapes.c
 /**
@@ -139,7 +137,7 @@ void	assign_vector(int *flag, t_coord *obj, char *str);
 */
 double	assign_fov(int *flag, char *str);
 
-/* parse.c */
+// parse.c
 /**
  * @brief Takes a line from the file, and determines if it is an element or not
  * @return Function does not return
@@ -160,7 +158,170 @@ void	init_data_struct(t_data **f_data);
 */
 t_data	*parse_file(char *file);
 
-/* -.- Utils -.- */
+/**************************** -.- Mathematics -.- *****************************/
+
+// geom_trans.c
+/**
+ * @brief Function calculates the translation vector to move an object to the
+ * origin in a 3D Cartesian plane.
+ * @param object The object's current x,y,z position
+ * @return 3D vector (x, y, z) representing the translation needed to bring the
+ * object to the origin.
+*/
+t_coord	translation(t_coord object);
+/**
+ * @brief Function applies Rodrigues' rotation formula to find the new position
+ * of a vector after it has been rotated about an arbitrary axis.
+ * @param vector The original 3D vector.
+ * @param angle The angle of rotation in radians.
+ * @return Function returns a new position of a vector after it has been
+ * rotated.
+*/
+t_coord	rotation(t_coord *vector, double angle);
+
+// vector_algebra.c
+/**
+ * @brief Function performs dot product operation on two vectors in a 3D
+ * oriented Euclidean vector space.
+ * @param a The first vector.
+ * @param b The second vector.
+ * @return Function returns a scalar number that is a measure of how closely the
+ * two vectors align.
+*/
+double	dot_prod(t_coord a, t_coord b);
+/**
+ * @brief Function performs cross product operation on two vectors in a 3D
+ * oriented Euclidean vector space.
+ * @param a The first vector.
+ * @param b The second vector.
+ * @return Function returns a new vector that is perpendicular to both a and b,
+ * thus normal to the plane containing them (assuming a and b are linearly
+ * independent).
+*/
+t_coord	cross_prod(t_coord a, t_coord b);
+t_coord	normalize(t_coord a);
+
+// vector_arithmetic.c
+/**
+ * @brief Function performs scalar multiplication on a vector, where each
+ * components of the vector is multiplied by the specified value.
+ * @param vector The vector for multiplication.
+ * @param value The value to be multiplied for each component of the vector.
+ * @return Function returns a new vector as the product of the arithmetic
+ * operation.
+*/
+t_coord	vect_mult(t_coord vector, double value);
+/**
+ * @brief Function performs summation of two (or three) vectors.
+ * @param a The first vector.
+ * @param b The second vector.
+ * @return Function returns a resulting vector of the vectors parsed.
+*/
+t_coord vect_add(t_coord a, t_coord b);
+/**
+ * @brief Function performs subtraction of two (or three) vectors.
+ * @param a The first vector.
+ * @param b The second vector.
+ * @return Function returns a resulting vector of the vectors parsed.
+*/
+t_coord vect_subt(t_coord a, t_coord b);
+
+/*************************** -.- Memory Freeing -.- ***************************/
+
+/**
+ * @brief Function frees all malloc'd data related to this project.
+ * @return Function does not return.
+ * @param rt Pointer to the t_minirt struct that holds everything.
+ */
+void free_data(t_minirt *rt);
+/**
+ * @brief Function frees char double-array memory.
+ * @return Function does not return.
+ * @param head Double-char-array to be freed.
+ */
+void free_split(char **head);
+
+/******************************* -.- Driver -.- *******************************/
+
+// print_img.c
+/**
+ * @brief The driver function for rendering the image to the screen.
+ * @return Function does not return.
+ * @param rt Pointer to the t_minirt struct that holds everything.
+*/
+void	print_image(t_minirt *rt);
+/**
+ * @brief Goes through all shapes (if any) and finds which one is closest to
+ * the camera following the path of the ray passed as a parameter
+ * @return Returns the index of the closest object from the camera using the
+ * path of the ray
+ * @param f_data Pointer to the t_data struct for shortcut purposes
+ * @param ray_vector The directional vector of the ray that originates from
+ * the camera.
+ */
+int		get_touchy(t_data *f_data, t_coord *ray_vector);
+/**
+ * @brief Function that prints an empty map, in the absence of objects.
+ * @return Function does not return.
+ * @param rt Pointer to the t_minirt struct that holds everything.
+*/
+void	empty_protocol(t_minirt *rt);
+
+void	scroll_obj(double *data[3], t_intrsct i_data, int (*f)(double *, t_coord, t_coord, void *));
+
+// get_cy_dist.c
+/**
+ * @brief Function determines if an intersection on the cylinder occured on the
+ * ray vector originating from camera origin. In order to ray trace a cylinder,
+ * geometric transformations is required to scale, rotate, and translate the
+ * primitives into desired locations. As a finite unit cylinder equation is a
+ * quadratic equation of second order: x^2 + y^2 = 1, z_min <= z <= z_max. The
+ * equation will give two values of t, and the smallest non-negative value will
+ * be the intersection distance, while the intersection point can be defined by
+ * E + tD
+ * @param dist The distance between the intersect and camera origin
+ * @param ray_vec The ray vector (D) originating from camera origin (E)
+ * @param ray_ori The coordinates of the caemra origin
+ * @param cy The cylinder object
+ * @return Function returns true if an intersection occured; otherwise, returns
+ * false 
+*/
+int	get_cy_dist(double *dist, t_coord ray_vec, t_coord ray_ori, t_cy *cy);
+
+// get_sp_dist.c
+/**
+ * @brief Function determines if an intersection on the sphere occured on the
+ * ray vector. If the discriminant is non-negative, that means that there is
+ * intersection between the ray and the sphere. Solving the quadratic equation
+ * will return either 1 or 2 real values for t, and the smallest, non-negative
+ * value will be the intersection point.
+ * @param dist The distance between the intersect and camera origin
+ * @param ray_vec The ray vector originating from camera origin
+ * @param ray_ori The coordinates of camera origin
+ * @param sp The sphere object
+*/
+int	get_sp_dist(double *dist, t_coord ray_vec, t_coord ray_ori, t_sp *sp);
+
+// draw.c
+/**
+ * @brief Function that replaces mlx_pixel_put cause its dong.
+ * @return Function does not return.
+ * @param rt Pointer to the t_minirt struct that holds everything.
+ * @param x The x-coordinate of the pixel to be coloured.
+ * @param y The y-coordinate of the pixel to be coloured.
+ * @param colour The intended colour of the pixel.
+*/
+void	put_pxl(t_minirt *rt, int x, int y, int colour);
+/**
+ * @brief Renders the pixel if the ray that comes from it goes to infinity
+ * @return Function does not return.
+ * @param rt Pointer to the t_minirt struct that holds everything.
+ * @param idx Location of the pixel, to be broken down to the x and y values
+ * 
+*/
+void	void_pixel(t_minirt *rt, int idx);
+
+/******************************** -.- Utils -.- *******************************/
 
 // general_utils.c
 /**
@@ -211,18 +372,20 @@ int		ft_isrgb(char *str);
  * @brief Sets the values of a t_coord struct
  * @return Function returns nothing
  * @param obj Pointer to the t_coord variable
- * @param temp Pointer to an array of doubles that represent (x, y, z)
+ * @param x The x-component of the vector
+ * @param y The y-component of the vector
+ * @param z The z-component of the vector
 */
-void	set_coord(t_coord *obj, double *temp);
+void	set_coord(t_coord *obj, double x, double y, double z);
 
 /* error.c */
 /**
  * @brief Exits the program with an error message for errors regarding
  * command line arguments
  * @return Function returns nothing
- * @param status The flag that determines which error message to display
+ * @param err_msg The error message to display
 */
-void	arg_error(int status);
+void	arg_error(char *err_msg);
 /**
  * @brief Exits the program after freeing the t_data struct from memory
  * @return Function returns nothing
@@ -241,5 +404,23 @@ char	*get_next_line(int fd);
 
 /* Testing */
 void	test_parser(t_data *f_data);
+
+/******************************* -.- Shapes -.- *******************************/
+
+/* plane_intersection.c */
+
+/**
+ * @brief Determines if the ray_vector intersects with the plane and calculates
+ * the distance between them if there is an intersection
+ * @param dist Pointer to a double that stores the distance between the camera
+ * and the plane, if any
+ * @param ray_vector The directional vector from the viewer
+ * @param ray_ori The coordinates of the camera
+ * @param plane The struct holding the data of the plane object
+ * @return Integer boolean that shows the ray_vector intersects with the plane
+ * @retval 1 if there is an intersection
+ * @retval 0 if there is no intersection
+*/
+int	get_pl_dist(double *dist, t_coord ray_vector, t_coord ray_ori, t_pl *plane);
 
 #endif

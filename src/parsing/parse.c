@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jthor <jthor@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/13 20:04:00 by jthor             #+#    #+#             */
+/*   Updated: 2023/09/13 20:04:02 by jthor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 /**
@@ -32,20 +44,6 @@ void	process_line(t_data *f_data, char *line)
 		error_free(flag, f_data);
 }
 
-void	init_data_struct(t_data **f_data)
-{
-	*(f_data) = malloc(sizeof(t_data));
-	(*f_data)->num_sp = 0;
-	(*f_data)->num_pl = 0;
-	(*f_data)->num_cy = 0;
-	(*f_data)->spheres = NULL;
-	(*f_data)->planes = NULL;
-	(*f_data)->cylinders = NULL;
-	(*f_data)->ambience.flag = 0;
-	(*f_data)->camera.flag = 0;
-	(*f_data)->light.flag = 0;
-}
-
 t_data	*parse_file(char *file)
 {
 	t_data	*ret;
@@ -54,14 +52,15 @@ t_data	*parse_file(char *file)
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		arg_error(2);
+		arg_error("Invalid .rt file.\n");
 	init_data_struct(&ret);
 	while (1 == 1)
 	{
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		if (line[0] == '\n') ;
+		if (line[0] == '\n')
+			;
 		else
 			process_line(ret, ft_strtrim(line, "\n"));
 		free(line);

@@ -54,7 +54,8 @@ dkms.conf
 # Others
 .DS_Store
 .vscode
-miniRT
+minirt
 resolution
+keycode
 test
 *.rt

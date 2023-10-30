@@ -1,11 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jthor <jthor@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/13 20:05:18 by jthor             #+#    #+#             */
+/*   Updated: 2023/09/13 20:05:20 by jthor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
-void	arg_error(int status)
+void	arg_error(char *err_msg)
 {
-	if (status == 1)
-		ft_putstr_fd("Usage: ./miniRT <MAP FILE>\n", 2);
-	if (status == 2)
-		ft_putstr_fd("Invalid map file.\n", 2);
+	ft_putstr_fd(err_msg, 2);
 	exit(EXIT_FAILURE);
 }
 
