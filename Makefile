@@ -12,14 +12,14 @@
 
 # UNAME		:=	$(shell uname)
 
-ifeq ($(UNAME), Linux)
-	LIBX = minilibx/minilibx_linux/
-	COMPILE = -L$(LIBX) -lmlx_Linux -L/usr/lib -I$(LIBX) -lXext -lX11 -lm -lz
-endif
-ifeq ($(UNAME), Darwin)
-	LIBX = minilibx/minilibx_macos/
-	COMPILE = -L$(LIBX) -lmlx -framework OpenGL -framework AppKit
-endif
+# ifeq ($(UNAME), Linux)
+# 	LIBX = minilibx/minilibx_linux/
+# 	COMPILE = -L$(LIBX) -lmlx_Linux -L/usr/lib -I$(LIBX) -lXext -lX11 -lm -lz
+# endif
+# ifeq ($(UNAME), Darwin)
+# 	LIBX = minilibx/minilibx_macos/
+# 	COMPILE = -L$(LIBX) -lmlx -framework OpenGL -framework AppKit
+# endif
 
 NAME		=	libminirt.a
 FLAGS		=	-fsanitize=address -g3
@@ -68,7 +68,7 @@ $(NAME):		$(OBJS)
 $(OBJS_DIR)%.o:	%.c
 			@mkdir -p $(OBJS_DIR)
 			@echo "Compiling: $<"
-			@gcc $(FLAGS) -I$(LIBX) $(INCLUDES) -c $< -o $@
+			@gcc $(FLAGS) $(INCLUDES) -c $< -o $@
 
 minirt:		src/main.c $(OBJS)
 			@echo "Compiling: src/main.c"
