@@ -27,6 +27,8 @@ void	error_free(int status, t_data *f_data)
 		ft_putstr_fd("Unrecognised object description\n", 2);
 	else if (status == 3)
 		ft_putstr_fd("More than one Camera, Light or Ambience object\n", 2);
-	free_data(f_data);
+	if (f_data->objects != NULL)
+		ft_lstclear(&(f_data->objects), free);
+	free(f_data);
 	exit (EXIT_FAILURE);
 }
