@@ -17,7 +17,7 @@ int	add_sphere(t_data *f_data, char **arr)
 	t_sp		n_sp;
 	t_object	*node;
 
-	if (ft_strncmp(arr[0], "sp", 3) != 0 || ft_arrlen(arr) != 4)
+	if (ft_arrlen(arr) != 4)
 		return (2);
 	n_sp.flag = 0;
 	assign_coord(&(n_sp.flag), &(n_sp.center), arr[1]);
@@ -38,7 +38,7 @@ int	add_plane(t_data *f_data, char **arr)
 	t_pl		n_pl;
 	t_object	*node;
 
-	if (ft_strncmp(arr[0], "pl", 3) != 0 || ft_arrlen(arr) != 4)
+	if (ft_arrlen(arr) != 4)
 		return (2);
 	n_pl.flag = 0;
 	assign_coord(&(n_pl.flag), &(n_pl.point), arr[1]);
@@ -59,8 +59,8 @@ int	add_cylinder(t_data *f_data, char **arr)
 	t_cy		n_cy;
 	t_object	*node;
 
-	if (ft_strncmp(arr[0], "cy", 3) != 0 || ft_arrlen(arr) != 6
-		|| ft_isdouble(arr[3]) == 0 || ft_isdouble(arr[4]) == 0)
+	if (ft_arrlen(arr) != 6 || ft_isdouble(arr[3]) == 0
+		|| ft_isdouble(arr[4]) == 0)
 		return (2);
 	n_cy.flag = 0;
 	assign_coord(&(n_cy.flag), &(n_cy.center), arr[1]);
