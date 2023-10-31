@@ -323,6 +323,15 @@ void	void_pixel(t_minirt *rt, int idx);
 
 /******************************** -.- Utils -.- *******************************/
 
+// ft_split_alt.c
+/**
+ * @brief Splits a string according to the delimiters passed.
+ * @return A null-terminated, malloc'd array of strings after the parent
+ * string is split.
+ * @param str The string to be split.
+ * @param sep The delimiter characters, parsed as a string.
+*/
+char	**ft_split_alt(char *str, char *sep);
 // general_utils.c
 /**
  * @brief Converts a string to a double

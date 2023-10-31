@@ -24,12 +24,8 @@ void	free_rt(t_minirt *rt)
 
 void	free_data(t_minirt *rt)
 {
-	if (rt->file_data->num_sp > 0)
-		ft_lstclear(&(rt->file_data->spheres), free);
-	if (rt->file_data->num_pl > 0)
-		ft_lstclear(&(rt->file_data->planes), free);
-	if (rt->file_data->num_cy > 0)
-		ft_lstclear(&(rt->file_data->cylinders), free);
+	if (rt->file_data->objects != NULL)
+		ft_lstclear(&(rt->file_data->objects), free);
 	free(rt->file_data);
 	free_rt(rt);
 }
