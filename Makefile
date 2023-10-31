@@ -38,6 +38,7 @@ SRC			=	error.c				\
 				parse_utils.c		\
 				test_parser.c		\
 				test_utils.c		\
+				ft_split_alt.c		\
 				free.c
 
 # source directory here #
@@ -74,7 +75,6 @@ minirt:		src/main.c $(OBJS)
 
 clean:
 			@rm -rf objects resolution
-			@make -C $(LIBX) clean
 			@make -C libft/ clean
 			@echo "clean done!"
 

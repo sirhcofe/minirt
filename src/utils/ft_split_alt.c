@@ -1,76 +1,95 @@
 #include <minirt.h>
 
-static int	is_sep(const char *delim, char c)
+static int	is_sep(char c, char *sep)
 {
-	while (*delim)
+	while (*sep)
 	{
-		if (c == *delim)
+		if (*sep == c)
 			return (1);
-		delim++;
+		sep++;
 	}
 	return (0);
 }
 
-static int	get_word_num(const char *line, const char *delim)
+static int	word_count(char const *s, char *sep)
 {
 	int	ret;
 
 	ret = 0;
-	while (*line)
+	while (*s)
 	{
-		while (*line && is_sep(delim, *line))
-			line++;
-		if (*line)
+		while (*s && (is_sep(*s, sep) == 1))
+			s++;
+		if (*s)
+		{
 			ret++;
-		while (*line && !is_sep(delim, *line))
-			line++;
+			while (*s && (is_sep(*s, sep) == 0))
+				s++;
+		}
 	}
 	return (ret);
 }
 
-static int	get_word_len(const char *line, const char *delim)
+static int	word_len(char const *s, char *sep)
 {
 	int	ret;
 
 	ret = 0;
-	while (line[ret] && !is_sep(delim, line[ret]))
+	while (*s && (is_sep(*s, sep) == 0))
+	{
 		ret++;
-	return(ret);
+		s++;
+	}
+	return (ret);
 }
 
-static int	word_split(char *line, char *delim, char **ret, int index)
+static int	word_split(char const *str, char *sep, char **ret, int i)
 {
 	int	j;
 
-	ret[index] = malloc(sizeof(char) * get_word_len(line, delim));
-	if (!ret[index])
+	ret[i] = malloc((word_len(str, sep) + 1) * sizeof(char));
+	if (!ret[i])
+	{
+		j = 0;
+		while (j < i)
+		{
+			free(ret[j]);
+			j++;
+		}
+		free(ret[i]);
+		free(ret);
 		return (0);
-	j = -1;
-	while (!is_sep(delim, line[++j]))
-		ret[index][j] = line[j];
-	ret[index][j] = '\0';
+	}
+	j = 0;
+	while (*str && (is_sep(*str, sep) == 0))
+		ret[i][j++] = *str++;
+	ret[i][j] = '\0';
 	return (1);
 }
 
-char	**ft_split_alt(char *line, char *delim)
+char	**ft_split_alt(char *str, char *sep)
 {
 	char	**ret;
-	int		word_num;
+	int		words;
 	int		i;
 
-	word_num = get_word_num(line, delim);
-	ret = malloc(sizeof(char *) * (word_num + 1));
+	if (!str)
+		return (NULL);
+	words = word_count(str, sep);
+	ret = malloc((words + 1) * sizeof(char *));
+	if (!ret)
+		return (NULL);
 	i = 0;
-	while (i < word_num)
+	while (i < words)
 	{
-		while (is_sep(delim, *line))
-			line++;
-		if (word_split(line, delim, ret, i) == 0)
+		while (is_sep(*str, sep) == 1)
+			str++;
+		if (word_split(str, sep, ret, i) == 0)
 			arg_error("Error at ft_split_alt");
-		while (*line && !is_sep(delim, *line))
-			line++;
+		while (*str && (is_sep(*str, sep) == 0))
+			str++;
 		i++;
 	}
-	ret[i] == NULL;
+	ret[i] = NULL;
 	return (ret);
 }
