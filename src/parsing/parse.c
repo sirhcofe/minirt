@@ -26,17 +26,17 @@ void	process_line(t_data *f_data, char *line)
 
 	flag = 2;
 	split_ret = ft_split_alt(line, " \t");
-	if (ft_strncmp(split_ret[0], "A", 2))
+	if (ft_strncmp(split_ret[0], "A", 2) == 0)
 		flag = add_ambience(&(f_data->ambience), split_ret);
-	else if (ft_strncmp(split_ret[0], "C", 2))
+	else if (ft_strncmp(split_ret[0], "C", 2) == 0)
 		flag = add_camera(&(f_data->camera), split_ret);
-	else if (ft_strncmp(split_ret[0], "L", 2))
+	else if (ft_strncmp(split_ret[0], "L", 2) == 0)
 		flag = add_light(&(f_data->light), split_ret);
-	else if (ft_strncmp(split_ret[0], "sp", 3))
+	else if (ft_strncmp(split_ret[0], "sp", 3) == 0)
 		flag = add_sphere(f_data, split_ret);
-	else if (ft_strncmp(split_ret[0], "pl", 3))
+	else if (ft_strncmp(split_ret[0], "pl", 3) == 0)
 		flag = add_plane(f_data, split_ret);
-	else if (ft_strncmp(split_ret[0], "cy", 3))
+	else if (ft_strncmp(split_ret[0], "cy", 3) == 0)
 		flag = add_cylinder(f_data, split_ret);
 	free_split(split_ret);
 	free(line);
