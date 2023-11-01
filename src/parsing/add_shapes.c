@@ -25,6 +25,7 @@ int	add_sphere(t_data *f_data, char **arr)
 	assign_rgb(&(n_sp.flag), &(n_sp.colour), arr[3]);
 	if (n_sp.flag == -1 || ft_isdouble(arr[2]) == 0)
 		return (2);
+	n_sp.intrsct_pt = NULL;
 	node = malloc(sizeof(t_object));
 	node->e_idx = sp;
 	node->obj.sphere = n_sp;
@@ -46,6 +47,7 @@ int	add_plane(t_data *f_data, char **arr)
 	assign_rgb(&(n_pl.flag), &(n_pl.colour), arr[3]);
 	if (n_pl.flag == -1)
 		return (2);
+	n_pl.intrsct_pt = NULL;
 	node = malloc(sizeof(t_object));
 	node->e_idx = pl;
 	node->obj.plane = n_pl;
@@ -70,6 +72,7 @@ int	add_cylinder(t_data *f_data, char **arr)
 	assign_rgb(&(n_cy.flag), &(n_cy.colour), arr[5]);
 	if (n_cy.flag == -1)
 		return (2);
+	n_cy.intrsct_pt = NULL;
 	node = malloc(sizeof(t_object));
 	node->e_idx = cy;
 	node->obj.cylinder = n_cy;
