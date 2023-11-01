@@ -6,7 +6,7 @@
 #    By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 21:28:59 by chenlee           #+#    #+#              #
-#    Updated: 2023/10/25 08:15:21 by chenlee          ###   ########.fr        #
+#    Updated: 2023/10/27 22:06:36 by chenlee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,19 +27,31 @@ OBJS_DIR	=	objects/
 OBJS		=	$(addprefix $(OBJS_DIR), $(notdir $(SRC:.c=.o)))
 
 # source files here #
+# SRC			=	error.c				\
+# 				initialization.c	\
+# 				get_next_line.c		\
+# 				parse.c				\
+# 				parse_helpers.c		\
+# 				add_shapes.c		\
+# 				add_single.c		\
+# 				general_utils.c		\
+# 				parse_utils.c		\
+# 				geom_trans.c		\
+# 				vector_algebra.c	\
+# 				vector_arithmetic.c	\
+# 				get_cy_dist.c		\
+# 				set_controls.c		\
+# 				free.c
+
 SRC			=	error.c				\
 				initialization.c	\
 				get_next_line.c		\
-				parse.c				\
-				parse_helpers.c		\
-				add_shapes.c		\
-				add_single.c		\
-				general_utils.c		\
-				parse_utils.c		\
 				geom_trans.c		\
 				vector_algebra.c	\
 				vector_arithmetic.c	\
 				get_cy_dist.c		\
+				get_sp_dist.c		\
+				get_pl_dist.c		\
 				set_controls.c		\
 				free.c
 
@@ -49,8 +61,9 @@ SRC_DIR		=	$(LIBX)			\
 				src/init		\
 				src/math		\
 				src/mem_free	\
-				src/parsing		\
+				src/ray_tracing	\
 				src/utils		\
+				# src/parsing		\
 
 vpath %.c $(SRC_DIR)
 

@@ -174,10 +174,11 @@ t_coord	translation(t_coord object);
  * of a vector after it has been rotated about an arbitrary axis.
  * @param vector The original 3D vector.
  * @param angle The angle of rotation in radians.
+ * @param axis The rotation axis.
  * @return Function returns a new position of a vector after it has been
  * rotated.
 */
-t_coord	rotation(t_coord *vector, double angle);
+t_coord	rotation(t_coord *vector, double angle, t_coord axis);
 
 // vector_algebra.c
 /**
@@ -285,7 +286,38 @@ void	empty_protocol(t_minirt *rt);
 void	scroll_obj(double *data[3], t_coord *r_vect, t_list *lst, double (*f)(t_coord *, void *));
 
 
-int	get_cy_dist(double *dist, t_coord ray_vec, t_coord ray_ori, t_cy *cy);
+// get_cy_dist.c
+/**
+ * @brief Function determines if an intersection on the cylinder occured on the
+ * ray vector originating from camera origin. In order to ray trace a cylinder,
+ * geometric transformations is required to scale, rotate, and translate the
+ * primitives into desired locations. As a finite unit cylinder equation is a
+ * quadratic equation of second order: x^2 + y^2 = 1, z_min <= z <= z_max. The
+ * equation will give two values of t, and the smallest non-negative value will
+ * be the intersection distance, while the intersection point can be defined by
+ * E + tD
+ * @param dist The distance between the intersect and camera origin
+ * @param ray_vec The ray vector (D) originating from camera origin (E)
+ * @param camera The camera object
+ * @param cy The cylinder object
+ * @return Function returns true if an intersection occured; otherwise, returns
+ * false 
+*/
+int	get_cy_dist(double *dist, t_coord ray_vec, t_cam camera, t_cy *cy);
+
+// get_sp_dist.c
+/**
+ * @brief Function determines if an intersection on the sphere occured on the
+ * ray vector. If the discriminant is non-negative, that means that there is
+ * intersection between the ray and the sphere. Solving the quadratic equation
+ * will return either 1 or 2 real values for t, and the smallest, non-negative
+ * value will be the intersection point.
+ * @param dist The distance between the intersect and camera origin
+ * @param ray_vec The ray vector originating from camera origin
+ * @param camera The camera object
+ * @param sp The sphere object
+*/
+int	get_sp_dist(double *dist, t_coord ray_vec, t_cam camera, t_sp *sp);
 
 // draw.c
 /**
@@ -386,5 +418,25 @@ void	error_free(int flag, t_data *f_data);
  * @param fd The file descriptor of the file to be read
 */
 char	*get_next_line(int fd);
+
+/******************************* -.- Shapes -.- *******************************/
+
+/* plane_intersection.c */
+
+/**
+ * @brief Determines if the ray_vector intersects with the plane and calculates
+ * the distance between them if there is an intersection
+ * @param dist Pointer to a double that stores the distance between the camera
+ * and the plane, if any
+ * @param ray_vector The directional vector from the viewer
+ * @param ray_ori The coordinates of the camera
+ * @param plane The struct holding the data of the plane object
+ * @return Integer boolean that shows the ray_vector intersects with the plane
+ * @retval 1 if there is an intersection
+ * @retval 0 if there is no intersection
+*/
+int	get_pl_dist(double *dist, t_coord ray_vector, t_coord ray_ori, t_pl *plane);
+
+void	set_controls(t_minirt *rt);
 
 #endif

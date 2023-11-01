@@ -27,7 +27,9 @@ typedef struct s_cam
 {
 	int		flag;
 	t_coord	point;
-	t_coord	orient_vector;
+	t_coord	look;
+	t_coord	up;
+	t_coord	right;
 	double	fov;
 }	t_cam;
 
@@ -65,6 +67,22 @@ typedef struct s_cy
 	t_rgb	colour;
 }	t_cy;
 
+enum e_index{pl, sp, cy};
+
+union u_objects
+{
+    t_pl  pl;
+    t_sp  sp;
+    t_cy  cy;
+};
+
+typedef struct s_object
+{
+    char               id;
+    union u_objects    obj;
+}                t_object;
+
+
 typedef struct s_data
 {
 	int		num_sp;
@@ -73,9 +91,7 @@ typedef struct s_data
 	t_amb	ambience;
 	t_cam	camera;
 	t_light	light;
-	t_list	*spheres;
-	t_list	*planes;
-	t_list	*cylinders;
+	t_list	*objects;
 }	t_data;
 
 typedef struct s_minirt

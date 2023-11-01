@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jthor <jthor@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 20:02:31 by jthor             #+#    #+#             */
-/*   Updated: 2023/09/13 20:02:37 by jthor            ###   ########.fr       */
+/*   Updated: 2023/10/26 17:41:40 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ void	free_rt(t_minirt *rt)
 
 void	free_data(t_minirt *rt)
 {
-	if (rt->file_data->num_sp > 0)
-		ft_lstclear(&(rt->file_data->spheres), free);
-	if (rt->file_data->num_pl > 0)
-		ft_lstclear(&(rt->file_data->planes), free);
-	if (rt->file_data->num_cy > 0)
-		ft_lstclear(&(rt->file_data->cylinders), free);
-	free(rt->file_data);
+	// if (rt->file_data->num_sp > 0)
+	// 	ft_lstclear(&(rt->file_data->spheres), free);
+	// if (rt->file_data->num_pl > 0)
+	// 	ft_lstclear(&(rt->file_data->planes), free);
+	// if (rt->file_data->num_cy > 0)
+	// 	ft_lstclear(&(rt->file_data->cylinders), free);
+	// free(rt->file_data);
 	free_rt(rt);
 }
 
