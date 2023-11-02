@@ -52,7 +52,7 @@ typedef struct s_sp
 	t_coord	center;
 	double	dia;
 	t_rgb	colour;
-	t_coord	*intrsct_pt;
+	t_coord	*intsct;
 }	t_sp;
 
 typedef struct s_pl
@@ -61,7 +61,7 @@ typedef struct s_pl
 	t_coord	point;
 	t_coord	normal_vector;
 	t_rgb	colour;
-	t_coord	*intrsct_pt;
+	t_coord	*intsct;
 }	t_pl;
 
 typedef struct s_cy
@@ -72,7 +72,7 @@ typedef struct s_cy
 	double	dia;
 	double	height;
 	t_rgb	colour;
-	t_coord	*intrsct_pt;
+	t_coord	*intsct;
 }	t_cy;
 
 union u_objects
