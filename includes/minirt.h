@@ -289,21 +289,20 @@ void	scroll_obj(double *data[3], t_coord *r_vect, t_list *lst, double (*f)(t_coo
 // get_cy_dist.c
 /**
  * @brief Function determines if an intersection on the cylinder occured on the
- * ray vector originating from camera origin. In order to ray trace a cylinder,
+ * ray vector originating from origin. In order to ray trace a cylinder,
  * geometric transformations is required to scale, rotate, and translate the
  * primitives into desired locations. As a finite unit cylinder equation is a
  * quadratic equation of second order: x^2 + y^2 = 1, z_min <= z <= z_max. The
  * equation will give two values of t, and the smallest non-negative value will
  * be the intersection distance, while the intersection point can be defined by
  * E + tD
- * @param dist The distance between the intersect and camera origin
- * @param ray_vec The ray vector (D) originating from camera origin (E)
- * @param camera The camera object
+ * @param ray_vec The ray vector (D) originating from origin (E)
+ * @param origin The ray origin
  * @param cy The cylinder object
- * @return Function returns true if an intersection occured; otherwise, returns
- * false 
+ * @return Function returns the distance between the origin and object; if no
+ * intersection occured, returns INFINITY
 */
-int	get_cy_dist(double *dist, t_coord ray_vec, t_cam camera, t_cy *cy);
+double	cy_intersection(t_coord ray_vec, t_coord origin, t_cy *cy);
 
 // get_sp_dist.c
 /**

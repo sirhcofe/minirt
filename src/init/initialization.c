@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:16:57 by chenlee           #+#    #+#             */
-/*   Updated: 2023/11/01 16:31:39 by chenlee          ###   ########.fr       */
+/*   Updated: 2023/11/02 22:53:34 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ t_minirt	*init_mlx_window(void)
 
 	rt = malloc(sizeof(t_minirt));
 	rt->mlx = mlx_init();
-	// rt->width = 160;
-	// rt->height = 80;
-	rt->width = 1280;
-	rt->height = 720;
+	rt->width = 80;
+	rt->height = 40;
+	// rt->width = 1280;
+	// rt->height = 720;
 	rt->mlx_win = mlx_new_window(rt->mlx, rt->width, rt->height, "minirt");
 	rt->img = mlx_new_image(rt->mlx, rt->width, rt->height);
 	rt->addr = mlx_get_data_addr(rt->img, &(rt->bits_per_pixel),
