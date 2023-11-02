@@ -58,7 +58,7 @@ INCLUDES	=	-Ilibft -Iincludes
 all:			$(NAME) minirt
 
 test:	$(NAME) src//tests/test_main.c $(OBJS)
-			gcc $(FLAGS) -g3 src/tests/test_main.c -L. -lminirt -Llibft -lft $(INCLUDES) -o test
+			gcc src/tests/test_main.c -L. -lminirt -Llibft -lft $(INCLUDES) -o test
 
 $(NAME):		$(OBJS)
 			@make -C libft/ all
@@ -67,7 +67,7 @@ $(NAME):		$(OBJS)
 $(OBJS_DIR)%.o:	%.c
 			@mkdir -p $(OBJS_DIR)
 			@echo "Compiling: $<"
-			@gcc $(FLAGS) $(INCLUDES) -c $< -o $@
+			@gcc $(INCLUDES) -c $< -o $@
 
 minirt:		src/main.c $(OBJS)
 			@echo "Compiling: src/main.c"

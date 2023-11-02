@@ -48,9 +48,12 @@ void	print_point(t_coord obj, int flag)
 {
 	if (flag == 1)
 		printf("Point  = (%f, %f, %f, %f)\n", obj.x, obj.y, obj.z, obj.w);
-	else
+	else if (flag == 2)
 		printf("Vector = (%f, %f, %f, %f)\n", obj.x, obj.y, obj.z, obj.w);
-
+	else if (flag == 3)
+		printf("Intsct = (%f, %f, %f, %f)\n", obj.x, obj.y, obj.z, obj.w);
+	else
+		printf("Unrecognised flag\n");
 }
 
 void	print_ambience(t_amb obj)
@@ -111,6 +114,8 @@ void	print_spheres(t_sp obj)
 	print_point(obj.center, 1);
 	printf("2r     = %f\n", obj.dia);
 	print_colour(obj.colour);
+	if (obj.intsct != NULL)
+		print_point(*(obj.intsct), 3);
 	printf("===================================\n");
 	count++;
 }
@@ -124,8 +129,10 @@ void	print_planes(t_pl obj)
 	}
 	printf("===================================\n");
 	print_point(obj.point, 1);
-	print_point(obj.normal_vector, 0);
+	print_point(obj.normal_vector, 2);
 	print_colour(obj.colour);
+	if (obj.intsct != NULL)
+		print_point(*(obj.intsct), 3);
 	printf("===================================\n");
 	count++;
 }
@@ -139,10 +146,12 @@ void	print_cylinders(t_cy obj)
 	}
 	printf("===================================\n");
 	print_point(obj.center, 1);
-	print_point(obj.axis_vector, 0);
+	print_point(obj.axis_vector, 2);
 	printf("2r     = %f\n", obj.dia);
 	printf("Height = %f\n", obj.height);
 	print_colour(obj.colour);
+	if (obj.intsct != NULL)
+		print_point(*(obj.intsct), 3);
 	printf("===================================\n");
 	count++;
 }
