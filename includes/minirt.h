@@ -266,15 +266,7 @@ void	print_image(t_minirt *rt);
  * @param ray_vector The directional vector of the ray that originates from
  * the camera.
  */
-int		get_touchy(t_data *f_data, t_coord *ray_vector);
-/**
- * @brief Function that prints an empty map, in the absence of objects.
- * @return Function does not return.
- * @param rt Pointer to the t_minirt struct that holds everything.
-*/
-void	empty_protocol(t_minirt *rt);
-
-void	scroll_obj(double *data[3], t_intrsct i_data, int (*f)(double *, t_coord, t_coord, void *));
+int	get_touchy(t_data *f_data, t_coord *ray_vector);
 
 // get_cy_dist.c
 /**
@@ -286,14 +278,13 @@ void	scroll_obj(double *data[3], t_intrsct i_data, int (*f)(double *, t_coord, t
  * equation will give two values of t, and the smallest non-negative value will
  * be the intersection distance, while the intersection point can be defined by
  * E + tD
- * @param dist The distance between the intersect and camera origin
  * @param ray_vec The ray vector (D) originating from camera origin (E)
  * @param ray_ori The coordinates of the caemra origin
  * @param cy The cylinder object
  * @return Function returns true if an intersection occured; otherwise, returns
  * false 
 */
-int	get_cy_dist(double *dist, t_coord ray_vec, t_coord ray_ori, t_cy *cy);
+double	get_cy_dist(t_coord ray_vec, t_coord ray_ori, t_cy *cy);
 
 // get_sp_dist.c
 /**
@@ -302,12 +293,11 @@ int	get_cy_dist(double *dist, t_coord ray_vec, t_coord ray_ori, t_cy *cy);
  * intersection between the ray and the sphere. Solving the quadratic equation
  * will return either 1 or 2 real values for t, and the smallest, non-negative
  * value will be the intersection point.
- * @param dist The distance between the intersect and camera origin
  * @param ray_vec The ray vector originating from camera origin
  * @param ray_ori The coordinates of camera origin
  * @param sp The sphere object
 */
-int	get_sp_dist(double *dist, t_coord ray_vec, t_coord ray_ori, t_sp *sp);
+double	get_sp_dist(t_coord ray_vec, t_coord ray_ori, t_sp *sp);
 
 // draw.c
 /**
@@ -425,15 +415,11 @@ char	*get_next_line(int fd);
 /**
  * @brief Determines if the ray_vector intersects with the plane and calculates
  * the distance between them if there is an intersection
- * @param dist Pointer to a double that stores the distance between the camera
- * and the plane, if any
  * @param ray_vector The directional vector from the viewer
  * @param ray_ori The coordinates of the camera
  * @param plane The struct holding the data of the plane object
- * @return Integer boolean that shows the ray_vector intersects with the plane
- * @retval 1 if there is an intersection
- * @retval 0 if there is no intersection
+ * @return The distance between the camera and the point of intersection
 */
-int	get_pl_dist(double *dist, t_coord ray_vector, t_coord ray_ori, t_pl *plane);
+double	get_pl_dist(t_coord ray_vector, t_coord ray_ori, t_pl *plane);
 
 #endif

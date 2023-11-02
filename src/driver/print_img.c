@@ -38,7 +38,6 @@ void	print_image(t_minirt *rt)
 		empty_protocol(rt);
 }
 
-double	get_sp_dist(t_coord *ray_vector, t_sp *sphere, t_cam camera);
 /**
  * data[] ;
  * data[0] -> index to return, should be the index of the closest obj. -1 if no intersection
