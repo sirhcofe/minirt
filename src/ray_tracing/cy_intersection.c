@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 23:13:20 by chenlee           #+#    #+#             */
-/*   Updated: 2023/11/02 23:03:38 by chenlee          ###   ########.fr       */
+/*   Updated: 2023/11/02 23:47:01 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,12 +116,14 @@ void	lat_intsct(double *dist, t_coord ray, t_coord ori, t_cy *cy)
 	{
 		t[0] = (-coeff[1] - sqrt(discriminant)) / (2 * coeff[0]);
 		t[1] = (-coeff[1] + sqrt(discriminant)) / (2 * coeff[0]);
-		// dprintf(2, "BEFORE: t[0]=%f && t[1]=%f\n", t[0], t[1]);
-		dprintf(2, "BEOFRE: DIST=%f\n", dist);
+		dprintf(2, "BEFORE: t[0]=%f && t[1]=%f\n", t[0], t[1]);
+		dprintf(2, "BEOFRE: DIST=%f\n", *dist);
 		*dist = handle_finite_length(t, ray, ori, cy);
-		// dprintf(2, "AFTERR: t[0]=%f && t[1]=%f\n", t[0], t[1]);
-		dprintf(2, "AFTERR: DIST=%f\n", dist);
+		dprintf(2, "AFTERR: t[0]=%f && t[1]=%f\n", t[0], t[1]);
+		dprintf(2, "AFTERR: DIST=%f\n", *dist);
 	}
+	else
+		*dist = INFINITY;
 }
 
 double	calc_intersection(t_coord ray, t_coord ori, t_cy *cylinder)
@@ -129,6 +131,7 @@ double	calc_intersection(t_coord ray, t_coord ori, t_cy *cylinder)
 	double	lat_dist;
 
 	lat_intsct(&lat_dist, ray, ori, cylinder);
+	dprintf(2, "IN CALC_INTER: %f\n", lat_dist);
 	return (lat_dist);
 }
 
@@ -168,9 +171,7 @@ t_coord	transform_to_cylinder_space(t_coord ray, t_coord origin, t_cy *cylinder,
 
 	set_coord(&offset, 0, 0, 0);
 	set_coord(&z_axis, 0, 0, 1);
-	// dprintf(2, "checking_cy_axis=%f %f %f\n", cylinder->axis_vector.x, cylinder->axis_vector.y, cylinder->axis_vector.z);
 	perpendicular_vector = cross_prod(z_axis, cylinder->axis_vector);
-	// dprintf(2, "perpendicular=%f %f %f\n", perpendicular_vector.x, perpendicular_vector.y, perpendicular_vector.z);
 	if (is_zero(perpendicular_vector))
 	{
 		if (mode == 1)
@@ -179,11 +180,7 @@ t_coord	transform_to_cylinder_space(t_coord ray, t_coord origin, t_cy *cylinder,
 			return (vect_subt(origin, vect_subt(offset, cylinder->center)));
 	}
 	rotation_axis = normalize(perpendicular_vector);
-	// dprintf(2, "rot_axis=%f %f %f\n", rotation_axis.x, rotation_axis.y, rotation_axis.z);
 	rotation_angle = acos(dot_prod(cylinder->axis_vector, z_axis));
-	// dprintf(2, "rot_angle=%f\n", rotation_angle);
-	// t_coord	rotated_cam = rotation(&origin, rotation_angle, rotation_axis);
-	// dprintf(2, "rotated_CAM=%f %f %f\n", rotated_cam.x, rotated_cam.y, rotated_cam.z);
 	if (mode == 1)
 		return (rotation(&ray, rotation_angle, rotation_axis));
 	else if (mode == 2)

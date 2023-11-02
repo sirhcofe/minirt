@@ -6,7 +6,7 @@
 #    By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 21:28:59 by chenlee           #+#    #+#              #
-#    Updated: 2023/11/02 15:18:55 by chenlee          ###   ########.fr        #
+#    Updated: 2023/11/02 23:32:51 by chenlee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,6 @@ SRC			=	error.c				\
 				vector_arithmetic.c	\
 				cy_intersection.c	\
 				get_sp_dist.c		\
-				get_pl_dist.c		\
 				set_controls.c		\
 				free.c
 

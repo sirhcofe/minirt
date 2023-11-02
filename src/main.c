@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 16:31:29 by chenlee           #+#    #+#             */
-/*   Updated: 2023/11/02 23:04:21 by chenlee          ###   ########.fr       */
+/*   Updated: 2023/11/02 23:37:21 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int	main(int argc, char **argv)
 	cylinder.axis_vector = normalize(init_vector(0, 1, 1));
 	cylinder.colour = init_colour(0, 186, 188);
 	cylinder.dia = 10;
-	cylinder.height = 3;
+	cylinder.height = 1;
 
 	sphere.center = init_vector(0, 0, 0);
 	sphere.colour = init_colour(255, 0, 0);
