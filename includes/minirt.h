@@ -229,6 +229,13 @@ t_coord vect_subt(t_coord a, t_coord b);
 /*************************** -.- Memory Freeing -.- ***************************/
 
 /**
+ * @brief Freeing function for the object linked list located in file_data.
+ * This function is intended to be used with ft_lstclear().
+ * @return Function does not return.
+ * @param node The content of the linked list.
+ */
+void	free_obj_list(void *node);
+/**
  * @brief Function frees all malloc'd data related to this project.
  * @return Function does not return.
  * @param rt Pointer to the t_minirt struct that holds everything.

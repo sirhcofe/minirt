@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-void	free_rt(t_minirt *rt)
+static void	free_rt(t_minirt *rt)
 {
 	mlx_destroy_window(rt->mlx, rt->mlx_win);
 	free(rt->img);
@@ -22,10 +22,25 @@ void	free_rt(t_minirt *rt)
 	free(rt);
 }
 
+void	free_obj_list(void *node)
+{
+	t_object	*t_node;
+
+	t_node = (t_object *)node;
+	if (t_node->e_idx == pl)
+		free(t_node->obj.plane.intsct);
+	else if (t_node->e_idx == sp)
+		free(t_node->obj.sphere.intsct);
+	else if (t_node->e_idx == cy)
+		free(t_node->obj.cylinder.intsct);
+	else
+		write(2, "Unexpected error at free_fdata()\n", 52);
+	free(node);
+}
+
 void	free_data(t_minirt *rt)
 {
-	if (rt->file_data->objects != NULL)
-		ft_lstclear(&(rt->file_data->objects), free);
+	ft_lstclear(&(rt->file_data->objects), free_obj_list);
 	free(rt->file_data);
 	free_rt(rt);
 }
