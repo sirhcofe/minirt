@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 23:13:20 by chenlee           #+#    #+#             */
-/*   Updated: 2023/11/01 17:17:14 by chenlee          ###   ########.fr       */
+/*   Updated: 2023/11/03 00:21:33 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	found_intersection(double *intsct, t_coord ray, t_coord ori, t_cy *cylinder)
 		intersection = 2;
 		intsct[0] = (-coeff[1] - sqrt(discriminant)) / (2 * coeff[0]);
 		intsct[1] = (-coeff[1] + sqrt(discriminant)) / (2 * coeff[0]);
+		dprintf(2, "intsct=%f %f\n\n", intsct[0], intsct[1]);
 		z[0] = ori.z + intsct[0] * ray.z;
 		z[1] = ori.z + intsct[1] * ray.z;
 		// dprintf(2, "======z=%f %f\n", z[0], z[1]);

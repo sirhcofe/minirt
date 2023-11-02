@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 16:31:29 by chenlee           #+#    #+#             */
-/*   Updated: 2023/11/01 16:39:35 by chenlee          ###   ########.fr       */
+/*   Updated: 2023/11/03 00:20:32 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,15 +110,15 @@ int	main(int argc, char **argv)
 	t_cam	camera;
 	camera.fov = 1.0472;
 	camera.point = init_vector(1, 1, 1);
-	camera.look = normalize(init_vector(1, 1, 1));
+	camera.look = normalize(init_vector(0, 0, 1));
 	calc_camera(&camera);
 
 	dprintf(2, "look=%f %f %f\n", camera.look.x, camera.look.y, camera.look.z);
 	dprintf(2, "up   =%f %f %f\n", camera.up.x, camera.up.y, camera.up.z);
 	dprintf(2, "right=%f %f %f\n", camera.right.x, camera.right.y, camera.right.z);
 
-	cylinder.center = init_vector(20, 10, 30);
-	cylinder.axis_vector = normalize(init_vector(0, 1, 1));
+	cylinder.center = init_vector(0, 0, 30);
+	cylinder.axis_vector = normalize(init_vector(0, 0, 1));
 	cylinder.colour = init_colour(0, 186, 188);
 	cylinder.dia = 10;
 	cylinder.height = 10;
@@ -144,6 +144,7 @@ int	main(int argc, char **argv)
 		j = 0;
 		while (j < rt->width)
 		{
+			dprintf(2, "width=%d && height=%d\n", j, i);
 			ray_vector = rotation(&offset, increment * (rt->width / 2 - j), camera.up);
 			// if (i % 4 == 0 && j % 1 == 0)
 			// 	dprintf(2, "ray_vector of width=%d && height=%d\n%f %f %f\n", j, i, ray_vector.x, ray_vector.y, ray_vector.z);

@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 08:15:57 by chenlee           #+#    #+#             */
-/*   Updated: 2023/11/01 17:17:31 by chenlee          ###   ########.fr       */
+/*   Updated: 2023/11/03 00:19:52 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ double	handle_sp_found(double coeff[3], double discriminant)
 int	get_sp_dist(double *dist, t_coord ray_vec, t_cam camera, t_sp *sp)
 {
 	double	coeff[3];
+	double	discriminant;
+	t_coord	sphere_offset;
 
 	sphere_offset = vect_subt(camera.point, sp->center);
 	coeff[0] = dot_prod(ray_vec, ray_vec);
