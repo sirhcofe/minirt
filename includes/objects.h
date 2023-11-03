@@ -1,6 +1,13 @@
 #ifndef OBJECTS_H
 # define OBJECTS_H
 
+enum e_index
+{
+	sp,
+	pl,
+	cy
+};
+
 typedef struct s_rgb
 {
 	unsigned char	red;
@@ -47,6 +54,7 @@ typedef struct s_sp
 	t_coord	center;
 	double	dia;
 	t_rgb	colour;
+	t_coord	*intsct;
 }	t_sp;
 
 typedef struct s_pl
@@ -55,6 +63,7 @@ typedef struct s_pl
 	t_coord	point;
 	t_coord	normal_vector;
 	t_rgb	colour;
+	t_coord	*intsct;
 }	t_pl;
 
 typedef struct s_cy
@@ -65,22 +74,21 @@ typedef struct s_cy
 	double	radius;
 	double	height;
 	t_rgb	colour;
+	t_coord	*intsct;
 }	t_cy;
-
-enum e_index{pl, sp, cy};
 
 union u_objects
 {
-    t_pl  pl;
-    t_sp  sp;
-    t_cy  cy;
+	t_sp	sphere;
+	t_pl	plane;
+	t_cy	cylinder;
 };
 
 typedef struct s_object
 {
-    char               id;
-    union u_objects    obj;
-}                t_object;
+	char			e_idx;
+	union u_objects	obj;
+}	t_object;
 
 
 typedef struct s_data
@@ -107,5 +115,12 @@ typedef struct s_minirt
 	int		height;
 	t_data	*file_data;
 }	t_minirt;
+
+typedef struct s_intrsct
+{
+	t_coord	r_vect;
+	t_list	*obj_lst;
+	t_coord	cam_pt;
+}	t_intrsct;
 
 #endif

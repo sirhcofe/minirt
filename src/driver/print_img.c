@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   print_img.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
+/*   By: jthor <jthor@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/18 00:01:41 by jthor             #+#    #+#             */
-/*   Updated: 2023/10/25 09:36:03 by chenlee          ###   ########.fr       */
+/*   Created: 2023/11/03 20:19:22 by jthor             #+#    #+#             */
+/*   Updated: 2023/11/03 20:19:24 by jthor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minirt.h>
-
-// WIP : Figure out the image height and width
 
 void	print_image(t_minirt *rt)
 {
@@ -20,7 +18,7 @@ void	print_image(t_minirt *rt)
 	size_t	ctr;
 	int		index;
 
-	if (rt->file_data->num_sp + rt->file_data->num_pl + rt->file_data->num_cy)
+	if (rt->file_data->objects != NULL)
 	{
 		ctr = -1;
 		while (++ctr < (rt->height * rt->width))
@@ -38,32 +36,6 @@ void	print_image(t_minirt *rt)
 		empty_protocol(rt);
 }
 
-double	get_sp_dist(t_coord *ray_vector, t_sp *sphere);
-double	get_pl_dist(t_coord *ray_vector, t_pl *plane);
-// int	get_cy_dist(double *dist, t_coord ray_vec, t_coord ray_ori, t_cy *cy) // true or false
-
-/**
- * data[] ;
- * data[0] -> index to return, should be the index of the closest obj. -1 if no intersection
- * data[1] -> index counter, use to keep track of which objet we looking at.
- * data[2] -> distance between the closest object and the camera.
- */
-
-int		get_touchy(t_data *f_data, t_coord *ray_vector)
-{
-	double	data[3];
-
-	data[0] = -1;
-	data[1] = 0;
-	if (f_data->num_sp)
-		scroll_obj(&data, ray_vector, f_data->spheres, get_sp_dist);
-	if (f_data->num_pl)
-		scroll_obj(&data, ray_vector, f_data->planes, get_pl_dist);
-	if (f_data->cylinders)
-		scroll_obj(&data, ray_vector, f_data->cylinders, get_cy_dist);
-	return ((int)(data[0]));
-}
-
 void	empty_protocol(t_minirt *rt)
 {
 	size_t	ctr;
@@ -74,30 +46,42 @@ void	empty_protocol(t_minirt *rt)
 		void_pixel(rt, ctr);
 }
 
-void	scroll_obj(double *data[3], t_coord *r_vect, t_list *lst, double (*f)(t_coord *, void *))
-{
-	double	temp;
 
-	while (lst) // iter through the linked list
+double	get_curr_dist(t_coord r_vect, t_coord ray_ori, void *lst_content)
+{
+	t_object	*node;
+
+	node = (t_object *)lst_content;
+	if (node->e_idx == sp)
+		return (get_sp_dist(r_vect, ray_ori, &(node->obj.sphere)));
+	else if (node->e_idx == pl)
+		return (get_pl_dist(r_vect, ray_ori, &(node->obj.plane)));
+	else
+		return (get_cy_dist(r_vect, ray_ori, &(node->obj.cylinder)));
+}
+
+int	get_touchy(t_data *f_data, t_coord *r_vect)
+{
+	int			ret;
+	int			curr;
+	double		closest_dist;
+	double		curr_dist;
+	t_list		*lst;
+
+	ret = -1;
+	curr = 0;
+	closest_dist = INFINITY;
+	lst = f_data->objects;
+	while (lst)
 	{
-		temp = (*f)(r_vect, lst->content); // get the distance.
-		if (temp) // there is an intersection
+		curr_dist = get_curr_dist(*r_vect, f_data->camera.point, lst->content);
+		if (curr_dist < closest_dist)
 		{
-			if (*data[0] == -1) // no intersection as of yet
-			{
-				*data[0] = *data[1]; // get the index
-				*data[2] = temp; // track the minimum distance
-			}
-			else // there is an intersection before, so need to check for min distance
-			{
-				if (temp < *data[2]) // current object is closer
-				{
-					*data[0] = *data[1];
-					*data[2] = temp;
-				}
-			}
+			ret = curr;
+			closest_dist = curr_dist;	
 		}
-		*data[1] += 1;
+		curr++;
 		lst = lst->next;
 	}
+	return (ret);
 }

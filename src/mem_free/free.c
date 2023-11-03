@@ -6,13 +6,13 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 20:02:31 by jthor             #+#    #+#             */
-/*   Updated: 2023/10/26 17:41:40 by chenlee          ###   ########.fr       */
+/*   Updated: 2023/11/03 22:20:07 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	free_rt(t_minirt *rt)
+static void	free_rt(t_minirt *rt)
 {
 	mlx_destroy_window(rt->mlx, rt->mlx_win);
 	free(rt->img);
@@ -22,15 +22,26 @@ void	free_rt(t_minirt *rt)
 	free(rt);
 }
 
+void	free_obj_list(void *node)
+{
+	t_object	*t_node;
+
+	t_node = (t_object *)node;
+	if (t_node->e_idx == pl)
+		free(t_node->obj.plane.intsct);
+	else if (t_node->e_idx == sp)
+		free(t_node->obj.sphere.intsct);
+	else if (t_node->e_idx == cy)
+		free(t_node->obj.cylinder.intsct);
+	else
+		write(2, "Unexpected error at free_fdata()\n", 52);
+	free(node);
+}
+
 void	free_data(t_minirt *rt)
 {
-	// if (rt->file_data->num_sp > 0)
-	// 	ft_lstclear(&(rt->file_data->spheres), free);
-	// if (rt->file_data->num_pl > 0)
-	// 	ft_lstclear(&(rt->file_data->planes), free);
-	// if (rt->file_data->num_cy > 0)
-	// 	ft_lstclear(&(rt->file_data->cylinders), free);
-	// free(rt->file_data);
+	ft_lstclear(&(rt->file_data->objects), free_obj_list);
+	free(rt->file_data);
 	free_rt(rt);
 }
 

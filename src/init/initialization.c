@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:16:57 by chenlee           #+#    #+#             */
-/*   Updated: 2023/11/03 22:16:31 by chenlee          ###   ########.fr       */
+/*   Updated: 2023/11/03 22:19:46 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ t_minirt	*init_mlx_window(void)
 void	init_data_struct(t_data **f_data)
 {
 	*(f_data) = malloc(sizeof(t_data));
+	(*f_data)->num_sp = 0;
+	(*f_data)->num_pl = 0;
+	(*f_data)->num_cy = 0;
+	(*f_data)->objects = NULL;
 	(*f_data)->ambience.flag = 0;
 	(*f_data)->camera.flag = 0;
 	(*f_data)->light.flag = 0;

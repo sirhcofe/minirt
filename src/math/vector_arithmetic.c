@@ -41,7 +41,7 @@ t_coord	vect_add(t_coord a, t_coord b)
 
 t_coord	vect_subt(t_coord a, t_coord b)
 {
-	t_coord ret;
+	t_coord	ret;
 
 	ret.x = a.x - b.x;
 	ret.y = a.y - b.y;
