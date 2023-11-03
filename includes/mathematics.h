@@ -18,10 +18,11 @@ t_coord	translation(t_coord object);
  * of a vector after it has been rotated about an arbitrary axis.
  * @param vector The original 3D vector.
  * @param angle The angle of rotation in radians.
+ * @param axis The rotation axis.
  * @return Function returns a new position of a vector after it has been
  * rotated.
 */
-t_coord	rotation(t_coord *vector, double angle);
+t_coord	rotation(t_coord *vector, double angle, t_coord axis);
 
 /***************************** vector_algebra.c *****************************/
 
@@ -45,6 +46,7 @@ double	dot_prod(t_coord a, t_coord b);
 */
 t_coord	cross_prod(t_coord a, t_coord b);
 t_coord	normalize(t_coord a);
+int	approx(double value, double limit);
 
 /**************************** vector_arithmetic.c ****************************/
 

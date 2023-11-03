@@ -20,7 +20,8 @@
  * @return Function returns true if an intersection occured; otherwise, returns
  * false 
 */
-double	get_cy_dist(t_coord ray_vec, t_coord ray_ori, t_cy *cy);
+// double	get_cy_dist(t_coord ray_vec, t_coord ray_ori, t_cy *cy);
+double	cy_intersection(t_coord ray_vec, t_coord origin, t_cy *cy);
 
 /******************************* get_sp_dist.c *******************************/
 
@@ -34,7 +35,8 @@ double	get_cy_dist(t_coord ray_vec, t_coord ray_ori, t_cy *cy);
  * @param ray_ori The coordinates of camera origin
  * @param sp The sphere object
 */
-double	get_sp_dist(t_coord ray_vec, t_coord ray_ori, t_sp *sp);
+// double	get_sp_dist(t_coord ray_vec, t_coord ray_ori, t_sp *sp);
+int	get_sp_dist(double *dist, t_coord ray_vec, t_coord ray_ori, t_sp *sp);
 
 /******************************* get_pl_dist.c *******************************/
 
