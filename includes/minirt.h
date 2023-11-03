@@ -201,6 +201,7 @@ double	dot_prod(t_coord a, t_coord b);
 */
 t_coord	cross_prod(t_coord a, t_coord b);
 t_coord	normalize(t_coord a);
+int	approx(double value, double limit);
 
 // vector_arithmetic.c
 /**

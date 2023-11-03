@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 23:13:20 by chenlee           #+#    #+#             */
-/*   Updated: 2023/11/02 23:47:01 by chenlee          ###   ########.fr       */
+/*   Updated: 2023/11/03 22:14:59 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,26 @@ double	handle_endcap(double z, t_coord ray, t_coord ori, t_cy *cy)
 		dprintf(2, "WTF\n");
 }
 
-int	approx(double value, double limit)
+double	compare_intsct_dist(double t[2])
 {
-	double	difference;
-
-	if (value <= -0.0001)
-		value *= -1;
-	difference = value - limit;
-	if (difference > -0.0001 && difference < 0.0001)
-		return (1);
+	if (isinf(t[0]) && isinf(t[1]))
+		return (INFINITY);
+	else if (!isinf(t[0]) && t[0] >= 0 && !isinf(t[1]) && t[1] >= 0)
+	{
+		if (t[0] < t[1])
+			return (t[0]);
+		else
+			return (t[1]);
+	}
 	else
-		return (0);
+	{
+		if (!isinf(t[0]) && t[0] >= 0)
+			return (t[0]);
+		else if (!isinf(t[1]) && t[1] >= 0)
+			return (t[1]);
+		else
+			return (INFINITY);
+	}
 }
 
 double	handle_finite_length(double t[2], t_coord ray, t_coord ori, t_cy *cy)
@@ -83,22 +92,30 @@ double	handle_finite_length(double t[2], t_coord ray, t_coord ori, t_cy *cy)
 		t[0] = INFINITY;
 	if (!(z[1] > -cy->height / 2 && z[1] < cy->height / 2))
 		t[1] = INFINITY;
-	if (t[0] != INFINITY && t[0] >= 0 && t[1] != INFINITY && t[1] >= 0)
-	{
-		if (t[0] < t[1])
-			return (t[0]);
-		else
-			return (t[1]);
-	}
+	return (compare_intsct_dist(t));
+}
+
+void	endcap_intsct(double *dist, t_coord ray, t_coord ori, t_cy *cy)
+{
+	double	distance[2];
+	double	t_top;
+	double	t_bot;
+	t_coord	intsct_top;
+	t_coord	intsct_bot;
+
+	t_top = ((cy->height / 2) - ori.z) / ray.z;
+	intsct_top = vect_add(ori, vect_mult(ray, t_top));
+	if (pow(intsct_top.x, 2) + pow(intsct_top.y, 2) <= pow(cy->radius, 2))
+		distance[0] = t_top;
 	else
-	{
-		if (t[0] != INFINITY && t[0] >= 0)
-			return (t[0]);
-		else if (t[1] != INFINITY && t[1] >= 0)
-			return (t[1]);
-		else
-			return (INFINITY);
-	}
+		distance[0] = INFINITY;
+	t_bot = ((-cy->height / 2) - ori.z) / ray.z;
+	intsct_bot = vect_add(ori, vect_mult(ray, t_bot));
+	if (pow(intsct_bot.x, 2) + pow(intsct_bot.y, 2) <= pow(cy->radius, 2))
+		distance[1] = t_bot;
+	else
+		distance[1] = INFINITY;
+	*dist = compare_intsct_dist(distance);
 }
 
 void	lat_intsct(double *dist, t_coord ray, t_coord ori, t_cy *cy)
@@ -106,21 +123,25 @@ void	lat_intsct(double *dist, t_coord ray, t_coord ori, t_cy *cy)
 	double	coeff[3];
 	double	discriminant;
 	double	t[2];
+	double	z[2];
 
 	coeff[0] = pow(ray.x, 2) + pow(ray.y, 2);
 	coeff[1] = 2 * (ray.x * ori.x + ray.y * ori.y);
 	coeff[2] = pow(ori.x, 2) + pow(ori.y, 2)
-			- pow(cy->dia / 2, 2);
+			- pow(cy->radius, 2);
 	discriminant = pow(coeff[1], 2) - 4 * coeff[0] * coeff[2];
 	if (discriminant >= 0)
 	{
 		t[0] = (-coeff[1] - sqrt(discriminant)) / (2 * coeff[0]);
 		t[1] = (-coeff[1] + sqrt(discriminant)) / (2 * coeff[0]);
-		dprintf(2, "BEFORE: t[0]=%f && t[1]=%f\n", t[0], t[1]);
-		dprintf(2, "BEOFRE: DIST=%f\n", *dist);
-		*dist = handle_finite_length(t, ray, ori, cy);
-		dprintf(2, "AFTERR: t[0]=%f && t[1]=%f\n", t[0], t[1]);
-		dprintf(2, "AFTERR: DIST=%f\n", *dist);
+		// *dist = handle_finite_length(t, ray, ori, cy);
+		z[0] = ori.z + t[0] * ray.z;
+		z[1] = ori.z + t[1] * ray.z;
+		if (!(z[0] > -cy->height / 2 && z[0] < cy->height / 2))
+			t[0] = INFINITY;
+		if (!(z[1] > -cy->height / 2 && z[1] < cy->height / 2))
+			t[1] = INFINITY;
+		*dist = compare_intsct_dist(t);
 	}
 	else
 		*dist = INFINITY;
@@ -129,10 +150,16 @@ void	lat_intsct(double *dist, t_coord ray, t_coord ori, t_cy *cy)
 double	calc_intersection(t_coord ray, t_coord ori, t_cy *cylinder)
 {
 	double	lat_dist;
+	double	endcap_dist;
 
 	lat_intsct(&lat_dist, ray, ori, cylinder);
-	dprintf(2, "IN CALC_INTER: %f\n", lat_dist);
-	return (lat_dist);
+	if (isinf(lat_dist))
+	{
+		endcap_intsct(&endcap_dist, ray, ori, cylinder);
+		return (endcap_dist);
+	}
+	else
+		return (lat_dist);
 }
 
 /**
@@ -161,46 +188,34 @@ int	is_zero(t_coord vector)
 		return (0);
 }
 
-t_coord	transform_to_cylinder_space(t_coord ray, t_coord origin, t_cy *cylinder, int mode)
+void	to_cy_space(t_coord t_ori_vec[2], t_coord ray, t_coord ori, t_cy *cy)
 {
 	t_coord	offset;
 	t_coord	z_axis;
-	t_coord	perpendicular_vector;
 	t_coord	rotation_axis;
 	double	rotation_angle;
 
 	set_coord(&offset, 0, 0, 0);
 	set_coord(&z_axis, 0, 0, 1);
-	perpendicular_vector = cross_prod(z_axis, cylinder->axis_vector);
-	if (is_zero(perpendicular_vector))
+	t_ori_vec[0] = vect_add(ori, vect_subt(offset, cy->center));
+	rotation_axis = normalize(cross_prod(cy->axis_vector, z_axis));
+	if (is_zero(rotation_axis))
+		t_ori_vec[1] = ray;
+	else
 	{
-		if (mode == 1)
-			return (ray);
-		else if (mode == 2)
-			return (vect_subt(origin, vect_subt(offset, cylinder->center)));
-	}
-	rotation_axis = normalize(perpendicular_vector);
-	rotation_angle = acos(dot_prod(cylinder->axis_vector, z_axis));
-	if (mode == 1)
-		return (rotation(&ray, rotation_angle, rotation_axis));
-	else if (mode == 2)
-	{
-		origin = vect_subt(origin, vect_subt(offset, cylinder->center));
-		return (rotation(&origin, rotation_angle, rotation_axis));
+		rotation_angle = acos(dot_prod(cy->axis_vector, z_axis));
+		t_coord cy_new = rotation(&cy->axis_vector, rotation_angle, rotation_axis);
+		t_ori_vec[0] = rotation(&t_ori_vec[0], rotation_angle, rotation_axis);
+		t_ori_vec[1] = rotation(&ray, rotation_angle, rotation_axis);
 	}
 }
 
 double	cy_intersection(t_coord ray_vec, t_coord origin, t_cy *cy)
 {
-	t_coord	trans_ray_vec;
-	t_coord	trans_ray_ori;
+	t_coord	trans_ori_vec[2];
 	double	dist;
-	int		ret;
-	double	result;
 
-	trans_ray_vec = transform_to_cylinder_space(ray_vec, origin, cy, 1);
-	trans_ray_ori = transform_to_cylinder_space(ray_vec, origin, cy, 2);
-	dist = calc_intersection(trans_ray_vec, trans_ray_ori, cy);
-	dprintf(2, "DIST=%f\n", dist);
+	to_cy_space(trans_ori_vec, ray_vec, origin, cy);
+	dist = calc_intersection(trans_ori_vec[1], trans_ori_vec[0], cy);
 	return (dist);
 }

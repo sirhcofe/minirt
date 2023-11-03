@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 16:31:29 by chenlee           #+#    #+#             */
-/*   Updated: 2023/11/02 23:37:21 by chenlee          ###   ########.fr       */
+/*   Updated: 2023/11/03 22:04:35 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,10 @@ void	calc_camera(t_cam *camera)
 	rot_axis = cross_prod(world_coord[2], camera->look);
 	if (is_zero_too(rot_axis))
 	{
-		camera->right = world_coord[0];
+		if (camera->look.z <= -0.0001)
+			camera->right = vect_mult(world_coord[0], -1.0);
+		else
+			camera->right = world_coord[0];
 		camera->up = world_coord[1];
 	}
 	else
@@ -109,19 +112,15 @@ int	main(int argc, char **argv)
 
 	t_cam	camera;
 	camera.fov = 1.0472;
-	camera.point = init_vector(1, 1, 1);
+	camera.point = init_vector(0, 0, 5);
 	camera.look = normalize(init_vector(0, 0, 1));
 	calc_camera(&camera);
 
-	dprintf(2, "look=%f %f %f\n", camera.look.x, camera.look.y, camera.look.z);
-	dprintf(2, "up   =%f %f %f\n", camera.up.x, camera.up.y, camera.up.z);
-	dprintf(2, "right=%f %f %f\n", camera.right.x, camera.right.y, camera.right.z);
-
 	cylinder.center = init_vector(0, 0, 20);
-	cylinder.axis_vector = normalize(init_vector(0, 1, 1));
+	cylinder.axis_vector = normalize(init_vector(10, 0, 10));
 	cylinder.colour = init_colour(0, 186, 188);
-	cylinder.dia = 10;
-	cylinder.height = 1;
+	cylinder.radius = 3;
+	cylinder.height = 4;
 
 	sphere.center = init_vector(0, 0, 0);
 	sphere.colour = init_colour(255, 0, 0);
@@ -141,30 +140,19 @@ int	main(int argc, char **argv)
 	i = 0;
 	while (i < rt->height)
 	{
-		offset = rotation(&camera.look, increment * (rt->height / 2 - i), camera.right);
+		offset = rotation(&camera.look, increment * (i - rt->height / 2), camera.right);
 		j = 0;
 		while (j < rt->width)
 		{
-			ray_vector = rotation(&offset, increment * (rt->width / 2 - j), camera.up);
-			// if (i % 4 == 0 && j % 1 == 0)
-			// 	dprintf(2, "ray_vector of width=%d && height=%d\n%f %f %f\n", j, i, ray_vector.x, ray_vector.y, ray_vector.z);
+			ray_vector = rotation(&offset, increment * (j - rt->width / 2), camera.up);
 			// if (!isinf(cy_intersection(ray_vector, camera.point, &cylinder)))
 			check = cy_intersection(ray_vector, camera.point, &cylinder);
-			dprintf(2, "CHECK=%f\n", check);
 			if (!isinf(check))
-			{
-				dprintf(2, "Printing\n");
 				put_pxl(rt, j, i, create_colour(0, 255, 0, 0));
-				usleep(100);
-			}
-			dprintf(2, "\n");
 			j++;
 		}
 		i++;
 	}
-
-	dprintf(2, "done\n");
-
 	mlx_put_image_to_window(rt->mlx, rt->mlx_win, rt->img, 0, 0);
 	set_controls(rt);
 	mlx_loop(rt->mlx);
