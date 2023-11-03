@@ -62,7 +62,7 @@ typedef struct s_cy
 	int		flag;
 	t_coord	center;
 	t_coord	axis_vector;
-	double	dia;
+	double	radius;
 	double	height;
 	t_rgb	colour;
 }	t_cy;
