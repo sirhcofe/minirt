@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-char	*reset_buffer(char *buffer)
+static char	*reset_buffer(char *buffer)
 {
 	char	*reset;
 	int		i;
@@ -36,7 +36,7 @@ char	*reset_buffer(char *buffer)
 	return (reset);
 }
 
-char	*print_line(char *buffer)
+static char	*print_line(char *buffer)
 {
 	char	*line;
 	int		i;
@@ -58,7 +58,7 @@ char	*print_line(char *buffer)
 	return (line);
 }
 
-char	*join_and_free(char *buffer, char *temp)
+static char	*join_and_free(char *buffer, char *temp)
 {
 	char	*pepega;
 
@@ -68,7 +68,7 @@ char	*join_and_free(char *buffer, char *temp)
 	return (pepega);
 }
 
-char	*read_file(char *buffer, int fd)
+static char	*read_file(char *buffer, int fd)
 {
 	char	*temp;
 	int		byte_read;
