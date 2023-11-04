@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 16:31:29 by chenlee           #+#    #+#             */
-/*   Updated: 2023/11/04 11:43:40 by chenlee          ###   ########.fr       */
+/*   Updated: 2023/11/04 15:51:03 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,12 @@ void	calc_camera(t_cam *camera)
 	t_coord	world_coord[3];
 	t_coord	rot_axis;
 
-	world_coord[0] = init_vector(1, 0, 0);
-	world_coord[1] = init_vector(0, 1, 0);
-	world_coord[2] = init_vector(0, 0, 1);
+	set_coord(&world_coord[0], 1, 0, 0);
+	set_coord(&world_coord[1], 0, 1, 0);
+	set_coord(&world_coord[2], 0, 0, 1);
+	// world_coord[0] = init_vector(1, 0, 0);
+	// world_coord[1] = init_vector(0, 1, 0);
+	// world_coord[2] = init_vector(0, 0, 1);
 	rot_axis = cross_prod(world_coord[2], camera->look);
 	if (is_zero_vector(rot_axis))
 	{
@@ -96,11 +99,11 @@ int	main(int argc, char **argv)
 	t_cam	camera;
 	camera.fov = 1.0472;
 	camera.point = init_vector(0, 0, 5);
-	camera.look = normalize(init_vector(0, 0, 1));
+	camera.look = normalize(init_vector(0, -1, 0));
 	calc_camera(&camera);
 
-	cylinder.center = init_vector(0, 0, 20);
-	cylinder.axis_vector = normalize(init_vector(10, 0, 10));
+	cylinder.center = init_vector(0, -30, 10);
+	cylinder.axis_vector = normalize(init_vector(10, 0, 0));
 	cylinder.colour = init_colour(0, 186, 188);
 	cylinder.radius = 3;
 	cylinder.height = 4;

@@ -6,24 +6,18 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 11:56:30 by chenlee           #+#    #+#             */
-/*   Updated: 2023/11/04 11:56:38 by chenlee          ###   ########.fr       */
+/*   Updated: 2023/11/04 14:55:19 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-double	handle_endcap(double z, t_coord ray, t_coord ori, t_cy *cy)
-{
-	double	v_comp[2];
-
-	v_comp[0] = pow(ori.x, 2) + pow(ray.x, 2);
-	v_comp[1] = pow(ori.y, 2) + pow(ray.y, 2);
-	if (v_comp[0] + v_comp[1] <= pow(cy->height / 2, 2))
-		return (z);
-	else
-		dprintf(2, "WTF\n");
-}
-
+/**
+ * @brief Function compares the 2 intersection distance value calculated from
+ * solving the quadratic equation.
+ * @param t The 2 intersection distance for comparison.
+ * @return Function returns the smallest non-negative value.
+*/
 double	compare_intsct_dist(double t[2])
 {
 	if (isinf(t[0]) && isinf(t[1]))
@@ -46,6 +40,15 @@ double	compare_intsct_dist(double t[2])
 	}
 }
 
+/**
+ * @brief Function handles the z limit for the finite cylinder. If the z value
+ * exceeds the cylinder height, that means there is no intersection.
+ * @param t The 2 presumed intersection distance for an infinite cylinder.
+ * @param ray The transformed ray vector.
+ * @param ori The transformed ray origin.
+ * @param cy The cylinder object that is transformed such that its z-axis aligns
+ * with the global coordinates' z-axis.
+*/
 double	handle_finite_length(double t[2], t_coord ray, t_coord ori, t_cy *cy)
 {
 	double	z[2];

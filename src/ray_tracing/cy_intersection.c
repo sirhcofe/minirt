@@ -6,12 +6,37 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 23:13:20 by chenlee           #+#    #+#             */
-/*   Updated: 2023/11/04 11:56:27 by chenlee          ###   ########.fr       */
+/*   Updated: 2023/11/04 15:22:13 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+// double	calc_intersection(t_coord ray, t_coord ori, t_cy *cylinder)
+// {
+// 	double	lat_dist;
+// 	double	endcap_dist;
+
+// 	lat_intsct(&lat_dist, ray, ori, cylinder);
+// 	if (isinf(lat_dist))
+// 	{
+// 		endcap_intsct(&endcap_dist, ray, ori, cylinder);
+// 		return (endcap_dist);
+// 	}
+// 	else
+// 		return (lat_dist);
+// }
+
+/**
+ * @brief Function calculates both situation of a cylinder intersection: on its
+ * lateral surface, and on its end-caps. The smallest non-negative nor infinity
+ * value will be the intersection distance.
+ * @param ray The transformed ray vector in the common coordinate system.
+ * @param ori The transformed ray origin in the common coordinate system.
+ * @param cy The cylinder object.
+ * @return Function returns the smallest non-negative distance between the
+ * origin and the intersection on the cylinder object.
+*/
 double	calc_intersection(t_coord ray, t_coord ori, t_cy *cylinder)
 {
 	double	lat_dist;
@@ -19,14 +44,27 @@ double	calc_intersection(t_coord ray, t_coord ori, t_cy *cylinder)
 
 	lat_intsct(&lat_dist, ray, ori, cylinder);
 	if (isinf(lat_dist))
-	{
 		endcap_intsct(&endcap_dist, ray, ori, cylinder);
-		return (endcap_dist);
-	}
-	else
+	if (isinf(lat_dist) && isinf(endcap_dist))
+		return (INFINITY);
+	else if (lat_dist < endcap_dist)
 		return (lat_dist);
+	else
+		return (endcap_dist);
 }
 
+/**
+ * @brief Function transforms ray vector and its origin to a common coordinate 
+ * system where the cylinder is aligned with the z-axis, and its center is at
+ * the origin.
+ * @param t_ori_vec An array containing the translated ray vector and ray
+ * origin.
+ * @param ray The ray vector.
+ * @param ori The ray origin.
+ * @param cy The cylinder object.
+ * @return Function does not return, while new transformed ray vector and origin
+ * are stored in the array parsed as argument in the function. 
+*/
 void	to_cy_space(t_coord t_ori_vec[2], t_coord ray, t_coord ori, t_cy *cy)
 {
 	t_coord	offset;
@@ -43,7 +81,6 @@ void	to_cy_space(t_coord t_ori_vec[2], t_coord ray, t_coord ori, t_cy *cy)
 	else
 	{
 		rotation_angle = acos(dot_prod(cy->axis_vector, z_axis));
-		t_coord cy_new = rotation(&cy->axis_vector, rotation_angle, rotation_axis);
 		t_ori_vec[0] = rotation(&t_ori_vec[0], rotation_angle, rotation_axis);
 		t_ori_vec[1] = rotation(&ray, rotation_angle, rotation_axis);
 	}
