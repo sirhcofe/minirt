@@ -6,13 +6,13 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 08:15:57 by chenlee           #+#    #+#             */
-/*   Updated: 2023/10/25 17:08:13 by chenlee          ###   ########.fr       */
+/*   Updated: 2023/11/03 22:21:14 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-double	handle_found(double coeff[3], double discriminant)
+double	handle_sp_found(double coeff[3], double discriminant)
 {
 	double	t[2];
 
@@ -47,7 +47,7 @@ int	get_sp_dist(double *dist, t_coord ray_vec, t_coord ray_ori, t_sp *sp)
 	discriminant = pow(coeff[1], 2) - 4 * coeff[0] * coeff[2];
 	if (discriminant >= 0)
 	{
-		*dist = handle_found(coeff, discriminant);
+		*dist = handle_sp_found(coeff, discriminant);
 		return (1);
 	}
 	return (0);

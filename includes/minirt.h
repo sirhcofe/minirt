@@ -19,4 +19,6 @@
 #include "ray_tracing.h"
 #include "utils.h"
 
+void	set_controls(t_minirt *rt);
+
 #endif

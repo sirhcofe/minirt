@@ -6,11 +6,19 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:52:10 by chenlee           #+#    #+#             */
-/*   Updated: 2023/10/25 11:49:59 by chenlee          ###   ########.fr       */
+/*   Updated: 2023/11/03 21:07:08 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+void	set_coord(t_coord *obj, double x, double y, double z)
+{
+	obj->x = x;
+	obj->y = y;
+	obj->z = z;
+	obj->w = 1.0;
+}
 
 t_coord	translation(t_coord object)
 {
@@ -23,16 +31,18 @@ t_coord	translation(t_coord object)
 	return (transl_vector);
 }
 
-t_coord	rotation(t_coord *vector, double angle)
+t_coord	rotation(t_coord *vector, double angle, t_coord axis)
 {
-	t_coord	z_axis;
 	t_coord	rot_vect;
+	t_coord	a;
+	t_coord	b;
+	t_coord	c;
 
-	set_coord(&z_axis, 0.0, 0.0, 1.0);
-	rot_vect = vect_add(vect_mult(*vector, cos(angle)),
-				vect_add(vect_mult(cross_prod(z_axis, *vector), sin(angle)),
-						vect_mult(vect_mult(z_axis, dot_prod(z_axis, *vector)),
-								(1 - cos(angle)))));
+	a = vect_mult(*vector, cos(angle));
+	b = vect_mult(cross_prod(axis, *vector), sin(angle));
+	c = vect_mult(axis, (dot_prod(axis, *vector) * (1 - cos(angle))));
+	rot_vect = vect_add(a, vect_add(b, c));
+	return (rot_vect);
 }
 
 /**

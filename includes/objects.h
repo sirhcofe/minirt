@@ -34,7 +34,9 @@ typedef struct s_cam
 {
 	int		flag;
 	t_coord	point;
-	t_coord	orient_vector;
+	t_coord	look;
+	t_coord	up;
+	t_coord	right;
 	double	fov;
 }	t_cam;
 
@@ -69,10 +71,10 @@ typedef struct s_cy
 	int		flag;
 	t_coord	center;
 	t_coord	axis_vector;
-	double	dia;
+	double	radius;
 	double	height;
 	t_rgb	colour;
-	t_coord	*intsct;
+	t_coord	intsct;
 }	t_cy;
 
 union u_objects
