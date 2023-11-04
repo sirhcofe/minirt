@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 16:31:29 by chenlee           #+#    #+#             */
-/*   Updated: 2023/11/04 15:51:03 by chenlee          ###   ########.fr       */
+/*   Updated: 2023/11/04 16:46:33 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,19 +98,19 @@ int	main(int argc, char **argv)
 
 	t_cam	camera;
 	camera.fov = 1.0472;
-	camera.point = init_vector(0, 0, 5);
-	camera.look = normalize(init_vector(0, -1, 0));
+	camera.point = init_vector(0, 0, 0);
+	camera.look = normalize(init_vector(0, 0, 1));
 	calc_camera(&camera);
 
-	cylinder.center = init_vector(0, -30, 10);
+	cylinder.center = init_vector(0, 0, -10);
 	cylinder.axis_vector = normalize(init_vector(10, 0, 0));
 	cylinder.colour = init_colour(0, 186, 188);
 	cylinder.radius = 3;
 	cylinder.height = 4;
 
-	sphere.center = init_vector(0, 0, 0);
+	sphere.center = init_vector(0, 3, 10);
 	sphere.colour = init_colour(255, 0, 0);
-	sphere.dia = 5;
+	sphere.dia = 6;
 
 	plane.normal_vector = init_vector(0.5, 0.2, 0.3);
 	plane.point = init_vector(10, 2, 0);
@@ -132,7 +132,7 @@ int	main(int argc, char **argv)
 		{
 			ray_vector = rotation(&offset, increment * (j - rt->width / 2), camera.up);
 			// if (!isinf(cy_intersection(ray_vector, camera.point, &cylinder)))
-			check = cy_intersection(ray_vector, camera.point, &cylinder);
+			check = sp_intersection(ray_vector, camera.point, &sphere);
 			if (!isinf(check))
 				put_pxl(rt, j, i, create_colour(0, 255, 0, 0));
 			j++;

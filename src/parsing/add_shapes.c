@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 20:02:57 by jthor             #+#    #+#             */
-/*   Updated: 2023/11/04 14:56:17 by chenlee          ###   ########.fr       */
+/*   Updated: 2023/11/04 16:28:53 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	add_sphere(t_data *f_data, char **arr)
 	assign_rgb(&(n_sp.flag), &(n_sp.colour), arr[3]);
 	if (n_sp.flag == -1 || ft_isdouble(arr[2]) == 0)
 		return (2);
-	n_sp.intsct = ft_calloc(sizeof(t_coord), 1);
+	// n_sp.intsct = ft_calloc(sizeof(t_coord), 1);
 	node = malloc(sizeof(t_object));
 	node->e_idx = sp;
 	node->obj.sphere = n_sp;
@@ -72,7 +72,7 @@ int	add_cylinder(t_data *f_data, char **arr)
 	assign_rgb(&(n_cy.flag), &(n_cy.colour), arr[5]);
 	if (n_cy.flag == -1)
 		return (2);
-	n_cy.intsct = ft_calloc(sizeof(t_coord), 1);
+	// n_cy.intsct = ft_calloc(sizeof(t_coord), 1);
 	node = malloc(sizeof(t_object));
 	node->e_idx = cy;
 	node->obj.cylinder = n_cy;
