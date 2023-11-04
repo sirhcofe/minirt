@@ -63,16 +63,16 @@ void	lat_intsct(double *dist, t_coord ray, t_coord ori, t_cy *cy);
 */
 double	sp_intersection(t_coord ray_vec, t_coord origin, t_sp *sp);
 
-/******************************* get_pl_dist.c *******************************/
+/******************************* pl_intersection.c *******************************/
 
 /**
  * @brief Determines if the ray_vector intersects with the plane and calculates
  * the distance between them if there is an intersection
  * @param ray_vector The directional vector from the viewer
  * @param ray_ori The coordinates of the camera
- * @param plane The struct holding the data of the plane object
+ * @param pl The struct holding the data of the plane object
  * @return The distance between the camera and the point of intersection
 */
-double	get_pl_dist(t_coord ray_vector, t_coord ray_ori, t_pl *plane);
+double	pl_intersection(t_coord ray_vector, t_coord ray_ori, t_pl *pl);
 
 #endif

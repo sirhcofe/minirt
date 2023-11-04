@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 16:31:29 by chenlee           #+#    #+#             */
-/*   Updated: 2023/11/04 16:46:33 by chenlee          ###   ########.fr       */
+/*   Updated: 2023/11/04 21:18:31 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,22 +102,28 @@ int	main(int argc, char **argv)
 	camera.look = normalize(init_vector(0, 0, 1));
 	calc_camera(&camera);
 
-	cylinder.center = init_vector(0, 0, -10);
-	cylinder.axis_vector = normalize(init_vector(10, 0, 0));
+	// dprintf(2, "look=%f %f %f\n", camera.look.x, camera.look.y, camera.look.z);
+	// dprintf(2, "up=%f %f %f\n", camera.up.x, camera.up.y, camera.up.z);
+	// dprintf(2, "right=%f %f %f\n", camera.right.x, camera.right.y, camera.right.z);
+
+	sphere.center = init_vector(-5, -1, 15);
+	sphere.colour = init_colour(255, 0, 0);
+	sphere.dia = 4;
+
+	cylinder.center = init_vector(0, 0, 22);
+	cylinder.axis_vector = normalize(init_vector(-8, 0, 10));
 	cylinder.colour = init_colour(0, 186, 188);
 	cylinder.radius = 3;
-	cylinder.height = 4;
+	cylinder.height = 10;
 
-	sphere.center = init_vector(0, 3, 10);
-	sphere.colour = init_colour(255, 0, 0);
-	sphere.dia = 6;
-
-	plane.normal_vector = init_vector(0.5, 0.2, 0.3);
-	plane.point = init_vector(10, 2, 0);
+	plane.normal_vector = normalize(init_vector(0, 100, 1));
+	plane.point = init_vector(0, -20, 25);
 
 	double	increment = camera.fov / rt->width;
 	double	random;
 	double	check;
+	double	check2;
+	double	check3;
 	t_coord	offset;
 	t_coord	ray_vector;
 
@@ -131,10 +137,18 @@ int	main(int argc, char **argv)
 		while (j < rt->width)
 		{
 			ray_vector = rotation(&offset, increment * (j - rt->width / 2), camera.up);
-			// if (!isinf(cy_intersection(ray_vector, camera.point, &cylinder)))
 			check = sp_intersection(ray_vector, camera.point, &sphere);
-			if (!isinf(check))
+			check2 = cy_intersection(ray_vector, camera.point, &cylinder);
+			check3 = pl_intersection(ray_vector, camera.point, &plane);
+			if (isinf(check) && isinf(check2) && isinf(check3))
+				;
+			else if (check <= check2 && check <= check3)
 				put_pxl(rt, j, i, create_colour(0, 255, 0, 0));
+			else if (check2 < check && check2 <= check3)
+				put_pxl(rt, j, i, create_colour(0, 0, 255, 0));
+			else
+				put_pxl(rt, j, i, create_colour(0, 0, 0, 255));
+			// if (!isinf(check))
 			j++;
 		}
 		i++;

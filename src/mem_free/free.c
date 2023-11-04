@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 20:02:31 by jthor             #+#    #+#             */
-/*   Updated: 2023/11/04 16:29:01 by chenlee          ###   ########.fr       */
+/*   Updated: 2023/11/04 21:11:54 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ void	free_obj_list(void *node)
 	t_object	*t_node;
 
 	t_node = (t_object *)node;
-	if (t_node->e_idx == pl)
-		free(t_node->obj.plane.intsct);
+	// if (t_node->e_idx == pl)
+	// 	free(t_node->obj.plane.intsct);
 	// else if (t_node->e_idx == sp)
 	// 	free(t_node->obj.sphere.intsct);
 	// else if (t_node->e_idx == cy)
 	// 	free(t_node->obj.cylinder.intsct);
-	else
-		write(2, "Unexpected error at free_fdata()\n", 52);
+	// else
+	// 	write(2, "Unexpected error at free_fdata()\n", 52);
 	free(node);
 }
 
