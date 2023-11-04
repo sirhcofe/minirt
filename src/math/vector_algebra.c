@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 23:51:18 by chenlee           #+#    #+#             */
-/*   Updated: 2023/11/03 20:30:29 by chenlee          ###   ########.fr       */
+/*   Updated: 2023/11/04 11:42:58 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,4 @@ t_coord	normalize(t_coord a)
 	unit_vect.y = a.y / magnitude;
 	unit_vect.z = a.z / magnitude;
 	return (unit_vect);
-}
-
-int	approx(double value, double limit)
-{
-	double	difference;
-
-	if (value <= -0.0001)
-		value *= -1;
-	difference = value - limit;
-	if (difference > -0.0001 && difference < 0.0001)
-		return (1);
-	else
-		return (0);
 }

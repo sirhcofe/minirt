@@ -3,7 +3,7 @@
 
 #include "objects.h"
 
-/******************************* get_cy_dist.c *******************************/
+/***************************** cy_intersection.c ******************************/
 
 /**
  * @brief Function determines if an intersection on the cylinder occured on the
@@ -22,6 +22,30 @@
 */
 // double	get_cy_dist(t_coord ray_vec, t_coord ray_ori, t_cy *cy);
 double	cy_intersection(t_coord ray_vec, t_coord origin, t_cy *cy);
+
+/*************************** cy_intersection_utils.c **************************/
+
+/**
+ * @brief Function calculates the intersection of a ray with the end caps of a
+ * cylinder.
+ * @param dist Pointer to a double to store the computed intersection distance.
+ * @param ray The translated ray direction vector.
+ * @param ori The translated ray origin coordinates.
+ * @param cy The cylinder object.
+ * @return Function does not return.
+*/
+void	endcap_intsct(double *dist, t_coord ray, t_coord ori, t_cy *cy);
+
+/**
+ * @brief Function determines the intersection of a ray with the lateral surface
+ * of a cylinder.
+ * @param dist Pointer to a double to store the computed intersection distance.
+ * @param ray The translated ray direction vector.
+ * @param ori The translated ray origin coordinates.
+ * @param cy The cylinder object.
+ * @return Function does not return.
+*/
+void	lat_intsct(double *dist, t_coord ray, t_coord ori, t_cy *cy);
 
 /******************************* get_sp_dist.c *******************************/
 

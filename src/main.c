@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 16:31:29 by chenlee           #+#    #+#             */
-/*   Updated: 2023/11/03 22:16:22 by chenlee          ###   ########.fr       */
+/*   Updated: 2023/11/04 11:43:40 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,23 +58,6 @@ int	create_colour(int t, int r, int g, int b)
 	return (t << 24 | r << 16 | g << 8 | b);
 }
 
-int	is_zero_too(t_coord vector)
-{
-	int	coord_not_zero;
-
-	coord_not_zero = 0;
-	if (vector.x > 0.00001 || vector.x < -0.00001)
-		coord_not_zero++;
-	if (vector.y > 0.00001 || vector.y < -0.00001)
-		coord_not_zero++;
-	if (vector.z > 0.00001 || vector.y < -0.00001)
-		coord_not_zero++;
-	if (coord_not_zero == 0)
-		return (1);
-	else
-		return (0);
-}
-
 void	calc_camera(t_cam *camera)
 {
 	t_coord	world_coord[3];
@@ -84,7 +67,7 @@ void	calc_camera(t_cam *camera)
 	world_coord[1] = init_vector(0, 1, 0);
 	world_coord[2] = init_vector(0, 0, 1);
 	rot_axis = cross_prod(world_coord[2], camera->look);
-	if (is_zero_too(rot_axis))
+	if (is_zero_vector(rot_axis))
 	{
 		if (camera->look.z <= -0.0001)
 			camera->right = vect_mult(world_coord[0], -1.0);
