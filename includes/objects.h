@@ -54,7 +54,7 @@ typedef struct s_sp
 	t_coord	center;
 	double	dia;
 	t_rgb	colour;
-	t_coord	*intsct;
+	t_coord	intsct;
 }	t_sp;
 
 typedef struct s_pl

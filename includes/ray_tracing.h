@@ -47,7 +47,7 @@ void	endcap_intsct(double *dist, t_coord ray, t_coord ori, t_cy *cy);
 */
 void	lat_intsct(double *dist, t_coord ray, t_coord ori, t_cy *cy);
 
-/******************************* get_sp_dist.c *******************************/
+/****************************** sp_intersection.c *****************************/
 
 /**
  * @brief Function determines if an intersection on the sphere occured on the
@@ -55,12 +55,13 @@ void	lat_intsct(double *dist, t_coord ray, t_coord ori, t_cy *cy);
  * intersection between the ray and the sphere. Solving the quadratic equation
  * will return either 1 or 2 real values for t, and the smallest, non-negative
  * value will be the intersection point.
- * @param ray_vec The ray vector originating from camera origin
- * @param ray_ori The coordinates of camera origin
+ * @param ray_vec The ray vector originating from origin
+ * @param origin The coordinates of the origin
  * @param sp The sphere object
+ * @return Function returns the smallest non-negative value as the distance of
+ * intersection, while storing the intersection point in the object itself.
 */
-// double	get_sp_dist(t_coord ray_vec, t_coord ray_ori, t_sp *sp);
-int	get_sp_dist(double *dist, t_coord ray_vec, t_coord ray_ori, t_sp *sp);
+double	sp_intersection(t_coord ray_vec, t_coord origin, t_sp *sp);
 
 /******************************* get_pl_dist.c *******************************/
 
