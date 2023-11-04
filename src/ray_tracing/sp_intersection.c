@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 16:08:25 by chenlee           #+#    #+#             */
-/*   Updated: 2023/11/04 16:41:47 by chenlee          ###   ########.fr       */
+/*   Updated: 2023/11/04 19:24:39 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ double	sp_intersection(t_coord ray_vec, t_coord origin, t_sp *sp)
 	transl_ori = vect_add(origin, vect_subt(offset, sp->center));
 	coeff[0] = dot_prod(ray_vec, ray_vec);
 	coeff[1] = 2 * dot_prod(ray_vec, transl_ori);
-	coeff[2] = dot_prod(transl_ori, transl_ori) - 1;
+	coeff[2] = dot_prod(transl_ori, transl_ori) - pow(sp->dia / 2, 2);
 	discriminant = pow(coeff[1], 2) - 4 * coeff[0] * coeff[2];
 	if (discriminant >= 0)
 		dist = handle_found_sp(coeff, discriminant);

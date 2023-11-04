@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 20:02:57 by jthor             #+#    #+#             */
-/*   Updated: 2023/11/04 16:28:53 by chenlee          ###   ########.fr       */
+/*   Updated: 2023/11/04 21:11:37 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	add_plane(t_data *f_data, char **arr)
 	assign_rgb(&(n_pl.flag), &(n_pl.colour), arr[3]);
 	if (n_pl.flag == -1)
 		return (2);
-	n_pl.intsct = ft_calloc(sizeof(t_coord), 1);
+	// n_pl.intsct = ft_calloc(sizeof(t_coord), 1);
 	node = malloc(sizeof(t_object));
 	node->e_idx = pl;
 	node->obj.plane = n_pl;

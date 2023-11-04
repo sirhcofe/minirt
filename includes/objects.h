@@ -63,7 +63,7 @@ typedef struct s_pl
 	t_coord	point;
 	t_coord	normal_vector;
 	t_rgb	colour;
-	t_coord	*intsct;
+	t_coord	intsct;
 }	t_pl;
 
 typedef struct s_cy

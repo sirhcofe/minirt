@@ -6,19 +6,19 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:52:10 by chenlee           #+#    #+#             */
-/*   Updated: 2023/11/03 21:07:08 by chenlee          ###   ########.fr       */
+/*   Updated: 2023/11/04 20:48:06 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	set_coord(t_coord *obj, double x, double y, double z)
-{
-	obj->x = x;
-	obj->y = y;
-	obj->z = z;
-	obj->w = 1.0;
-}
+// void	set_coord(t_coord *obj, double x, double y, double z)
+// {
+// 	obj->x = x;
+// 	obj->y = y;
+// 	obj->z = z;
+// 	obj->w = 1.0;
+// }
 
 t_coord	translation(t_coord object)
 {

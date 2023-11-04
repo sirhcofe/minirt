@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 23:13:20 by chenlee           #+#    #+#             */
-/*   Updated: 2023/11/04 15:22:13 by chenlee          ###   ########.fr       */
+/*   Updated: 2023/11/04 21:01:35 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ double	calc_intersection(t_coord ray, t_coord ori, t_cy *cylinder)
 	double	endcap_dist;
 
 	lat_intsct(&lat_dist, ray, ori, cylinder);
-	if (isinf(lat_dist))
-		endcap_intsct(&endcap_dist, ray, ori, cylinder);
+	endcap_intsct(&endcap_dist, ray, ori, cylinder);
 	if (isinf(lat_dist) && isinf(endcap_dist))
 		return (INFINITY);
 	else if (lat_dist < endcap_dist)
