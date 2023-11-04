@@ -6,47 +6,11 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 23:13:20 by chenlee           #+#    #+#             */
-/*   Updated: 2023/11/03 22:14:59 by chenlee          ###   ########.fr       */
+/*   Updated: 2023/11/04 11:16:51 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-// double	handle_cy_found(double t[2])
-// {
-// 	// if (t[0] == INFINITY && t[1] == INFINITY)
-// 	// 	return (INFINITY);
-// 	// else if (t[0] != INFINITY && t[0] >= 0 && t[1] != INFINITY && t[1] >= 0)
-// 	// {
-// 	// 	if (t[0] < t[1])
-// 	// 		return (t[0]);
-// 	// 	else
-// 	// 		return (t[1]);
-// 	// }
-// 	// else
-// 	// {
-// 	// 	if (t[0] != INFINITY && t[0] >= 0)
-// 	// 		return (t[0]);
-// 	// 	else if (t[1] != INFINITY && t[1] >= 0)
-// 	// 		return (t[1]);
-// 	// 	else
-// 	// 		return (INFINITY);
-// 	// }
-// 	if (t[0] != INFINITY && t[0] >= 0 && t[1] != INFINITY && t[1] >= 0)
-// 	{
-// 		if (t[0] < t[1])
-// 			return (t[0]);
-// 		else
-// 			return (t[1]);
-// 	}
-// 	else
-// 	{
-// 		if (t[0] != INFINITY && t[0] >= 0)
-// 			return (t[0]);
-// 		else if (t[1] != INFINITY && t[1] >= 0)
-// 			return (t[1]);
-// 	}
-// }
 
 double	handle_endcap(double z, t_coord ray, t_coord ori, t_cy *cy)
 {
@@ -134,7 +98,6 @@ void	lat_intsct(double *dist, t_coord ray, t_coord ori, t_cy *cy)
 	{
 		t[0] = (-coeff[1] - sqrt(discriminant)) / (2 * coeff[0]);
 		t[1] = (-coeff[1] + sqrt(discriminant)) / (2 * coeff[0]);
-		// *dist = handle_finite_length(t, ray, ori, cy);
 		z[0] = ori.z + t[0] * ray.z;
 		z[1] = ori.z + t[1] * ray.z;
 		if (!(z[0] > -cy->height / 2 && z[0] < cy->height / 2))
@@ -217,5 +180,7 @@ double	cy_intersection(t_coord ray_vec, t_coord origin, t_cy *cy)
 
 	to_cy_space(trans_ori_vec, ray_vec, origin, cy);
 	dist = calc_intersection(trans_ori_vec[1], trans_ori_vec[0], cy);
+	if (!isinf(dist))
+		cy->intsct = vect_add(origin, vect_mult(ray_vec, dist));
 	return (dist);
 }
