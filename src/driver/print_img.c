@@ -28,7 +28,7 @@ void	print_image(t_minirt *rt)
 			if (index == -1)
 				void_pixel(rt, rt->file_data->ambience.colour, ctr);
 			else
-				colour_pixel(rt, ray_vector, index, ctr);
+				render_pixel(rt, ray_vector, index, ctr);
 			free(ray_vector);
 		}
 	}
