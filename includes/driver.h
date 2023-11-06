@@ -15,12 +15,23 @@ void	print_image(t_minirt *rt);
  * @brief Goes through all shapes (if any) and finds which one is closest to
  * the camera following the path of the ray passed as a parameter
  * @return Returns the index of the closest object from the camera using the
- * path of the ray
+ * path of the ray, -1 otherwise.
  * @param f_data Pointer to the t_data struct for shortcut purposes
  * @param ray_vector The directional vector of the ray that originates from
  * the camera.
  */
 int	get_touchy(t_data *f_data, t_coord *ray_vector);
+/**
+ * @brief Determines which function to call based on the object specifier
+ * in the union.
+ * @return The distance from the origin of the ray to an object, if there is
+ * an intersection.
+ * @retval INFINITY if there is no intersection, a positive double otherwise.
+ * @param r_vect The directional vector of the ray, normalised. 
+ * @param ray_ori The origin of the ray.
+ * @param lst_content The pointer to the content of the linked list.
+ */
+double	get_curr_dist(t_coord r_vect, t_coord ray_ori, void *lst_content);
 
 /********************************** draw.c **********************************/
 

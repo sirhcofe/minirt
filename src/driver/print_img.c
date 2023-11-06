@@ -46,18 +46,17 @@ void	empty_protocol(t_minirt *rt)
 		void_pixel(rt, rt->file_data->ambience.colour, ctr);
 }
 
-
 double	get_curr_dist(t_coord r_vect, t_coord ray_ori, void *lst_content)
 {
 	t_object	*node;
 
 	node = (t_object *)lst_content;
 	if (node->e_idx == sp)
-		return (get_sp_dist(r_vect, ray_ori, &(node->obj.sphere)));
+		return (sp_intersection(r_vect, ray_ori, &(node->obj.sphere)));
 	else if (node->e_idx == pl)
-		return (get_pl_dist(r_vect, ray_ori, &(node->obj.plane)));
+		return (pl_intersection(r_vect, ray_ori, &(node->obj.plane)));
 	else
-		return (get_cy_dist(r_vect, ray_ori, &(node->obj.cylinder)));
+		return (cy_intersection(r_vect, ray_ori, &(node->obj.cylinder)));
 }
 
 int	get_touchy(t_data *f_data, t_coord *r_vect)
