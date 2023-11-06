@@ -46,10 +46,10 @@ void	put_pxl(t_minirt *rt, int x, int y, int colour);
 /**
  * @brief Renders the pixel if the ray that comes from it goes to infinity
  * @return Function does not return.
- * @param rt Pointer to the t_minirt struct that holds everything.
+ * @param rt Pointer to the t_minirt struct.
+ * @param amb_colour The colour struct from the ambience lighting.
  * @param idx Location of the pixel, to be broken down to the x and y values
- * 
 */
-void	void_pixel(t_minirt *rt, int idx);
+void	void_pixel(t_minirt *rt, t_rgb amb_colour, int idx);
 
 #endif

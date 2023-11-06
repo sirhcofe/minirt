@@ -26,7 +26,7 @@ void	print_image(t_minirt *rt)
 			ray_vector = get_ray_vector(rt, ctr);
 			index = get_touchy(rt->file_data, ray_vector);
 			if (index == -1)
-				void_pixel(rt, ctr);
+				void_pixel(rt, rt->file_data->ambience.colour, ctr);
 			else
 				colour_pixel(rt, ray_vector, index, ctr);
 			free(ray_vector);
@@ -43,7 +43,7 @@ void	empty_protocol(t_minirt *rt)
 
 	ctr = -1;
 	while (++ctr < (rt->height * rt->width))
-		void_pixel(rt, ctr);
+		void_pixel(rt, rt->file_data->ambience.colour, ctr);
 }
 
 
