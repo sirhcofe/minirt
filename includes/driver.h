@@ -25,6 +25,16 @@ int	get_touchy(t_data *f_data, t_coord *ray_vector);
 /********************************** draw.c **********************************/
 
 /**
+ * @brief Blends the individual RGB values using bitshifting and bitwise OR
+ * operations
+ * @return Returns the int representation of the RGB blend
+ * @param t transparency
+ * @param r red concentration
+ * @param g green concentration
+ * @param b blue concentration
+*/
+int	create_colour(int t, int r, int g, int b);
+/**
  * @brief Function that replaces mlx_pixel_put cause its dong.
  * @return Function does not return.
  * @param rt Pointer to the t_minirt struct that holds everything.

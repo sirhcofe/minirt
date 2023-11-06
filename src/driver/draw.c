@@ -12,6 +12,11 @@
 
 #include "minirt.h"
 
+int	create_colour(int t, int r, int g, int b)
+{
+	return (t << 24 | r << 16 | g << 8 | b);
+}
+
 void	put_pxl(t_minirt *rt, int x, int y, int colour)
 {
 	char	*dst;
