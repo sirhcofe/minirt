@@ -108,5 +108,38 @@ int	blend(t_object *obj, t_rgb src, double shade_factor);
  * @retval 1 - The object is in shadow.
  */
 int	ft_inshadow(t_data *f_data, t_coord intsct_pt, int index, t_coord to_light);
+/**
+ * @brief Uses a simplification of Lambert's Cosine Law to calculate how dark
+ * that particular intersection point will be.
+ * @return The factor of how bright the point will be, in the range of [0, 1]
+ * @param obj Pointer to the t_object struct, to find the normal to its surface
+ * @param intsct The intersection point on the object's surface.
+ * @param to_light The normalised directional vector between the intersect
+ * point and the light source.
+*/
+double	calc_shade_factor(t_object *obj, t_coord intsct, t_coord to_light);
+
+/****************************** render_utils.c ******************************/
+
+/**
+ * @brief Scrolls through the object linked list and returns the object that
+ * is referenced by the index.
+ * @return A pointer to the t_object struct.
+ * @param obj_lst The object linked list, holding every object.
+ * @param index The index of the object in the list to be returned.
+*/
+t_object	*get_object(t_list *obj_lst, int index);
+/**
+ * @brief Takes the intersect point between the object and incident ray.
+ * @return The coordinates of the intersection point.
+ * @param node The pointer to the t_object struct.
+*/
+t_coord	get_intsct_point(t_object *node);
+/**
+ * @brief Takes the RGB component of the object.
+ * @return The RGB component.
+ * @param obj The pointer to the t_object struct.
+*/
+t_rgb	get_colour(t_object *obj);
 
 #endif
