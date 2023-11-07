@@ -41,3 +41,11 @@ t_coord	normalize(t_coord a)
 	unit_vect.z = a.z / magnitude;
 	return (unit_vect);
 }
+
+double	vect_magnitude(t_coord a, t_coord b)
+{
+	t_coord	res;
+
+	res = vect_subt(a, b);
+	return (sqrt(dot_prod(res, res)));
+}
