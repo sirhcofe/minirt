@@ -75,4 +75,38 @@ double	sp_intersection(t_coord ray_vec, t_coord origin, t_sp *sp);
 */
 double	pl_intersection(t_coord ray_vector, t_coord ray_ori, t_pl *pl);
 
+/****************************** render_pixel.c ******************************/
+
+/**
+ * @brief Renders the pixel by determining the colour, shade and shadow
+ * factors.
+ * @param rt Pointer to the t_minirt struct for mlx and object data
+ * @param index The index of the object whose surface we are trying to colour.
+ * @param ctr The current pixel we are looking at, before breaking it down to
+ * (x, y) values.
+ * @return Function returns nothing.
+ */
+void	render_pixel(t_minirt *rt, int index, size_t ctr);
+/**
+ * @brief Blends the colour from the object and the appropriate source, and
+ * considers the shade factor of the point.
+ * @param obj Pointer to the object whose surface we are trying to colour.
+ * @param src The RGB elements of etither the light source or ambient lighting.
+ * @param shade_factor The factor that determines how dark the pixel should be.
+ * @return The final colour that is to be rendered on the pixel.
+ */
+int	blend(t_object *obj, t_rgb src, double shade_factor);
+/**
+ * @brief Determines if that particular point is blocked from the light source.
+ * @param f_data Pointer to the t_data struct.
+ * @param intsct_pt The point whose shadow factor is to be determined.
+ * @param index The index of the curremt object in the linked list.
+ * @param to_light The vector from the intersection point to the light source.
+ * @return Boolean int that tells us if the particular point is under the
+ * shadow or not.
+ * @retval 0 - The object is not in shadow.
+ * @retval 1 - The object is in shadow.
+ */
+int	ft_inshadow(t_data *f_data, t_coord intsct_pt, int index, t_coord to_light);
+
 #endif
