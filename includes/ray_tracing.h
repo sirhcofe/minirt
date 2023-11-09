@@ -141,5 +141,29 @@ t_coord	get_intsct_point(t_object *node);
  * @param obj The pointer to the t_object struct.
 */
 t_rgb	get_colour(t_object *obj);
+/**
+ * @brief Compares the dot product of tthe two normalised vectors, to
+ * determine if the normal should be flipped or not.
+ * @param p2p The vector connecting the center of the cylinder and the
+ * intersection point.
+ * @param normal The normal vector to be tested.
+ * @return The normal vector, pointing in the right direction.
+ */
+t_coord	deduce_normal(t_coord p2p, t_coord normal);
+/**
+ * @brief Determines the normal of the surface of the cylinder at the
+ * intersection point. The function determines if the intersection point
+ * resides at the curved surface or end caps of the cylinder using a
+ * derivation of the cross product. If it is on the curved surface, the
+ * normal can be the normalised result of the cross product. If it is one the
+ * end cap, the normal to the surface could be the axis of the cylinder. The
+ * function deduce_normal() has to be used to determine if the determined
+ * normal vector is pointing in the right direction or not.
+ * @param obj The cylinder object.
+ * @param intsct The intersection point on the surface of the cylinder object.
+ * @return The normal to the surface of the cylinder that passes through the
+ * intersection point.
+ */
+t_coord	get_cy_normal(t_cy obj, t_coord intsct);
 
 #endif
