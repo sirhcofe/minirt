@@ -46,6 +46,13 @@ double	dot_prod(t_coord a, t_coord b);
 */
 t_coord	cross_prod(t_coord a, t_coord b);
 t_coord	normalize(t_coord a);
+/**
+ * @brief Returns the magnitude (length) of a vector connecting two points
+ * @param a Vector to the first point
+ * @param b Vector to the second point
+ * @return A positive value 
+ */
+double	vect_magnitude(t_coord a, t_coord b);
 
 /**************************** vector_arithmetic.c ****************************/
 

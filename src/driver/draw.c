@@ -12,6 +12,11 @@
 
 #include "minirt.h"
 
+int	create_colour(int t, int r, int g, int b)
+{
+	return (t << 24 | r << 16 | g << 8 | b);
+}
+
 void	put_pxl(t_minirt *rt, int x, int y, int colour)
 {
 	char	*dst;
@@ -20,10 +25,10 @@ void	put_pxl(t_minirt *rt, int x, int y, int colour)
 	*(unsigned int *)dst = colour;
 }
 
-void	void_pixel(t_minirt *rt, int idx)
+void	void_pixel(t_minirt *rt, t_rgb amb_col, int idx)
 {
 	int	colour;
 
-	colour = create_colour(rt->file_data->ambience);
+	colour = create_colour(0, amb_col.red, amb_col.green, amb_col.blue);
 	put_pxl(rt, idx % rt->height, idx / rt->height, colour);
 }

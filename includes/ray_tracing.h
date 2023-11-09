@@ -75,4 +75,95 @@ double	sp_intersection(t_coord ray_vec, t_coord origin, t_sp *sp);
 */
 double	pl_intersection(t_coord ray_vector, t_coord ray_ori, t_pl *pl);
 
+/****************************** render_pixel.c ******************************/
+
+/**
+ * @brief Renders the pixel by determining the colour, shade and shadow
+ * factors.
+ * @param rt Pointer to the t_minirt struct for mlx and object data
+ * @param index The index of the object whose surface we are trying to colour.
+ * @param ctr The current pixel we are looking at, before breaking it down to
+ * (x, y) values.
+ * @return Function returns nothing.
+ */
+void	render_pixel(t_minirt *rt, int index, size_t ctr);
+/**
+ * @brief Blends the colour from the object and the appropriate source, and
+ * considers the shade factor of the point.
+ * @param obj Pointer to the object whose surface we are trying to colour.
+ * @param src The RGB elements of etither the light source or ambient lighting.
+ * @param shade_factor The factor that determines how dark the pixel should be.
+ * @return The final colour that is to be rendered on the pixel.
+ */
+int	blend(t_object *obj, t_rgb src, double shade_factor);
+/**
+ * @brief Determines if that particular point is blocked from the light source.
+ * @param f_data Pointer to the t_data struct.
+ * @param intsct_pt The point whose shadow factor is to be determined.
+ * @param index The index of the curremt object in the linked list.
+ * @param to_light The vector from the intersection point to the light source.
+ * @return Boolean int that tells us if the particular point is under the
+ * shadow or not.
+ * @retval 0 - The object is not in shadow.
+ * @retval 1 - The object is in shadow.
+ */
+int	ft_inshadow(t_data *f_data, t_coord intsct_pt, int index, t_coord to_light);
+/**
+ * @brief Uses a simplification of Lambert's Cosine Law to calculate how dark
+ * that particular intersection point will be.
+ * @return The factor of how bright the point will be, in the range of [0, 1]
+ * @param obj Pointer to the t_object struct, to find the normal to its surface
+ * @param intsct The intersection point on the object's surface.
+ * @param to_light The normalised directional vector between the intersect
+ * point and the light source.
+*/
+double	calc_shade_factor(t_object *obj, t_coord intsct, t_coord to_light);
+
+/****************************** render_utils.c ******************************/
+
+/**
+ * @brief Scrolls through the object linked list and returns the object that
+ * is referenced by the index.
+ * @return A pointer to the t_object struct.
+ * @param obj_lst The object linked list, holding every object.
+ * @param index The index of the object in the list to be returned.
+*/
+t_object	*get_object(t_list *obj_lst, int index);
+/**
+ * @brief Takes the intersect point between the object and incident ray.
+ * @return The coordinates of the intersection point.
+ * @param node The pointer to the t_object struct.
+*/
+t_coord	get_intsct_point(t_object *node);
+/**
+ * @brief Takes the RGB component of the object.
+ * @return The RGB component.
+ * @param obj The pointer to the t_object struct.
+*/
+t_rgb	get_colour(t_object *obj);
+/**
+ * @brief Compares the dot product of tthe two normalised vectors, to
+ * determine if the normal should be flipped or not.
+ * @param p2p The vector connecting the center of the cylinder and the
+ * intersection point.
+ * @param normal The normal vector to be tested.
+ * @return The normal vector, pointing in the right direction.
+ */
+t_coord	deduce_normal(t_coord p2p, t_coord normal);
+/**
+ * @brief Determines the normal of the surface of the cylinder at the
+ * intersection point. The function determines if the intersection point
+ * resides at the curved surface or end caps of the cylinder using a
+ * derivation of the cross product. If it is on the curved surface, the
+ * normal can be the normalised result of the cross product. If it is one the
+ * end cap, the normal to the surface could be the axis of the cylinder. The
+ * function deduce_normal() has to be used to determine if the determined
+ * normal vector is pointing in the right direction or not.
+ * @param obj The cylinder object.
+ * @param intsct The intersection point on the surface of the cylinder object.
+ * @return The normal to the surface of the cylinder that passes through the
+ * intersection point.
+ */
+t_coord	get_cy_normal(t_cy obj, t_coord intsct);
+
 #endif
