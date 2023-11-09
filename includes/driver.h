@@ -12,6 +12,12 @@
 */
 void	print_image(t_minirt *rt);
 /**
+ * @brief Populates the image with pixels using the ambient light's RGB.
+ * @return Function does not return.
+ * @param rt Pointer to the t_minirt struct.
+ */
+void	empty_protocol(t_minirt *rt);
+/**
  * @brief Goes through all shapes (if any) and finds which one is closest to
  * the camera following the path of the ray passed as a parameter
  * @return Returns the index of the closest object from the camera using the
@@ -20,7 +26,7 @@ void	print_image(t_minirt *rt);
  * @param ray_vector The directional vector of the ray that originates from
  * the camera.
  */
-int	get_touchy(t_data *f_data, t_coord *ray_vector);
+int	get_touchy(t_data *f_data, t_coord ray_vector);
 /**
  * @brief Determines which function to call based on the object specifier
  * in the union.
@@ -32,6 +38,16 @@ int	get_touchy(t_data *f_data, t_coord *ray_vector);
  * @param lst_content The pointer to the content of the linked list.
  */
 double	get_curr_dist(t_coord r_vect, t_coord ray_ori, void *lst_content);
+/**
+ * @brief Uses the current counter to infer the x and y values of a pixel on
+ * the screen, and returns the directional vector connecting the camera
+ * viewpoint to the pixel.
+ * @param rt The pointer to the t_minirt struct.
+ * @param cam The camera object.
+ * @param ctr The counter keeping track of which pixel to colour.
+ * @return The normalised directional vector.
+ */
+t_coord	get_ray_vector(t_minirt *rt, t_cam cam, size_t ctr);
 
 /********************************** draw.c **********************************/
 

@@ -14,7 +14,7 @@
 
 void	print_image(t_minirt *rt)
 {
-	t_coord	*ray_vector;
+	t_coord	ray_vector;
 	size_t	ctr;
 	int		index;
 
@@ -23,13 +23,12 @@ void	print_image(t_minirt *rt)
 		ctr = -1;
 		while (++ctr < (rt->height * rt->width))
 		{
-			ray_vector = get_ray_vector(rt, ctr);
+			ray_vector = get_ray_vector(rt, rt->file_data->camera, ctr);
 			index = get_touchy(rt->file_data, ray_vector);
 			if (index == -1)
 				void_pixel(rt, rt->file_data->ambience.colour, ctr);
 			else
 				render_pixel(rt, index, ctr);
-			free(ray_vector);
 		}
 	}
 	else
@@ -59,7 +58,7 @@ double	get_curr_dist(t_coord r_vect, t_coord ray_ori, void *lst_content)
 		return (cy_intersection(r_vect, ray_ori, &(node->obj.cylinder)));
 }
 
-int	get_touchy(t_data *f_data, t_coord *r_vect)
+int	get_touchy(t_data *f_data, t_coord r_vect)
 {
 	int			ret;
 	int			curr;
@@ -73,7 +72,7 @@ int	get_touchy(t_data *f_data, t_coord *r_vect)
 	lst = f_data->objects;
 	while (lst)
 	{
-		curr_dist = get_curr_dist(*r_vect, f_data->camera.point, lst->content);
+		curr_dist = get_curr_dist(r_vect, f_data->camera.point, lst->content);
 		if (curr_dist < closest_dist)
 		{
 			ret = curr;
@@ -83,4 +82,20 @@ int	get_touchy(t_data *f_data, t_coord *r_vect)
 		lst = lst->next;
 	}
 	return (ret);
+}
+
+t_coord	get_ray_vector(t_minirt *rt, t_cam cam, size_t ctr)
+{
+	t_coord	offset;
+	t_coord	ret;
+	double	inc;
+	int		x;
+	int		y;
+
+	x = ctr % rt->height;
+	y = ctr / rt->height;
+	inc = cam.fov / rt->width;
+	offset = rotation(&cam.look, inc * (y - rt->height / 2), cam.right);
+	ret = rotation(&offset, inc * (x - rt->width / 2), cam.up);
+	return (normalize(ret));
 }
