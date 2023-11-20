@@ -20,11 +20,11 @@ double	pl_intersection(t_coord ray_vector, t_coord ray_ori, t_pl *pl)
 	double	res;
 
 	denom = dot_prod(ray_vector, pl->normal_vector);
-	if (denom == 0)
-		return (0);
+	if (approx(denom, 0.0))
+		return (INFINITY); 
 	numer = dot_prod(pl->normal_vector, vect_subt(pl->point, ray_ori));
 	res = numer / denom;
-	if (res < 0)
+	if (res < 0.0001)
 		return (INFINITY);
 	dist = res;
 	pl->intsct = vect_add(ray_ori, vect_mult(ray_vector, dist));

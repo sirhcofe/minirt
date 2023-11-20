@@ -40,14 +40,15 @@ int	ft_inshadow(t_data *f_data, t_coord intsct_pt, int index, t_coord to_light)
 	lst = f_data->objects;
 	while (lst)
 	{
-		if (index == curr)
-			continue ;
-		dist_val = get_curr_dist(to_light, intsct_pt, lst->content);
-		if (dist_val != INFINITY) // there is an object in the way
+		if (index != curr)
 		{
-			if (dist_val <= vect_magnitude(intsct_pt, f_data->light.point))
-				return (1);
-			// else the "obstructing" object is behind the light, so technically not in shadow
+			dist_val = get_curr_dist(to_light, intsct_pt, lst->content);
+			if (dist_val != INFINITY) // there is an object in the way
+			{
+				if (dist_val <= vect_magnitude(intsct_pt, f_data->light.point))
+					return (1);
+				// else the "obstructing" object is behind the light, so technically not in shadow
+			}
 		}
 		curr++;
 		lst = lst->next;
@@ -85,5 +86,5 @@ void	render_pixel(t_minirt *rt, int index, size_t ctr)
 		final_clr = blend(obj, rt->file_data->light.colour, shade_factor);
 	else
 		final_clr = blend(obj, rt->file_data->ambience.colour, shade_factor);
-	put_pxl(rt, ctr % rt->height, ctr / rt->height, final_clr);
+	put_pxl(rt, ctr % rt->width, ctr / rt->width, final_clr);
 }
