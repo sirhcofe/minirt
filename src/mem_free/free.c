@@ -40,7 +40,7 @@ void	free_obj_list(void *node)
 
 void	free_data(t_minirt *rt)
 {
-	ft_lstclear(&(rt->file_data->objects), free_obj_list);
+	ft_lstclear(&(rt->file_data->objects), free);
 	free(rt->file_data);
 	free_rt(rt);
 }

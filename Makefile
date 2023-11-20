@@ -42,9 +42,14 @@ SRC			=	error.c					\
 				vector_utils.c			\
 				pl_intersection.c		\
 				sp_intersection.c		\
+				render_pixel.c			\
+				render_utils.c			\
 				cy_intersection.c		\
 				cy_intersection_utils.c	\
 				set_controls.c			\
+				draw.c					\
+				print_img.c				\
+				ft_split_alt.c			\
 				free.c
 
 # source directory here #
@@ -52,6 +57,7 @@ SRC_DIR		=	$(LIBX)			\
 				src				\
 				src/init		\
 				src/math		\
+				src/driver		\
 				src/mem_free	\
 				src/ray_tracing	\
 				src/utils		\
@@ -73,9 +79,9 @@ $(OBJS_DIR)%.o:	%.c
 			@echo "Compiling: $<"
 			@gcc $(FLAGS) -I$(LIBX) $(INCLUDES) -c $< -o $@
 
-minirt:		src/main.c $(OBJS)
-			@echo "Compiling: src/main.c"
-			@gcc $(FLAGS) -g3 src/main.c -L. -lminirt -Llibft -lft $(INCLUDES) $(COMPILE) -o minirt
+minirt:		src/main2.c $(OBJS)
+			@echo "Compiling: src/main2.c"
+			@gcc $(FLAGS) -g3 src/main2.c -L. -lminirt -Llibft -lft $(INCLUDES) $(COMPILE) -o minirt
 
 clean:
 			@rm -rf objects resolution
