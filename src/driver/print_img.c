@@ -92,8 +92,8 @@ t_coord	get_ray_vector(t_minirt *rt, t_cam cam, size_t ctr)
 	int		x;
 	int		y;
 
-	x = ctr % rt->height;
-	y = ctr / rt->height;
+	x = ctr % rt->width;
+	y = ctr / rt->width;
 	inc = cam.fov / rt->width;
 	offset = rotation(&cam.look, inc * (y - rt->height / 2), cam.right);
 	ret = rotation(&offset, inc * (x - rt->width / 2), cam.up);
