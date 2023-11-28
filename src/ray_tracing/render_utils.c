@@ -49,17 +49,15 @@ t_coord	deduce_normal(t_coord p2p, t_coord normal)
 	return (normal);
 }
 
-t_coord	get_cy_normal(t_cy obj, t_coord intsct)
+t_coord    get_cy_normal(t_cy obj, t_coord intsct)
 {
-	double	dist;
-	t_coord	cross_res;
-	t_coord	p2p_vector;
+    double    dist;
+    t_coord    p2p_vector;
+    t_coord    projection;
+    t_coord    subtract_projection;
 
-	p2p_vector = vect_subt(intsct, obj.center);
-	cross_res = cross_prod(obj.axis_vector, p2p_vector);
-	dist = vect_magnitude(cross_res, (t_coord){0, 0, 0, 1});
-	if (approx(dist, obj.radius) == 1) // The intsct point is on the curved surface
-		return (deduce_normal(normalize(p2p_vector), normalize(cross_res)));
-	else
-		return (deduce_normal(normalize(p2p_vector), obj.axis_vector));
+    p2p_vector = vect_subt(intsct, obj.center);
+    projection = vect_mult(obj.axis_vector, dot_prod(projection, obj.axis_vector) / pow(vect_magnitude(intsct, obj.center), 2));
+    subtract_projection = normalize(vect_subt(p2p_vector, projection));
+    return (subtract_projection);
 }
