@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 20:02:57 by jthor             #+#    #+#             */
-/*   Updated: 2023/11/04 21:11:37 by chenlee          ###   ########.fr       */
+/*   Updated: 2023/11/28 17:47:55 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int	add_cylinder(t_data *f_data, char **arr)
 	assign_vector(&(n_cy.flag), &(n_cy.axis_vector), arr[2]);
 	n_cy.radius = ft_atod(arr[3]) / 2;
 	n_cy.height = ft_atod(arr[4]);
+	n_cy.intsct_type = 0;
 	assign_rgb(&(n_cy.flag), &(n_cy.colour), arr[5]);
 	if (n_cy.flag == -1)
 		return (2);

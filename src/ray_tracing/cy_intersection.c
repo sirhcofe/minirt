@@ -6,26 +6,11 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 23:13:20 by chenlee           #+#    #+#             */
-/*   Updated: 2023/11/04 21:01:35 by chenlee          ###   ########.fr       */
+/*   Updated: 2023/11/28 17:56:03 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-// double	calc_intersection(t_coord ray, t_coord ori, t_cy *cylinder)
-// {
-// 	double	lat_dist;
-// 	double	endcap_dist;
-
-// 	lat_intsct(&lat_dist, ray, ori, cylinder);
-// 	if (isinf(lat_dist))
-// 	{
-// 		endcap_intsct(&endcap_dist, ray, ori, cylinder);
-// 		return (endcap_dist);
-// 	}
-// 	else
-// 		return (lat_dist);
-// }
 
 /**
  * @brief Function calculates both situation of a cylinder intersection: on its
@@ -47,7 +32,10 @@ double	calc_intersection(t_coord ray, t_coord ori, t_cy *cylinder)
 	if (isinf(lat_dist) && isinf(endcap_dist))
 		return (INFINITY);
 	else if (lat_dist < endcap_dist)
+	{
+		cylinder->intsct_type = 1;
 		return (lat_dist);
+	}
 	else
 		return (endcap_dist);
 }
