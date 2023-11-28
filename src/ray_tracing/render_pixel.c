@@ -56,18 +56,19 @@ int	ft_inshadow(t_data *f_data, t_coord intsct_pt, int index, t_coord to_light)
 	return (0);
 }
 
-int	blend(t_object *obj, t_rgb src, double shade_factor)
+int	blend(t_object *obj, t_rgb src, double shade, double env)
 {
 	t_rgb	obj_col;
 	t_rgb	res;
 	double	result;
+	double	weight = 1 - env;
 
 	obj_col = get_colour(obj);
-	res.red = (obj_col.red + src.red) * 0.5;
-	res.green = (obj_col.green + src.green) * 0.5;
-	res.blue = (obj_col.blue + src.blue) * 0.5;
-	result = (double)(create_colour(0, res.red, res.green, res.blue));
-	return ((int)(result * shade_factor));
+	res.red = (obj_col.red * weight + src.red * env);
+	res.green = (obj_col.green * weight + src.green * env);
+	res.blue = (obj_col.blue * weight + src.blue * env);
+	result = (double)(create_colour(0, res.red * shade, res.green * shade, res.blue * shade));
+	return ((int)result);
 }
 
 void	render_pixel(t_minirt *rt, int index, size_t ctr)
@@ -83,8 +84,16 @@ void	render_pixel(t_minirt *rt, int index, size_t ctr)
 	to_light = normalize(vect_subt(rt->file_data->light.point, intsct_pt));
 	shade_factor = calc_shade_factor(obj, intsct_pt, to_light);
 	if (ft_inshadow(rt->file_data, intsct_pt, index, to_light)) // there is an object in the way
-		final_clr = blend(obj, rt->file_data->light.colour, shade_factor);
+	{
+		// printf("Under Shadow\n");
+		final_clr = blend(obj, rt->file_data->ambience.colour, shade_factor, rt->file_data->ambience.ratio);
+	}
 	else
-		final_clr = blend(obj, rt->file_data->ambience.colour, shade_factor);
-	put_pxl(rt, ctr % rt->width, ctr / rt->width, final_clr);
+	{
+		// printf("No shadow\n");
+		final_clr = blend(obj, rt->file_data->light.colour, shade_factor, rt->file_data->light.ratio);
+	}
+	// t_rgb	obj_col = get_colour(obj);
+	// final_clr = create_colour(0, obj_col.red * shade_factor, obj_col.green * shade_factor, obj_col.blue * shade_factor);
+	put_pxl(rt, ctr % rt->width, ctr / rt->width, (final_clr));
 }

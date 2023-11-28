@@ -95,7 +95,7 @@ void	render_pixel(t_minirt *rt, int index, size_t ctr);
  * @param shade_factor The factor that determines how dark the pixel should be.
  * @return The final colour that is to be rendered on the pixel.
  */
-int	blend(t_object *obj, t_rgb src, double shade_factor);
+int	blend(t_object *obj, t_rgb src, double shade_factor, double light_factor);
 /**
  * @brief Determines if that particular point is blocked from the light source.
  * @param f_data Pointer to the t_data struct.
