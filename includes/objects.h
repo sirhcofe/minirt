@@ -75,6 +75,7 @@ typedef struct s_cy
 	double	height;
 	t_rgb	colour;
 	t_coord	intsct;
+	int		intsct_type;
 }	t_cy;
 
 union u_objects

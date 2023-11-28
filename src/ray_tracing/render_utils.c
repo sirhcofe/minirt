@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 23:27:01 by jthor             #+#    #+#             */
-/*   Updated: 2023/11/28 17:35:52 by chenlee          ###   ########.fr       */
+/*   Updated: 2023/11/28 18:01:38 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,19 @@ t_coord	get_cy_normal(t_cy obj, t_coord intsct)
 	// p2p_vector = vect_subt(intsct, obj.center);
 	// cross_res = cross_prod(obj.axis_vector, p2p_vector);
 	// dist = vect_magnitude(cross_res, (t_coord){0, 0, 0, 1});
-
-	p2p_vector = vect_subt(intsct, obj.center);
-	t_coord	projection;
-	projection = vect_mult(obj.axis_vector, dot_prod(projection, obj.axis_vector) / pow(vect_magnitude(intsct, obj.center), 2));
-	t_coord	subtract_projection;
-	subtract_projection = normalize(vect_subt(p2p_vector, projection));
-	return (subtract_projection);
+	if (obj.intsct_type == 1)
+	{
+		p2p_vector = vect_subt(intsct, obj.center);
+		t_coord	projection;
+		projection = vect_mult(obj.axis_vector, dot_prod(projection, obj.axis_vector) / pow(vect_magnitude(intsct, obj.center), 2));
+		t_coord	subtract_projection;
+		subtract_projection = normalize(vect_subt(p2p_vector, projection));
+		return (subtract_projection);
+	}
+	else if (obj.intsct_type == 2)
+		return (obj.axis_vector);
+	else if (obj.intsct_type == 3)
+		return (vect_mult(obj.axis_vector, -1));
 	// if (approx(dist, obj.radius) == 1) // The intsct point is on the curved surface
 	// 	return (deduce_normal(normalize(p2p_vector), normalize(cross_res)));
 	// else
