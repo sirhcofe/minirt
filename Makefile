@@ -23,8 +23,6 @@ endif
 
 NAME		=	libminirt.a
 FLAGS		=	-fsanitize=address -g3
-OBJS_DIR	=	objects/
-OBJS		=	$(addprefix $(OBJS_DIR), $(notdir $(SRC:.c=.o)))
 
 # source files here #
 SRC			=	error.c					\
@@ -42,7 +40,7 @@ SRC			=	error.c					\
 				vector_utils.c			\
 				pl_intersection.c		\
 				sp_intersection.c		\
-				render_pixel.c			\
+				render_pixel2.c			\
 				render_utils.c			\
 				cy_intersection.c		\
 				cy_intersection_utils.c	\
@@ -51,6 +49,9 @@ SRC			=	error.c					\
 				print_img.c				\
 				ft_split_alt.c			\
 				free.c
+
+OBJS_DIR	=	objects/
+OBJS		=	$(addprefix $(OBJS_DIR), $(notdir $(SRC:.c=.o)))
 
 # source directory here #
 SRC_DIR		=	$(LIBX)			\
