@@ -95,7 +95,7 @@ void	render_pixel(t_minirt *rt, int index, size_t ctr);
  * @param shade_factor The factor that determines how dark the pixel should be.
  * @return The final colour that is to be rendered on the pixel.
  */
-int	blend(t_object *obj, t_rgb src, double shade_factor, double light_factor);
+int	blend(t_object *obj, t_rgb src, double shadow_factor, double light_factor);
 /**
  * @brief Determines if that particular point is blocked from the light source.
  * @param f_data Pointer to the t_data struct.
@@ -150,5 +150,15 @@ t_rgb	get_colour(t_object *obj);
  * intersection point.
  */
 t_coord	get_cy_normal(t_cy obj, t_coord intsct);
+/**
+ * @brief Retrieves the normal vector from the surface of the passed object.
+ * @param obj Pointer to the object, determines what kind of object we are
+ * looking at here.
+ * @param intsct The intersection point between the camera ray and the object.
+ * @param to_light The normalised vector connecting the intersection point on
+ * the object to the light source.
+ * @returns The normalised vector representing the surface normal.
+ */
+t_coord	get_normal(t_object *obj, t_coord intsct, t_coord to_light);
 
 #endif

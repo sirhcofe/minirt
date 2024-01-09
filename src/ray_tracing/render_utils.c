@@ -64,3 +64,16 @@ t_coord    get_cy_normal(t_cy obj, t_coord intsct)
 	else
 		return (intsct);
 }
+
+t_coord	get_normal(t_object *obj, t_coord intsct, t_coord to_light)
+{
+	t_coord	normal;
+
+	if (obj->e_idx == sp)
+		normal = normalize(vect_subt(intsct, obj->obj.sphere.center));
+	else if (obj->e_idx == pl)
+		normal = obj->obj.plane.normal_vector;
+	else
+		normal = get_cy_normal(obj->obj.cylinder, intsct);
+	return (normal);
+}
