@@ -10,9 +10,9 @@ enum e_index
 
 typedef struct s_rgb
 {
-	unsigned char	red;
-	unsigned char	green;
-	unsigned char	blue;
+	double	red;
+	double	green;
+	double	blue;
 }	t_rgb;
 
 typedef struct s_coord
