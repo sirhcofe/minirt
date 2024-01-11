@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jthor <jthor@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 00:40:05 by jthor             #+#    #+#             */
-/*   Updated: 2023/09/18 00:40:07 by jthor            ###   ########.fr       */
+/*   Updated: 2024/01/10 16:52:55 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	void_pixel(t_minirt *rt, t_rgb amb_col, int idx)
 	int	colour;
 
 	// uncomment for render_pixel3
-	// colour = create_colour(0, amb_col.red * 255, amb_col.green * 255, amb_col.blue * 255);
-	colour = create_colour(0, amb_col.red, amb_col.green, amb_col.blue);
+	colour = create_colour(0, amb_col.red * 255, amb_col.green * 255, amb_col.blue * 255);
+	// colour = create_colour(0, amb_col.red, amb_col.green, amb_col.blue);
 	put_pxl(rt, idx % rt->width, idx / rt->width, colour);
 }
