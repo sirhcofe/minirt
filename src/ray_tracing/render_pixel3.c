@@ -124,7 +124,7 @@ t_rgb	specular_component(t_minirt *rt, t_coord reflect_dir, t_coord to_viewer)
 	double	shininess;
 	t_rgb	specular;
 
-	shininess = 5;
+	shininess = 10;
 	spec = pow(fmax(dot_prod(reflect_dir, to_viewer), 0.0), shininess);
 	specular.red = spec * rt->file_data->light.colour.red
 			* rt->file_data->light.ratio;

@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 23:27:01 by jthor             #+#    #+#             */
-/*   Updated: 2023/11/28 18:01:38 by chenlee          ###   ########.fr       */
+/*   Updated: 2024/01/11 20:09:01 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,16 @@ t_coord    get_cy_normal(t_cy obj, t_coord intsct)
 	t_coord	projection;
 	t_coord	subtract_projection;
 
-	if (obj.intsct_type == 1)
+	if (obj.intsct_type == 1) // curved surface
 	{
 		p2p_vector = vect_subt(intsct, obj.center);
-		projection = vect_mult(obj.axis_vector, dot_prod(projection, obj.axis_vector) / pow(vect_magnitude(intsct, obj.center), 2));
+		projection = vect_mult(obj.axis_vector, dot_prod(p2p_vector, obj.axis_vector) / dot_prod(obj.axis_vector, obj.axis_vector));
 		subtract_projection = normalize(vect_subt(p2p_vector, projection));
 		return (subtract_projection);
 	}
-	else if (obj.intsct_type == 2)
+	else if (obj.intsct_type == 2) // top end cap
 		return (obj.axis_vector);
-	else if (obj.intsct_type == 3)
+	else if (obj.intsct_type == 3) // bottom end cap
 		return (vect_mult(obj.axis_vector, -1));
 	else
 		return (intsct);
