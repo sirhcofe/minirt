@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:16:57 by chenlee           #+#    #+#             */
-/*   Updated: 2024/01/11 11:20:28 by chenlee          ###   ########.fr       */
+/*   Updated: 2024/01/14 01:05:26 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	init_data_struct(t_data **f_data)
 	(*f_data)->num_sp = 0;
 	(*f_data)->num_pl = 0;
 	(*f_data)->num_cy = 0;
+	(*f_data)->num_co = 0;
 	(*f_data)->objects = NULL;
 	(*f_data)->ambience.flag = 0;
 	(*f_data)->camera.flag = 0;

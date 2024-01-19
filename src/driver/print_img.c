@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_img.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jthor <jthor@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 20:19:22 by jthor             #+#    #+#             */
-/*   Updated: 2023/11/03 20:19:24 by jthor            ###   ########.fr       */
+/*   Updated: 2024/01/18 14:31:06 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,15 @@ double	get_curr_dist(t_coord r_vect, t_coord ray_ori, void *lst_content)
 	t_object	*node;
 
 	node = (t_object *)lst_content;
+	// printf("INDEX=%d\n", node->e_idx);
 	if (node->e_idx == sp)
 		return (sp_intersection(r_vect, ray_ori, &(node->obj.sphere)));
 	else if (node->e_idx == pl)
 		return (pl_intersection(r_vect, ray_ori, &(node->obj.plane)));
-	else
+	else if (node->e_idx == cy)
 		return (cy_intersection(r_vect, ray_ori, &(node->obj.cylinder)));
+	else
+		return (co_intersection(r_vect, ray_ori, &(node->obj.cone)));
 }
 
 int	get_touchy(t_data *f_data, t_coord r_vect)

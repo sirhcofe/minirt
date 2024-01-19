@@ -5,7 +5,8 @@ enum e_index
 {
 	sp,
 	pl,
-	cy
+	cy,
+	co
 };
 
 typedef struct s_rgb
@@ -48,6 +49,19 @@ typedef struct s_light
 	t_rgb	colour;
 }	t_light;
 
+typedef struct s_co
+{
+	int		flag;
+	t_coord	vertex;
+	t_coord	axis_vector;
+	t_coord	base_center;
+	double	radius;
+	double	height;
+	t_rgb	colour;
+	t_coord	intsct;
+	int		intsct_type;
+}	t_co;
+
 typedef struct s_sp
 {
 	int		flag;
@@ -83,6 +97,7 @@ union u_objects
 	t_sp	sphere;
 	t_pl	plane;
 	t_cy	cylinder;
+	t_co	cone;
 };
 
 typedef struct s_object
@@ -97,6 +112,7 @@ typedef struct s_data
 	int		num_sp;
 	int		num_pl;
 	int		num_cy;
+	int		num_co;
 	t_amb	ambience;
 	t_cam	camera;
 	t_light	light;

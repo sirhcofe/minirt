@@ -3,6 +3,42 @@
 
 #include "objects.h"
 
+/***************************** co_intersection.c ******************************/
+
+/**
+ * @brief Function calculates the intersection of a ray with a cone.
+ * @param ray_vec Direction vector of the ray
+ * @param origin Origin of the ray
+ * @param co The cone object
+ * @return The distance to the closest intersection point. Returns INFINITY if
+ * there is no intersection
+*/
+double co_intersection(t_coord ray_vec, t_coord origin, t_co *co);
+
+/*************************** co_intersection_utils.c **************************/
+
+/**
+ * @brief Function calculates the intersection of a ray with the conical
+ * surface of a cone.
+ * @param dist Pointer to store the distance from the ray origin to the
+ * intersection point.
+ * @param transl Translated origin and direction vector of the ray
+ * @param co The cone object
+ * @return Function does not return
+*/
+void	conical_intsct(double *dist, t_coord transl[2], t_co *co);
+/**
+ * @brief Function calculates the intersection of a ray with the endcap of a
+ * cone.
+ * @param dist Pointer to store the distance from the ray origin to the
+ * intersection point.
+ * @param transl Translated origin and direction vector of the ray
+ * @param co The cone object
+ * @return Function does not return
+*/
+void	co_endcap_intsct(double *dist, t_coord transltd[2], t_co *co);
+
+
 /***************************** cy_intersection.c ******************************/
 
 /**
@@ -34,7 +70,7 @@ double	cy_intersection(t_coord ray_vec, t_coord origin, t_cy *cy);
  * @param cy The cylinder object.
  * @return Function does not return.
 */
-void	endcap_intsct(double *dist, t_coord ray, t_coord ori, t_cy *cy);
+void	cy_endcap_intsct(double *dist, t_coord ray, t_coord ori, t_cy *cy);
 
 /**
  * @brief Function determines the intersection of a ray with the lateral surface

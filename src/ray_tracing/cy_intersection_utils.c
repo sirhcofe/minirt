@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 11:56:30 by chenlee           #+#    #+#             */
-/*   Updated: 2023/11/28 17:57:04 by chenlee          ###   ########.fr       */
+/*   Updated: 2024/01/17 22:53:23 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * @param t The 2 intersection distance for comparison.
  * @return Function returns the smallest non-negative value.
 */
-double	compare_intsct_dist(double t[2])
+double	compare_cy_intsct(double t[2])
 {
 	if (isinf(t[0]) && isinf(t[1]))
 		return (INFINITY);
@@ -59,10 +59,10 @@ double	handle_finite_length(double t[2], t_coord ray, t_coord ori, t_cy *cy)
 		t[0] = INFINITY;
 	if (!(z[1] > -cy->height / 2 && z[1] < cy->height / 2))
 		t[1] = INFINITY;
-	return (compare_intsct_dist(t));
+	return (compare_cy_intsct(t));
 }
 
-void	endcap_intsct(double *dist, t_coord ray, t_coord ori, t_cy *cy)
+void	cy_endcap_intsct(double *dist, t_coord ray, t_coord ori, t_cy *cy)
 {
 	double	distance[2];
 	double	t_top;
@@ -88,7 +88,7 @@ void	endcap_intsct(double *dist, t_coord ray, t_coord ori, t_cy *cy)
 	}
 	else
 		distance[1] = INFINITY;
-	*dist = compare_intsct_dist(distance);
+	*dist = compare_cy_intsct(distance);
 }
 
 void	lat_intsct(double *dist, t_coord ray, t_coord ori, t_cy *cy)
@@ -113,7 +113,7 @@ void	lat_intsct(double *dist, t_coord ray, t_coord ori, t_cy *cy)
 			t[0] = INFINITY;
 		if (!(z[1] > -cy->height / 2 && z[1] < cy->height / 2))
 			t[1] = INFINITY;
-		*dist = compare_intsct_dist(t);
+		*dist = compare_cy_intsct(t);
 	}
 	else
 		*dist = INFINITY;

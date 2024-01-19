@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jthor <jthor@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 20:04:00 by jthor             #+#    #+#             */
-/*   Updated: 2023/09/13 20:04:02 by jthor            ###   ########.fr       */
+/*   Updated: 2024/01/17 00:52:57 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	process_line(t_data *f_data, char *line)
 		flag = add_plane(f_data, split_ret);
 	else if (ft_strncmp(split_ret[0], "cy", 3) == 0)
 		flag = add_cylinder(f_data, split_ret);
+	else if (ft_strncmp(split_ret[0], "co", 3) == 0)
+		flag = add_cone(f_data, split_ret);
 	free_split(split_ret);
 	free(line);
 	if (flag)

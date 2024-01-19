@@ -6,7 +6,7 @@
 #    By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 21:28:59 by chenlee           #+#    #+#              #
-#    Updated: 2024/01/10 16:52:31 by chenlee          ###   ########.fr        #
+#    Updated: 2024/01/19 15:12:52 by chenlee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,10 +40,13 @@ SRC			=	error.c					\
 				vector_utils.c			\
 				pl_intersection.c		\
 				sp_intersection.c		\
-				render_pixel3.c			\
+				render_pixel.c			\
 				render_utils.c			\
+				render_normal_utils.c	\
 				cy_intersection.c		\
 				cy_intersection_utils.c	\
+				co_intersection.c		\
+				co_intersection_utils.c	\
 				set_controls.c			\
 				draw.c					\
 				print_img.c				\
