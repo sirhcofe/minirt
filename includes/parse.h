@@ -6,6 +6,15 @@
 /******************************* add_shapes.c *******************************/
 
 /**
+ * @brief Adds a cone object to the t_data struct
+ * @return Returns an int flag to be used for error detection and management
+ * @retval 2 if the line is not configured properly
+ * @retval 0 if object is added successfully
+ * @param f_data Pointer to the t_data variable
+ * @param arr Double-char-array that specifies a cone object
+*/
+int		add_cone(t_data *f_data, char **arr);
+/**
  * @brief Adds a sphere object to the t_data struct
  * @return Returns an int flag to be used for error detection and management
  * @retval 2 if the line is not configured properly

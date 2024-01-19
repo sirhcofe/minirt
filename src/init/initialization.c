@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:16:57 by chenlee           #+#    #+#             */
-/*   Updated: 2023/11/04 21:03:01 by chenlee          ###   ########.fr       */
+/*   Updated: 2024/01/14 01:05:26 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ t_minirt	*init_mlx_window(void)
 
 	rt = malloc(sizeof(t_minirt));
 	rt->mlx = mlx_init();
-	// rt->width = 160;
-	// rt->height = 60;
-	rt->width = 1280;
-	rt->height = 720;
+	rt->width = 640;
+	rt->height = 480;
+	// rt->width = 1280;
+	// rt->height = 720;
 	rt->mlx_win = mlx_new_window(rt->mlx, rt->width, rt->height, "minirt");
 	rt->img = mlx_new_image(rt->mlx, rt->width, rt->height);
 	rt->addr = mlx_get_data_addr(rt->img, &(rt->bits_per_pixel),
@@ -36,6 +36,7 @@ void	init_data_struct(t_data **f_data)
 	(*f_data)->num_sp = 0;
 	(*f_data)->num_pl = 0;
 	(*f_data)->num_cy = 0;
+	(*f_data)->num_co = 0;
 	(*f_data)->objects = NULL;
 	(*f_data)->ambience.flag = 0;
 	(*f_data)->camera.flag = 0;

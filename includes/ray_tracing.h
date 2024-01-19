@@ -3,6 +3,42 @@
 
 #include "objects.h"
 
+/***************************** co_intersection.c ******************************/
+
+/**
+ * @brief Function calculates the intersection of a ray with a cone.
+ * @param ray_vec Direction vector of the ray
+ * @param origin Origin of the ray
+ * @param co The cone object
+ * @return The distance to the closest intersection point. Returns INFINITY if
+ * there is no intersection
+*/
+double co_intersection(t_coord ray_vec, t_coord origin, t_co *co);
+
+/*************************** co_intersection_utils.c **************************/
+
+/**
+ * @brief Function calculates the intersection of a ray with the conical
+ * surface of a cone.
+ * @param dist Pointer to store the distance from the ray origin to the
+ * intersection point.
+ * @param transl Translated origin and direction vector of the ray
+ * @param co The cone object
+ * @return Function does not return
+*/
+void	conical_intsct(double *dist, t_coord transl[2], t_co *co);
+/**
+ * @brief Function calculates the intersection of a ray with the endcap of a
+ * cone.
+ * @param dist Pointer to store the distance from the ray origin to the
+ * intersection point.
+ * @param transl Translated origin and direction vector of the ray
+ * @param co The cone object
+ * @return Function does not return
+*/
+void	co_endcap_intsct(double *dist, t_coord transltd[2], t_co *co);
+
+
 /***************************** cy_intersection.c ******************************/
 
 /**
@@ -34,7 +70,7 @@ double	cy_intersection(t_coord ray_vec, t_coord origin, t_cy *cy);
  * @param cy The cylinder object.
  * @return Function does not return.
 */
-void	endcap_intsct(double *dist, t_coord ray, t_coord ori, t_cy *cy);
+void	cy_endcap_intsct(double *dist, t_coord ray, t_coord ori, t_cy *cy);
 
 /**
  * @brief Function determines the intersection of a ray with the lateral surface
@@ -95,7 +131,7 @@ void	render_pixel(t_minirt *rt, int index, size_t ctr);
  * @param shade_factor The factor that determines how dark the pixel should be.
  * @return The final colour that is to be rendered on the pixel.
  */
-int	blend(t_object *obj, t_rgb src, double shade_factor);
+int	blend(t_object *obj, t_rgb src, double shadow_factor, double light_factor);
 /**
  * @brief Determines if that particular point is blocked from the light source.
  * @param f_data Pointer to the t_data struct.
@@ -142,28 +178,23 @@ t_coord	get_intsct_point(t_object *node);
 */
 t_rgb	get_colour(t_object *obj);
 /**
- * @brief Compares the dot product of tthe two normalised vectors, to
- * determine if the normal should be flipped or not.
- * @param p2p The vector connecting the center of the cylinder and the
+ * @brief Determines the normal to the surface of the cylinder at the
  * intersection point.
- * @param normal The normal vector to be tested.
- * @return The normal vector, pointing in the right direction.
- */
-t_coord	deduce_normal(t_coord p2p, t_coord normal);
-/**
- * @brief Determines the normal of the surface of the cylinder at the
- * intersection point. The function determines if the intersection point
- * resides at the curved surface or end caps of the cylinder using a
- * derivation of the cross product. If it is on the curved surface, the
- * normal can be the normalised result of the cross product. If it is one the
- * end cap, the normal to the surface could be the axis of the cylinder. The
- * function deduce_normal() has to be used to determine if the determined
- * normal vector is pointing in the right direction or not.
  * @param obj The cylinder object.
  * @param intsct The intersection point on the surface of the cylinder object.
  * @return The normal to the surface of the cylinder that passes through the
  * intersection point.
  */
 t_coord	get_cy_normal(t_cy obj, t_coord intsct);
+/**
+ * @brief Retrieves the normal vector from the surface of the passed object.
+ * @param obj Pointer to the object, determines what kind of object we are
+ * looking at here.
+ * @param intsct The intersection point between the camera ray and the object.
+ * @param to_light The normalised vector connecting the intersection point on
+ * the object to the light source.
+ * @returns The normalised vector representing the surface normal.
+ */
+t_coord	get_normal(t_object *obj, t_coord intsct, t_coord to_light);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 21:28:59 by chenlee           #+#    #+#              #
-#    Updated: 2023/11/04 21:11:20 by chenlee          ###   ########.fr        #
+#    Updated: 2024/01/19 15:12:52 by chenlee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,6 @@ endif
 
 NAME		=	libminirt.a
 FLAGS		=	-fsanitize=address -g3
-OBJS_DIR	=	objects/
-OBJS		=	$(addprefix $(OBJS_DIR), $(notdir $(SRC:.c=.o)))
 
 # source files here #
 SRC			=	error.c					\
@@ -42,16 +40,28 @@ SRC			=	error.c					\
 				vector_utils.c			\
 				pl_intersection.c		\
 				sp_intersection.c		\
+				render_pixel.c			\
+				render_utils.c			\
+				render_normal_utils.c	\
 				cy_intersection.c		\
 				cy_intersection_utils.c	\
+				co_intersection.c		\
+				co_intersection_utils.c	\
 				set_controls.c			\
+				draw.c					\
+				print_img.c				\
+				ft_split_alt.c			\
 				free.c
+
+OBJS_DIR	=	objects/
+OBJS		=	$(addprefix $(OBJS_DIR), $(notdir $(SRC:.c=.o)))
 
 # source directory here #
 SRC_DIR		=	$(LIBX)			\
 				src				\
 				src/init		\
 				src/math		\
+				src/driver		\
 				src/mem_free	\
 				src/ray_tracing	\
 				src/utils		\
@@ -73,9 +83,9 @@ $(OBJS_DIR)%.o:	%.c
 			@echo "Compiling: $<"
 			@gcc $(FLAGS) -I$(LIBX) $(INCLUDES) -c $< -o $@
 
-minirt:		src/main.c $(OBJS)
-			@echo "Compiling: src/main.c"
-			@gcc $(FLAGS) -g3 src/main.c -L. -lminirt -Llibft -lft $(INCLUDES) $(COMPILE) -o minirt
+minirt:		src/main2.c $(OBJS)
+			@echo "Compiling: src/main2.c"
+			@gcc $(FLAGS) -g3 src/main2.c -L. -lminirt -Llibft -lft $(INCLUDES) $(COMPILE) -o minirt
 
 clean:
 			@rm -rf objects resolution
