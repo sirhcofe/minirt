@@ -66,6 +66,15 @@ double	vect_magnitude(t_coord a, t_coord b);
 */
 t_coord	vect_mult(t_coord vector, double value);
 /**
+ * @brief Function performs scalar division on a vector, where each
+ * components of the vector is divided by the specified value.
+ * @param vector The vector for division.
+ * @param value The value to be divided for each component of the vector.
+ * @return Function returns a new vector as the product of the arithmetic
+ * operation.
+*/
+t_coord	vect_div(t_coord vector, double value);
+/**
  * @brief Function performs summation of two (or three) vectors.
  * @param a The first vector.
  * @param b The second vector.

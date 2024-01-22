@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:55:52 by chenlee           #+#    #+#             */
-/*   Updated: 2024/01/19 15:02:08 by chenlee          ###   ########.fr       */
+/*   Updated: 2024/01/22 19:45:44 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,15 @@
  * @param rot_axis The rotation axis
  * @param obj The cone object
 */
-void	back_to_global(t_coord normal_vector, t_coord rot_axis, t_co obj)
+void	back_to_global(t_coord *normal_vector, t_coord rot_axis, double rot_angle, t_coord mid_point)
 {
-	t_coord	z_axis;
+	t_coord	offset;
 	t_coord	tf_normal;
-	double	rot_angle;
 
-	set_coord(&z_axis, 0, 0, 1);
-	rot_angle = acos(dot_prod(obj.axis_vector, z_axis));
-	tf_normal = rotation(&normal_vector, -rot_angle, rot_axis);
-	normal_vector = tf_normal;
+	offset = vect_subt(*normal_vector, mid_point);
+	tf_normal = rotation(&offset, -rot_angle, rot_axis);
+	tf_normal = vect_add(tf_normal, mid_point);
+	normal_vector = &tf_normal;
 }
 
 /**
@@ -38,26 +37,33 @@ void	back_to_global(t_coord normal_vector, t_coord rot_axis, t_co obj)
  * @param intsct The intersection point on the cone object.
  * @param obj The cone object.
 */
-t_coord	align_co_z(t_coord tf[2], t_coord intsct, t_co obj)
+// t_coord	align_co_z(t_coord tf[2], t_coord intsct, t_co obj, double *rot_angle)
+t_coord	*align_co_z(t_co obj, t_coord intsct, t_coord *axis, double *angle)
 {
 	t_coord	z_axis;
-	t_coord	rot_axis;
-	double	rot_angle;
+	t_coord	mid_point;
+	t_coord	offset;
+	t_coord	*tf;
 
 	set_coord(&z_axis, 0, 0, 1);
-	rot_axis = normalize(cross_prod(obj.axis_vector, z_axis));
-	if (is_zero_vector(rot_axis))
+	*axis = normalize(cross_prod(obj.axis_vector, z_axis));
+	tf = malloc(sizeof(t_coord) * 3);
+	if (is_zero_vector(*axis))
 	{
 		tf[0] = intsct;
 		tf[1] = obj.vertex;
 	}
 	else
 	{
-		rot_angle = acos(dot_prod(obj.axis_vector, z_axis));
-		tf[0] = rotation(&intsct, rot_angle, rot_axis);
-		tf[1] = rotation(&obj.vertex, rot_angle, rot_axis);
+		*angle = acos(dot_prod(obj.axis_vector, z_axis));
+		tf[0] = rotation(&intsct, *angle, *axis);
+		mid_point = vect_div(vect_add(obj.base_center, obj.vertex), 2);
+		offset = vect_subt(obj.vertex, mid_point);
+		tf[1] = rotation(&offset, *angle, *axis);
+		tf[1] = vect_add(tf[1], mid_point);
+		tf[2] = mid_point;
 	}
-	return (rot_axis);
+	return (tf);
 }
 
 // FOR getting cone/cylinder normal
@@ -68,24 +74,30 @@ t_coord	align_co_z(t_coord tf[2], t_coord intsct, t_co obj)
 t_coord	get_co_normal(t_co obj, t_coord intsct)
 {
 	double	slant_height;
-	t_coord	rotation_axis;
-	t_coord	radial_vector;
-	t_coord	normal_vector;
-	t_coord	transformed[2];
+	double	rot_angle;
+	t_coord	rot_axis;
+	t_coord	*tf_intsct_vert_mid;
+	t_coord	rad_norm_vect[2];
 
 	if (obj.intsct_type == 1) // curved surface
 	{
-		rotation_axis = align_co_z(transformed, intsct, obj);
+		tf_intsct_vert_mid = align_co_z(obj, intsct, &rot_axis, &rot_angle);
 		slant_height = sqrt(pow(obj.height, 2) + pow(obj.radius, 2));
-		radial_vector.x = transformed[0].x - transformed[1].x;
-		radial_vector.y = transformed[0].y - transformed[1].y;
-		radial_vector.z = 0;
-		normal_vector.x = radial_vector.x * (obj.height / slant_height);
-		normal_vector.y = radial_vector.y * (obj.height / slant_height);
-		normal_vector.z = -obj.radius * (obj.height / slant_height);
-		if (!is_zero_vector(rotation_axis))
-			back_to_global(normal_vector, rotation_axis, obj);
-		return (normalize(normal_vector));
+		rad_norm_vect[0].x = tf_intsct_vert_mid[0].x - tf_intsct_vert_mid[1].x;
+		rad_norm_vect[0].y = tf_intsct_vert_mid[0].y - tf_intsct_vert_mid[1].y;
+		rad_norm_vect[1].x = rad_norm_vect[0].x * (obj.height / slant_height);
+		rad_norm_vect[1].y = rad_norm_vect[0].y * (obj.height / slant_height);
+		rad_norm_vect[1].z = -sqrt(pow(rad_norm_vect[0].x, 2)
+									+ pow(rad_norm_vect[0].y, 2))
+							* (obj.radius / obj.height);
+		if (!is_zero_vector(rot_axis))
+			back_to_global(&rad_norm_vect[1], rot_axis, rot_angle,
+								tf_intsct_vert_mid[2]);
+		free(tf_intsct_vert_mid);
+		rad_norm_vect[1] = normalize(rad_norm_vect[1]);
+		printf("normal %f %f %f\n", rad_norm_vect[1].x, rad_norm_vect[1].y, rad_norm_vect[1].z);
+		// return (normalize(rad_norm_vect[1]));
+		return (rad_norm_vect[1]);
 	}
 	else // end cap
 		return (obj.axis_vector);
@@ -102,7 +114,9 @@ t_coord    get_cy_normal(t_cy obj, t_coord intsct)
 	if (obj.intsct_type == 1)
 	{
 		p2p_vector = vect_subt(intsct, obj.center);
-		projection = vect_mult(obj.axis_vector, dot_prod(p2p_vector, obj.axis_vector) / dot_prod(obj.axis_vector, obj.axis_vector));
+		projection = vect_mult(obj.axis_vector,
+									dot_prod(p2p_vector, obj.axis_vector)
+							/ dot_prod(obj.axis_vector, obj.axis_vector));
 		subtract_projection = normalize(vect_subt(p2p_vector, projection));
 		return (subtract_projection);
 	}

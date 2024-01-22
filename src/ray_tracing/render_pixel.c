@@ -238,6 +238,7 @@ void	render_pixel(t_minirt *rt, int index, size_t ctr)
 	calc_vect(rt, obj, vectors, intersect_pt);
 	if (ft_inshadow(rt->file_data, intersect_pt, index, vectors[to_light])) // there is an object in the way
 	{
+		printf("IN SHADOW\n");
 		final.red = obj_color.red * rt->file_data->ambience.colour.red
 				* rt->file_data->ambience.ratio;
 		final.green = obj_color.green * rt->file_data->ambience.colour.green
@@ -247,7 +248,6 @@ void	render_pixel(t_minirt *rt, int index, size_t ctr)
 	}
 	else
 		final = phong(rt, obj, obj_color, vectors);
-	// blend
 	double	pxl_col = create_colour(0, final.red * 255, final.green * 255, final.blue * 255);
 	put_pxl(rt, ctr % rt->width, ctr / rt->width, pxl_col);
 }

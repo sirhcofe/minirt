@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 20:02:57 by jthor             #+#    #+#             */
-/*   Updated: 2024/01/18 11:34:39 by chenlee          ###   ########.fr       */
+/*   Updated: 2024/01/22 14:17:08 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,13 @@ int	add_cone(t_data *f_data, char **arr)
 	assign_vector(&(n_co.flag), &(n_co.axis_vector), arr[2]);
 	n_co.radius = ft_atod(arr[3]) / 2;
 	n_co.height = ft_atod(arr[4]);
-	n_co.base_center = vect_add(n_co.vertex, n_co.axis_vector);
+	n_co.base_center = vect_add(n_co.vertex,
+			vect_mult(n_co.axis_vector, n_co.height));
 	set_coord(&n_co.intsct, 0.0, 0.0, 0.0);
 	n_co.intsct_type = 0;
 	assign_rgb(&(n_co.flag), &(n_co.colour), arr[5]);
-	n_co.base_center = vect_add(n_co.vertex, n_co.axis_vector);
 	if (n_co.flag == -1)
 		return (2);
-	// n_co.intsct = ft_calloc(sizeof(t_coord), 1);
 	node = malloc(sizeof(t_object));
 	node->e_idx = co;
 	node->obj.cone = n_co;

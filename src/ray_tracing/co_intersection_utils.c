@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 01:37:56 by chenlee           #+#    #+#             */
-/*   Updated: 2024/01/19 15:12:31 by chenlee          ###   ########.fr       */
+/*   Updated: 2024/01/22 14:21:41 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,12 @@ void	conical_intsct(double *dist, t_coord transl[2], t_co *co)
 	double	r_div_h;
 
 	r_div_h = pow(co->radius / co->height, 2);
+	// coef[0] = pow(transl[vec].x, 2) + pow(transl[vec].y, 2)
+	// 			- pow(transl[vec].z, 2) * r_div_h;
+	// coef[1] = 2 * (transl[vec].x * transl[ori].x + transl[vec].y * transl[ori].y
+	// 				- transl[vec].z * transl[ori].z * r_div_h);
+	// coef[2] = pow(transl[ori].x, 2) + pow(transl[ori].y, 2)
+	// 			- pow(transl[ori].z, 2) * r_div_h;
 	coef[0] = pow(transl[vec].x, 2) + pow(transl[vec].y, 2)
 				- pow(transl[vec].z, 2) * r_div_h;
 	coef[1] = 2 * (transl[vec].x * transl[ori].x + transl[vec].y * transl[ori].y
