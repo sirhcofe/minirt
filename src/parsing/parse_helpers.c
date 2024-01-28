@@ -41,7 +41,6 @@ void	assign_rgb(int *flag, t_rgb *obj, char *str)
 	if (!(ft_inrange(obj->red, 0, 255) && ft_inrange(obj->green, 0, 255)
 			&& ft_inrange(obj->blue, 0, 255)))
 		*flag = -1;
-	// uncomment if you are using render_pixel3
 	obj->red = obj->red / 255;
 	obj->green = obj->green / 255;
 	obj->blue = obj->blue / 255;

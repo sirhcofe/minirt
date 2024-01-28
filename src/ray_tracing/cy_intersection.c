@@ -12,11 +12,6 @@
 
 #include "minirt.h"
 
-enum {
-	ori = 0,
-	vec = 1
-};
-
 /**
  * @brief Function calculates both situation of a cylinder intersection: on its
  * lateral surface, and on its end-caps. The smallest non-negative nor infinity

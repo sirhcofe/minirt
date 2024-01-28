@@ -182,10 +182,11 @@ t_rgb	get_colour(t_object *obj);
  * intersection point.
  * @param obj The cylinder object.
  * @param intsct The intersection point on the surface of the cylinder object.
+ * @param axis_vect The cylinder's axis, as a normalised vector.
  * @return The normal to the surface of the cylinder that passes through the
  * intersection point.
  */
-t_coord	get_cy_normal(t_cy obj, t_coord intsct);
+t_coord	get_cy_normal(t_cy obj, t_coord intsct, t_coord axis_vect);
 /**
  * @brief Retrieves the normal vector from the surface of the passed object.
  * @param obj Pointer to the object, determines what kind of object we are

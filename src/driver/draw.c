@@ -29,8 +29,5 @@ void	void_pixel(t_minirt *rt, int idx)
 {
 	int	colour;
 
-	// uncomment for render_pixel3
-	// colour = create_colour(0, 0, 0, 0);
-	// colour = create_colour(0, amb_col.red, amb_col.green, amb_col.blue);
 	put_pxl(rt, idx % rt->width, idx / rt->width, 0);
 }

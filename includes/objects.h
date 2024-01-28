@@ -9,6 +9,20 @@ enum e_index
 	co
 };
 
+enum e_arr_idx
+{
+	ori = 0,
+	vec = 1
+};
+
+enum e_rt_rays
+{
+	to_light = 0,
+	to_viewer = 1,
+	normal = 2,
+	reflect_dir = 3,
+};
+
 typedef struct s_rgb
 {
 	double	red;

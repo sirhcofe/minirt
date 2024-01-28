@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include <unistd.h>
 
 int	key_press(int key, t_minirt *rt)
 {

@@ -50,7 +50,6 @@ double	get_curr_dist(t_coord r_vect, t_coord ray_ori, void *lst_content)
 	t_object	*node;
 
 	node = (t_object *)lst_content;
-	// printf("INDEX=%d\n", node->e_idx);
 	if (node->e_idx == sp)
 		return (sp_intersection(r_vect, ray_ori, &(node->obj.sphere)));
 	else if (node->e_idx == pl)
@@ -79,7 +78,7 @@ int	get_touchy(t_data *f_data, t_coord r_vect)
 		if (curr_dist < closest_dist)
 		{
 			ret = curr;
-			closest_dist = curr_dist;	
+			closest_dist = curr_dist;
 		}
 		curr++;
 		lst = lst->next;

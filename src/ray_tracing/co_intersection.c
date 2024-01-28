@@ -12,11 +12,6 @@
 
 #include "minirt.h"
 
-enum {
-	ori = 0,
-	vec = 1
-};
-
 /**
  * Function calculates the closest intersection distance of a ray with a cone,
  * considering both the conical surface and the endcap
@@ -71,7 +66,7 @@ void	to_co_space(t_coord translatd[2], t_coord ray, t_coord origin, t_co *co)
 	}
 }
 
-double co_intersection(t_coord ray_vec, t_coord origin, t_co *co)
+double	co_intersection(t_coord ray_vec, t_coord origin, t_co *co)
 {
 	t_coord	transltd[2];
 	double	dist;
