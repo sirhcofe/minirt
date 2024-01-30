@@ -6,65 +6,11 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:55:52 by chenlee           #+#    #+#             */
-/*   Updated: 2024/01/30 17:58:02 by chenlee          ###   ########.fr       */
+/*   Updated: 2024/01/30 19:05:02 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-/**
- * Function rotates the calculated normal vector back to the original
- * orientation of the cone.
- * @param normal_vector The calculated normal vector
- * @param rot_axis The rotation axis
- * @param obj The cone object
-*/
-void	back_to_global(t_coord *normal_vector, t_coord rot_axis, double rot_angle, t_coord mid_point)
-{
-	t_coord	offset;
-	t_coord	tf_normal;
-
-	offset = vect_subt(*normal_vector, mid_point);
-	tf_normal = rotation(&offset, -rot_angle, rot_axis);
-	tf_normal = vect_add(tf_normal, mid_point);
-	normal_vector = &tf_normal;
-}
-
-/**
- * Function aligns the cone with the Z-axis to simplify the normal calculations.
- * @param tf The transformed vector, whereby [0]: transformed intersection
- * point; [1]: transformed cone vertex coordinates
- * @param intsct The intersection point on the cone object.
- * @param obj The cone object.
-*/
-// t_coord	align_co_z(t_coord tf[2], t_coord intsct, t_co obj, double *rot_angle)
-t_coord	*align_co_z(t_co obj, t_coord intsct, t_coord *axis, double *angle)
-{
-	t_coord	z_axis;
-	t_coord	mid_point;
-	t_coord	offset;
-	t_coord	*tf;
-
-	set_coord(&z_axis, 0, 0, 1);
-	*axis = normalize(cross_prod(obj.axis_vector, z_axis));
-	tf = malloc(sizeof(t_coord) * 3);
-	if (is_zero_vector(*axis))
-	{
-		tf[0] = intsct;
-		tf[1] = obj.vertex;
-	}
-	else
-	{
-		*angle = acos(dot_prod(obj.axis_vector, z_axis));
-		tf[0] = rotation(&intsct, *angle, *axis);
-		mid_point = vect_div(vect_add(obj.base_center, obj.vertex), 2);
-		offset = vect_subt(obj.vertex, mid_point);
-		tf[1] = rotation(&offset, *angle, *axis);
-		tf[1] = vect_add(tf[1], mid_point);
-		tf[2] = mid_point;
-	}
-	return (tf);
-}
 
 // FOR getting cone/cylinder normal
 // intsct_type == 1: curved surface
@@ -73,29 +19,23 @@ t_coord	*align_co_z(t_co obj, t_coord intsct, t_coord *axis, double *angle)
 
 t_coord	get_co_normal(t_co obj, t_coord intsct)
 {
-	double	slant_height;
-	double	rot_angle;
-	t_coord	rot_axis;
-	t_coord	*tf_intsct_vert_mid;
-	t_coord	rad_norm_vect[2];
+	double	slant_height_angle[2];
+	double	dist_vert_to_intsct;
+	double	dist_axis_perp_intsct;
+	t_coord	point_on_axis;
+	t_coord	normal;
 
 	if (obj.intsct_type == 1) // curved surface
 	{
-		tf_intsct_vert_mid = align_co_z(obj, intsct, &rot_axis, &rot_angle);
-		slant_height = sqrt(pow(obj.height, 2) + pow(obj.radius, 2));
-		rad_norm_vect[0].x = tf_intsct_vert_mid[0].x - tf_intsct_vert_mid[1].x;
-		rad_norm_vect[0].y = tf_intsct_vert_mid[0].y - tf_intsct_vert_mid[1].y;
-		rad_norm_vect[1].x = rad_norm_vect[0].x * (obj.height / slant_height);
-		rad_norm_vect[1].y = rad_norm_vect[0].y * (obj.height / slant_height);
-		rad_norm_vect[1].z = -sqrt(pow(rad_norm_vect[0].x, 2)
-									+ pow(rad_norm_vect[0].y, 2))
-							* (obj.radius / obj.height);
-		if (!is_zero_vector(rot_axis))
-			back_to_global(&rad_norm_vect[1], rot_axis, rot_angle,
-								tf_intsct_vert_mid[2]);
-		free(tf_intsct_vert_mid);
-		rad_norm_vect[1] = normalize(rad_norm_vect[1]);
-		return (rad_norm_vect[1]);
+		slant_height_angle[0] = sqrt(pow(obj.radius, 2) + pow(obj.height, 2));
+		slant_height_angle[1] = atan(obj.radius / obj.height);
+		dist_vert_to_intsct = vect_magnitude(obj.intsct, obj.vertex);
+		dist_axis_perp_intsct = dist_vert_to_intsct
+									/ cos(slant_height_angle[1]);
+		point_on_axis = vect_add(obj.vertex,
+							vect_mult(obj.axis_vector, dist_axis_perp_intsct));
+		normal = normalize(vect_subt(intsct, point_on_axis));
+		return (normal);
 	}
 	else // end cap
 		return (obj.axis_vector);

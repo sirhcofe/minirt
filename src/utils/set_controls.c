@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 00:06:02 by chenlee           #+#    #+#             */
-/*   Updated: 2023/09/08 16:23:03 by chenlee          ###   ########.fr       */
+/*   Updated: 2024/01/30 18:06:07 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,10 @@ int	key_press(int key, t_minirt *rt)
 
 int handle_resize(int width, int height, void *param)
 {
-	write(2, "bruh\n", 5);
 	t_minirt	*rt;
 
-	rt = (t_minirt *)param;
-
+	rt = (t_minirt *)(param);
+	printf("width:%d, height=%d\n", rt->width, rt->height);
 	// mlx_destroy_window(rt->mlx, rt->mlx_win);
     // Update image buffer size and redraw graphics
     // ...
@@ -49,9 +48,14 @@ int	close_program(t_minirt *rt)
 	exit(0);
 }
 
+int	xd(t_minirt *rt)
+{
+	printf("WHAT\n");
+}
+
 void	set_controls(t_minirt *rt)
 {
 	mlx_key_hook(rt->mlx_win, key_press, rt);
-	// mlx_hook(rt->mlx_win, 22, 1L<<17, handle_resize, rt);
+	mlx_hook(rt->mlx_win, 22, 1L<<17, handle_resize, &rt);
 	mlx_hook(rt->mlx_win, 17, 0, close_program, rt);
 }
