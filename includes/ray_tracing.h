@@ -150,14 +150,6 @@ int		ft_inshadow(t_data *f_dat, t_coord intsct_pt, int idx, t_coord to_lgt);
 /****************************** render_utils.c ******************************/
 
 /**
- * @brief Scrolls through the object linked list and returns the object that
- * is referenced by the index.
- * @return A pointer to the t_object struct.
- * @param obj_lst The object linked list, holding every object.
- * @param index The index of the object in the list to be returned.
-*/
-t_object	*get_object(t_list *obj_lst, int index);
-/**
  * @brief Takes the intersect point between the object and incident ray.
  * @return The coordinates of the intersection point.
  * @param node The pointer to the t_object struct.

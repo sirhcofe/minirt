@@ -31,6 +31,15 @@
 # include "ray_tracing.h"
 # include "utils.h"
 
-void	set_controls(t_minirt *rt);
+void		set_controls(t_minirt *rt);
+
+/**
+ * @brief Scrolls through the object linked list and returns the object that
+ * is referenced by the index.
+ * @return A pointer to the t_object struct.
+ * @param obj_lst The object linked list, holding every object.
+ * @param index The index of the object in the list to be returned.
+*/
+t_object	*get_object(t_list *obj_lst, int index);
 
 #endif
