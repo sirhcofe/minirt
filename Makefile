@@ -39,6 +39,7 @@ SRC			=	error.c					\
 				vector_arithmetic.c		\
 				vector_utils.c			\
 				pl_intersection.c		\
+				phong.c					\
 				sp_intersection.c		\
 				render_pixel.c			\
 				render_utils.c			\

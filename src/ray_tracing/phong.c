@@ -12,6 +12,16 @@
 
 #include "minirt.h"
 
+double	clamp(double color, double min, double max)
+{
+	if (color < min)
+		return (min);
+	else if (color > max)
+		return (max);
+	else
+		return (color);
+}
+
 // 2-10 for matte sueface; 10-200 for moderate shiny;
 // 1000+ for polished metal/mirror
 t_rgb	specular_comp(t_minirt *rt, t_coord reflect_dir, t_coord to_viewer)
