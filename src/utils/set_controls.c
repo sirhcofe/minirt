@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 00:06:02 by chenlee           #+#    #+#             */
-/*   Updated: 2024/01/30 19:16:28 by chenlee          ###   ########.fr       */
+/*   Updated: 2024/01/30 19:29:42 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	key_press(int key, t_minirt *rt)
 {
-	if (key == 53 || key == 65307)
+	printf("key %d\n", key);
+	if ((!IS_LINUX && key == 53) || (IS_LINUX && key == 65307))
 	{
 		free_data(rt);
 		exit(0);
