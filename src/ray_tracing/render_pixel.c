@@ -12,16 +12,6 @@
 
 #include "minirt.h"
 
-double	clamp(double color, double min, double max)
-{
-	if (color < min)
-		return (min);
-	else if (color > max)
-		return (max);
-	else
-		return (color);
-}
-
 /**
  * Calculates the reflection vector given an incident vector and a normal vector
  * at the point of reflection.
