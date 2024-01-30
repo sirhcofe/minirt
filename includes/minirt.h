@@ -30,6 +30,7 @@
 # include "parse.h"
 # include "ray_tracing.h"
 # include "utils.h"
+# include "keys.h"
 
 void		set_controls(t_minirt *rt);
 
