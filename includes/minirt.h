@@ -3,15 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jthor <jthor@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:10:15 by jthor             #+#    #+#             */
-/*   Updated: 2024/01/30 17:10:17 by jthor            ###   ########.fr       */
+/*   Updated: 2024/01/30 19:29:23 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
+
+# if OS == 1
+	# define IS_LINUX 1
+# else
+	# define IS_LINUX 0
+# endif
 
 # define BUFFER_SIZE 50
 # define MAX_INT 2147483647

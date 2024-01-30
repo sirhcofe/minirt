@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 16:32:52 by chenlee           #+#    #+#             */
-/*   Updated: 2023/11/03 16:46:07 by chenlee          ###   ########.fr       */
+/*   Updated: 2024/01/22 16:46:26 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,21 @@ t_coord	vect_mult(t_coord vector, double value)
 		ret.z = 0;
 	ret.w = vector.w;
 	return (ret);
+}
+
+t_coord	vect_div(t_coord vector, double value)
+{
+	t_coord	ret;
+
+	if (approx(value, 0.0))
+		return (vector);
+	else
+	{
+		ret.x = vector.x / value;
+		ret.y = vector.y / value;
+		ret.z = vector.z / value;
+		return (ret);
+	}
 }
 
 t_coord	vect_add(t_coord a, t_coord b)
