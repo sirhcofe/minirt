@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:55:52 by chenlee           #+#    #+#             */
-/*   Updated: 2024/01/22 19:45:44 by chenlee          ###   ########.fr       */
+/*   Updated: 2024/01/30 17:58:02 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,6 @@ t_coord	get_co_normal(t_co obj, t_coord intsct)
 								tf_intsct_vert_mid[2]);
 		free(tf_intsct_vert_mid);
 		rad_norm_vect[1] = normalize(rad_norm_vect[1]);
-		printf("normal %f %f %f\n", rad_norm_vect[1].x, rad_norm_vect[1].y, rad_norm_vect[1].z);
-		// return (normalize(rad_norm_vect[1]));
 		return (rad_norm_vect[1]);
 	}
 	else // end cap
