@@ -1,7 +1,19 @@
-#ifndef INIT_H
-#define INIT_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jthor <jthor@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/30 17:07:29 by jthor             #+#    #+#             */
+/*   Updated: 2024/01/30 17:07:31 by jthor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "objects.h"
+#ifndef INIT_H
+# define INIT_H
+
+# include "objects.h"
 
 /***************************** initialization.c *****************************/
 
@@ -18,6 +30,6 @@ t_minirt	*init_mlx_window(void);
  * @return Function does not return
  * @param f_data Double pointer to the t_data variable
 */
-void	init_data_struct(t_data **f_data);
+void		init_data_struct(t_data **f_data);
 
 #endif

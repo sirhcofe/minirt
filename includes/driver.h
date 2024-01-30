@@ -1,7 +1,19 @@
-#ifndef DRIVER_H
-#define DRIVER_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   driver.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jthor <jthor@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/30 17:06:42 by jthor             #+#    #+#             */
+/*   Updated: 2024/01/30 17:06:44 by jthor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "objects.h"
+#ifndef DRIVER_H
+# define DRIVER_H
+
+# include "objects.h"
 
 /******************************** print_img.c ********************************/
 
@@ -26,7 +38,7 @@ void	empty_protocol(t_minirt *rt);
  * @param ray_vector The directional vector of the ray that originates from
  * the camera.
  */
-int	get_touchy(t_data *f_data, t_coord ray_vector);
+int		get_touchy(t_data *f_data, t_coord ray_vector);
 /**
  * @brief Determines which function to call based on the object specifier
  * in the union.
@@ -60,7 +72,7 @@ t_coord	get_ray_vector(t_minirt *rt, t_cam cam, size_t ctr);
  * @param g green concentration
  * @param b blue concentration
 */
-int	create_colour(int t, int r, int g, int b);
+int		create_colour(int t, int r, int g, int b);
 /**
  * @brief Function that replaces mlx_pixel_put cause its dong.
  * @return Function does not return.
