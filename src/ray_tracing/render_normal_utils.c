@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:55:52 by chenlee           #+#    #+#             */
-/*   Updated: 2024/01/30 19:05:02 by chenlee          ###   ########.fr       */
+/*   Updated: 2024/01/30 19:15:37 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_coord	get_co_normal(t_co obj, t_coord intsct)
 	t_coord	point_on_axis;
 	t_coord	normal;
 
-	if (obj.intsct_type == 1) // curved surface
+	if (obj.intsct_type == 1)
 	{
 		slant_height_angle[0] = sqrt(pow(obj.radius, 2) + pow(obj.height, 2));
 		slant_height_angle[1] = atan(obj.radius / obj.height);
@@ -37,11 +37,11 @@ t_coord	get_co_normal(t_co obj, t_coord intsct)
 		normal = normalize(vect_subt(intsct, point_on_axis));
 		return (normal);
 	}
-	else // end cap
+	else
 		return (obj.axis_vector);
 }
 
-t_coord    get_cy_normal(t_cy obj, t_coord intsct)
+t_coord	get_cy_normal(t_cy obj, t_coord intsct, t_coord axis_v)
 {
 	double	dist;
 	t_coord	cross_res;
@@ -52,16 +52,15 @@ t_coord    get_cy_normal(t_cy obj, t_coord intsct)
 	if (obj.intsct_type == 1)
 	{
 		p2p_vector = vect_subt(intsct, obj.center);
-		projection = vect_mult(obj.axis_vector,
-									dot_prod(p2p_vector, obj.axis_vector)
-							/ dot_prod(obj.axis_vector, obj.axis_vector));
+		projection = vect_mult(axis_v,
+				dot_prod(p2p_vector, axis_v) / dot_prod(axis_v, axis_v));
 		subtract_projection = normalize(vect_subt(p2p_vector, projection));
 		return (subtract_projection);
 	}
 	else if (obj.intsct_type == 2)
-		return (obj.axis_vector);
+		return (axis_v);
 	else if (obj.intsct_type == 3)
-		return (vect_mult(obj.axis_vector, -1));
+		return (vect_mult(axis_v, -1));
 	else
 		return (intsct);
 }
@@ -75,7 +74,8 @@ t_coord	get_normal(t_object *obj, t_coord intsct, t_coord to_light)
 	else if (obj->e_idx == pl)
 		normal = obj->obj.plane.normal_vector;
 	else if (obj->e_idx == cy)
-		normal = get_cy_normal(obj->obj.cylinder, intsct);
+		normal = get_cy_normal(obj->obj.cylinder, intsct,
+				obj->obj.cylinder.axis_vector);
 	else
 		normal = get_co_normal(obj->obj.cone, intsct);
 	return (normal);

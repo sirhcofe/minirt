@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   objects.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jthor <jthor@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/30 17:10:36 by jthor             #+#    #+#             */
+/*   Updated: 2024/01/30 17:10:39 by jthor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef OBJECTS_H
 # define OBJECTS_H
 
@@ -7,6 +19,20 @@ enum e_index
 	pl,
 	cy,
 	co
+};
+
+enum e_arr_idx
+{
+	ori = 0,
+	vec = 1
+};
+
+enum e_rt_rays
+{
+	to_light = 0,
+	to_viewer = 1,
+	normal = 2,
+	reflect_dir = 3,
 };
 
 typedef struct s_rgb
@@ -105,7 +131,6 @@ typedef struct s_object
 	char			e_idx;
 	union u_objects	obj;
 }	t_object;
-
 
 typedef struct s_data
 {

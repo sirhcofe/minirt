@@ -12,11 +12,6 @@
 
 #include "minirt.h"
 
-enum {
-	ori = 0,
-	vec = 1
-};
-
 void	co_endcap_intsct(double *dist, t_coord transltd[2], t_co *co)
 {
 	double	distance;
@@ -86,10 +81,10 @@ void	solve_quadratic(double *dist, double coe[3], t_coord trnsl[2], t_co *co)
 		z[0] = trnsl[ori].z + t[0] * trnsl[vec].z;
 		z[1] = trnsl[ori].z + t[1] * trnsl[vec].z;
 		if ((z_positive && (z[0] < 0 || z[0] > co->height))
-				|| (!z_positive && (z[0] > 0 || z[0] < -co->height)))
+			|| (!z_positive && (z[0] > 0 || z[0] < -co->height)))
 			t[0] = INFINITY;
 		if ((z_positive && (z[1] < 0 || z[1] > co->height))
-				|| (!z_positive && (z[1] > 0 || z[1] < -co->height)))
+			|| (!z_positive && (z[1] > 0 || z[1] < -co->height)))
 			t[1] = INFINITY;
 		*dist = compare_co_intsct(t);
 	}
@@ -110,10 +105,10 @@ void	conical_intsct(double *dist, t_coord transl[2], t_co *co)
 	// coef[2] = pow(transl[ori].x, 2) + pow(transl[ori].y, 2)
 	// 			- pow(transl[ori].z, 2) * r_div_h;
 	coef[0] = pow(transl[vec].x, 2) + pow(transl[vec].y, 2)
-				- pow(transl[vec].z, 2) * r_div_h;
+		- pow(transl[vec].z, 2) * r_div_h;
 	coef[1] = 2 * (transl[vec].x * transl[ori].x + transl[vec].y * transl[ori].y
-					- transl[vec].z * transl[ori].z * r_div_h);
+			- transl[vec].z * transl[ori].z * r_div_h);
 	coef[2] = pow(transl[ori].x, 2) + pow(transl[ori].y, 2)
-				- pow(transl[ori].z, 2) * r_div_h;
+		- pow(transl[ori].z, 2) * r_div_h;
 	solve_quadratic(dist, coef, transl, co);
 }

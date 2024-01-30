@@ -27,14 +27,6 @@ void	free_obj_list(void *node)
 	t_object	*t_node;
 
 	t_node = (t_object *)node;
-	// if (t_node->e_idx == pl)
-	// 	free(t_node->obj.plane.intsct);
-	// else if (t_node->e_idx == sp)
-	// 	free(t_node->obj.sphere.intsct);
-	// else if (t_node->e_idx == cy)
-	// 	free(t_node->obj.cylinder.intsct);
-	// else
-	// 	write(2, "Unexpected error at free_fdata()\n", 52);
 	free(node);
 }
 

@@ -1,7 +1,19 @@
-#ifndef MEM_FREE_H
-#define MEM_FREE_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mem_free.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jthor <jthor@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/30 17:08:47 by jthor             #+#    #+#             */
+/*   Updated: 2024/01/30 17:08:49 by jthor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "objects.h"
+#ifndef MEM_FREE_H
+# define MEM_FREE_H
+
+# include "objects.h"
 
 /********************************** free.c **********************************/
 
@@ -17,12 +29,12 @@ void	free_obj_list(void *node);
  * @return Function does not return.
  * @param rt Pointer to the t_minirt struct that holds everything.
  */
-void free_data(t_minirt *rt);
+void	free_data(t_minirt *rt);
 /**
  * @brief Function frees char double-array memory.
  * @return Function does not return.
  * @param head Double-char-array to be freed.
  */
-void free_split(char **head);
+void	free_split(char **head);
 
 #endif

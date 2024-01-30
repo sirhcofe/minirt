@@ -1,7 +1,19 @@
-#ifndef RAY_TRACING_H
-#define RAY_TRACING_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ray_tracing.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jthor <jthor@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/30 17:52:43 by jthor             #+#    #+#             */
+/*   Updated: 2024/01/30 17:52:45 by jthor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "objects.h"
+#ifndef RAY_TRACING_H
+# define RAY_TRACING_H
+
+# include "objects.h"
 
 /***************************** co_intersection.c ******************************/
 
@@ -13,7 +25,7 @@
  * @return The distance to the closest intersection point. Returns INFINITY if
  * there is no intersection
 */
-double co_intersection(t_coord ray_vec, t_coord origin, t_co *co);
+double	co_intersection(t_coord ray_vec, t_coord origin, t_co *co);
 
 /*************************** co_intersection_utils.c **************************/
 
@@ -37,7 +49,6 @@ void	conical_intsct(double *dist, t_coord transl[2], t_co *co);
  * @return Function does not return
 */
 void	co_endcap_intsct(double *dist, t_coord transltd[2], t_co *co);
-
 
 /***************************** cy_intersection.c ******************************/
 
@@ -99,7 +110,7 @@ void	lat_intsct(double *dist, t_coord ray, t_coord ori, t_cy *cy);
 */
 double	sp_intersection(t_coord ray_vec, t_coord origin, t_sp *sp);
 
-/******************************* pl_intersection.c *******************************/
+/**************************** pl_intersection.c ****************************/
 
 /**
  * @brief Determines if the ray_vector intersects with the plane and calculates
@@ -124,47 +135,20 @@ double	pl_intersection(t_coord ray_vector, t_coord ray_ori, t_pl *pl);
  */
 void	render_pixel(t_minirt *rt, int index, size_t ctr);
 /**
- * @brief Blends the colour from the object and the appropriate source, and
- * considers the shade factor of the point.
- * @param obj Pointer to the object whose surface we are trying to colour.
- * @param src The RGB elements of etither the light source or ambient lighting.
- * @param shade_factor The factor that determines how dark the pixel should be.
- * @return The final colour that is to be rendered on the pixel.
- */
-int	blend(t_object *obj, t_rgb src, double shadow_factor, double light_factor);
-/**
  * @brief Determines if that particular point is blocked from the light source.
- * @param f_data Pointer to the t_data struct.
+ * @param f_dat Pointer to the t_data struct.
  * @param intsct_pt The point whose shadow factor is to be determined.
- * @param index The index of the curremt object in the linked list.
- * @param to_light The vector from the intersection point to the light source.
+ * @param idx The index of the curremt object in the linked list.
+ * @param to_lgt The vector from the intersection point to the light source.
  * @return Boolean int that tells us if the particular point is under the
  * shadow or not.
  * @retval 0 - The object is not in shadow.
  * @retval 1 - The object is in shadow.
  */
-int	ft_inshadow(t_data *f_data, t_coord intsct_pt, int index, t_coord to_light);
-/**
- * @brief Uses a simplification of Lambert's Cosine Law to calculate how dark
- * that particular intersection point will be.
- * @return The factor of how bright the point will be, in the range of [0, 1]
- * @param obj Pointer to the t_object struct, to find the normal to its surface
- * @param intsct The intersection point on the object's surface.
- * @param to_light The normalised directional vector between the intersect
- * point and the light source.
-*/
-double	calc_shade_factor(t_object *obj, t_coord intsct, t_coord to_light);
+int		ft_inshadow(t_data *f_dat, t_coord intsct_pt, int idx, t_coord to_lgt);
 
 /****************************** render_utils.c ******************************/
 
-/**
- * @brief Scrolls through the object linked list and returns the object that
- * is referenced by the index.
- * @return A pointer to the t_object struct.
- * @param obj_lst The object linked list, holding every object.
- * @param index The index of the object in the list to be returned.
-*/
-t_object	*get_object(t_list *obj_lst, int index);
 /**
  * @brief Takes the intersect point between the object and incident ray.
  * @return The coordinates of the intersection point.
@@ -182,10 +166,11 @@ t_rgb	get_colour(t_object *obj);
  * intersection point.
  * @param obj The cylinder object.
  * @param intsct The intersection point on the surface of the cylinder object.
+ * @param axis_vect The cylinder's axis, as a normalised vector.
  * @return The normal to the surface of the cylinder that passes through the
  * intersection point.
  */
-t_coord	get_cy_normal(t_cy obj, t_coord intsct);
+t_coord	get_cy_normal(t_cy obj, t_coord intsct, t_coord axis_vect);
 /**
  * @brief Retrieves the normal vector from the surface of the passed object.
  * @param obj Pointer to the object, determines what kind of object we are
@@ -196,5 +181,15 @@ t_coord	get_cy_normal(t_cy obj, t_coord intsct);
  * @returns The normalised vector representing the surface normal.
  */
 t_coord	get_normal(t_object *obj, t_coord intsct, t_coord to_light);
+
+/********************************* phong.c *********************************/
+
+/**
+ * @brief Calculates the colour of a pixel using phong lighting.
+ * @param rt Pointer to the t_minirt struct to get light data.
+ * @param obj Pointer to the object, predominantly used for colour.
+ * @param obj
+*/
+t_rgb	phong(t_minirt *rt, t_rgb obj_color, t_coord *vectors);
 
 #endif
