@@ -124,15 +124,6 @@ double	pl_intersection(t_coord ray_vector, t_coord ray_ori, t_pl *pl);
  */
 void	render_pixel(t_minirt *rt, int index, size_t ctr);
 /**
- * @brief Blends the colour from the object and the appropriate source, and
- * considers the shade factor of the point.
- * @param obj Pointer to the object whose surface we are trying to colour.
- * @param src The RGB elements of etither the light source or ambient lighting.
- * @param shade_factor The factor that determines how dark the pixel should be.
- * @return The final colour that is to be rendered on the pixel.
- */
-int	blend(t_object *obj, t_rgb src, double shadow_factor, double light_factor);
-/**
  * @brief Determines if that particular point is blocked from the light source.
  * @param f_data Pointer to the t_data struct.
  * @param intsct_pt The point whose shadow factor is to be determined.
@@ -144,16 +135,6 @@ int	blend(t_object *obj, t_rgb src, double shadow_factor, double light_factor);
  * @retval 1 - The object is in shadow.
  */
 int	ft_inshadow(t_data *f_data, t_coord intsct_pt, int index, t_coord to_light);
-/**
- * @brief Uses a simplification of Lambert's Cosine Law to calculate how dark
- * that particular intersection point will be.
- * @return The factor of how bright the point will be, in the range of [0, 1]
- * @param obj Pointer to the t_object struct, to find the normal to its surface
- * @param intsct The intersection point on the object's surface.
- * @param to_light The normalised directional vector between the intersect
- * point and the light source.
-*/
-double	calc_shade_factor(t_object *obj, t_coord intsct, t_coord to_light);
 
 /****************************** render_utils.c ******************************/
 
@@ -197,5 +178,15 @@ t_coord	get_cy_normal(t_cy obj, t_coord intsct, t_coord axis_vect);
  * @returns The normalised vector representing the surface normal.
  */
 t_coord	get_normal(t_object *obj, t_coord intsct, t_coord to_light);
+
+/********************************* phong.c *********************************/
+
+/**
+ * @brief Calculates the colour of a pixel using phong lighting.
+ * @param rt Pointer to the t_minirt struct to get light data.
+ * @param obj Pointer to the object, predominantly used for colour.
+ * @param obj
+*/
+t_rgb	phong(t_minirt *rt, t_rgb obj_color, t_coord *vectors);
 
 #endif

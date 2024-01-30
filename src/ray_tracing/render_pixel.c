@@ -43,70 +43,6 @@ t_coord	reflect(t_coord i, t_coord n)
 	return (res);
 }
 
-// 2-10 for matte sueface; 10-200 for moderate shiny;
-// 1000+ for polished metal/mirror
-t_rgb	specular_comp(t_minirt *rt, t_coord reflect_dir, t_coord to_viewer)
-{
-	double	spec;
-	double	shininess;
-	t_rgb	specular;
-
-	shininess = 10;
-	spec = pow(fmax(dot_prod(reflect_dir, to_viewer), 0.0), shininess);
-	specular.red = spec * rt->file_data->light.colour.red
-		* rt->file_data->light.ratio;
-	specular.green = spec * rt->file_data->light.colour.green
-		* rt->file_data->light.ratio;
-	specular.blue = spec * rt->file_data->light.colour.blue
-		* rt->file_data->light.ratio;
-	return (specular);
-}
-
-t_rgb	diffuse_comp(t_minirt *rt, t_coord norm, t_coord to_lgt, t_rgb obj_col)
-{
-	double	diff;
-	t_rgb	diffuse;
-
-	diff = fmax(dot_prod(norm, to_lgt), 0.0);
-	diffuse.red = diff * obj_col.red * rt->file_data->light.colour.red
-		* rt->file_data->light.ratio;
-	diffuse.green = diff * obj_col.green * rt->file_data->light.colour.green
-		* rt->file_data->light.ratio;
-	diffuse.blue = diff * obj_col.blue * rt->file_data->light.colour.blue
-		* rt->file_data->light.ratio;
-	return (diffuse);
-}
-
-t_rgb	ambient_comp(t_minirt *rt, t_object *obj, t_rgb obj_color)
-{
-	t_rgb	ambient_color;
-	double	ambient_intensity;
-	t_rgb	ambient;
-
-	ambient_color = rt->file_data->ambience.colour;
-	ambient_intensity = rt->file_data->ambience.ratio;
-	ambient.red = obj_color.red * ambient_color.red * ambient_intensity;
-	ambient.green = obj_color.green * ambient_color.green * ambient_intensity;
-	ambient.blue = obj_color.blue * ambient_color.blue * ambient_intensity;
-	return (ambient);
-}
-
-t_rgb	phong(t_minirt *rt, t_object *obj, t_rgb obj_color, t_coord *vectors)
-{
-	t_rgb	ambient;
-	t_rgb	diffuse;
-	t_rgb	specular;
-
-	ambient = ambient_comp(rt, obj, obj_color);
-	diffuse = diffuse_comp(rt, vectors[normal], vectors[to_light], obj_color);
-	specular = specular_comp(rt, vectors[reflect_dir], vectors[to_viewer]);
-	return ((t_rgb){
-		clamp(ambient.red + diffuse.red + specular.red, 0.0, 1.0),
-		clamp(ambient.green + diffuse.green + specular.green, 0.0, 1.0),
-		clamp(ambient.blue + diffuse.blue + specular.blue, 0.0, 1.0)
-	});
-}
-
 int	ft_inshadow(t_data *f_data, t_coord intsct_pt, int index, t_coord to_light)
 {
 	t_list	*lst;
@@ -165,7 +101,7 @@ void	render_pixel(t_minirt *rt, int index, size_t ctr)
 			* rt->file_data->ambience.ratio;
 	}
 	else
-		final = phong(rt, obj, obj_color, vectors);
-	double	pxl_col = create_colour(0, final.red * 255, final.green * 255, final.blue * 255);
-	put_pxl(rt, ctr % rt->width, ctr / rt->width, pxl_col);
+		final = phong(rt, obj_color, vectors);
+	put_pxl(rt, ctr % rt->width, ctr / rt->width,
+		create_colour(0, final.red, final.green, final.blue));
 }
