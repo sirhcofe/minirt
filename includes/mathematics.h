@@ -1,7 +1,19 @@
-#ifndef MATHEMATICS_H
-#define MATHEMATICS_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mathematics.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jthor <jthor@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/30 17:08:00 by jthor             #+#    #+#             */
+/*   Updated: 2024/01/30 17:08:01 by jthor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "objects.h"
+#ifndef MATHEMATICS_H
+# define MATHEMATICS_H
+
+# include "objects.h"
 
 /******************************* geom_trans.c *******************************/
 
@@ -71,14 +83,14 @@ t_coord	vect_mult(t_coord vector, double value);
  * @param b The second vector.
  * @return Function returns a resulting vector of the vectors parsed.
 */
-t_coord vect_add(t_coord a, t_coord b);
+t_coord	vect_add(t_coord a, t_coord b);
 /**
  * @brief Function performs subtraction of two (or three) vectors.
  * @param a The first vector.
  * @param b The second vector.
  * @return Function returns a resulting vector of the vectors parsed.
 */
-t_coord vect_subt(t_coord a, t_coord b);
+t_coord	vect_subt(t_coord a, t_coord b);
 
 /******************************* vector_utils.c *******************************/
 
@@ -91,7 +103,7 @@ t_coord vect_subt(t_coord a, t_coord b);
  * @param vector The vector parsed for verification
  * @return Returns true if vector is zero vector; otherwise, returns false
 */
-int	is_zero_vector(t_coord vector);
+int		is_zero_vector(t_coord vector);
 
 /**
  * @brief Function checks if a double value is approximately the same as the
@@ -101,6 +113,6 @@ int	is_zero_vector(t_coord vector);
  * @return Returns true if the value is approximately the limit; otherwise,
  * returns false.
 */
-int	approx(double value, double limit);
+int		approx(double value, double limit);
 
 #endif

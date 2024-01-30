@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main2.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jthor <jthor@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/29 06:25:18 by jthor             #+#    #+#             */
+/*   Updated: 2024/01/29 06:25:20 by jthor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 void	arg_check(int argc, char **argv)
@@ -13,9 +25,9 @@ void	arg_check(int argc, char **argv)
 		arg_error("Invalid map file.\n");
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_minirt *rt;
+	t_minirt	*rt;
 
 	arg_check(argc, argv);
 	rt = init_mlx_window();

@@ -42,9 +42,6 @@ void	calc_camera_orientation(t_cam *camera)
 	set_coord(&world_coord[0], 1, 0, 0);
 	set_coord(&world_coord[1], 0, 1, 0);
 	set_coord(&world_coord[2], 0, 0, 1);
-	// world_coord[0] = init_vector(1, 0, 0);
-	// world_coord[1] = init_vector(0, 1, 0);
-	// world_coord[2] = init_vector(0, 0, 1);
 	rot_axis = cross_prod(world_coord[2], camera->look);
 	if (is_zero_vector(rot_axis))
 	{

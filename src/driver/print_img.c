@@ -26,7 +26,7 @@ void	print_image(t_minirt *rt)
 			ray_vector = get_ray_vector(rt, rt->file_data->camera, ctr);
 			index = get_touchy(rt->file_data, ray_vector);
 			if (index == -1)
-				void_pixel(rt, rt->file_data->ambience.colour, ctr);
+				void_pixel(rt, ctr);
 			else
 				render_pixel(rt, index, ctr);
 		}
@@ -42,7 +42,7 @@ void	empty_protocol(t_minirt *rt)
 
 	ctr = -1;
 	while (++ctr < (rt->height * rt->width))
-		void_pixel(rt, rt->file_data->ambience.colour, ctr);
+		void_pixel(rt, ctr);
 }
 
 double	get_curr_dist(t_coord r_vect, t_coord ray_ori, void *lst_content)
@@ -50,7 +50,6 @@ double	get_curr_dist(t_coord r_vect, t_coord ray_ori, void *lst_content)
 	t_object	*node;
 
 	node = (t_object *)lst_content;
-	// printf("INDEX=%d\n", node->e_idx);
 	if (node->e_idx == sp)
 		return (sp_intersection(r_vect, ray_ori, &(node->obj.sphere)));
 	else if (node->e_idx == pl)
@@ -79,7 +78,7 @@ int	get_touchy(t_data *f_data, t_coord r_vect)
 		if (curr_dist < closest_dist)
 		{
 			ret = curr;
-			closest_dist = curr_dist;	
+			closest_dist = curr_dist;
 		}
 		curr++;
 		lst = lst->next;

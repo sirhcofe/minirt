@@ -1,7 +1,19 @@
-#ifndef PARSE_H
-#define PARSE_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jthor <jthor@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/30 17:11:22 by jthor             #+#    #+#             */
+/*   Updated: 2024/01/30 17:11:23 by jthor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "objects.h"
+#ifndef PARSE_H
+# define PARSE_H
+
+# include "objects.h"
 
 /******************************* add_shapes.c *******************************/
 
@@ -53,7 +65,7 @@ int		add_cylinder(t_data *f_data, char **arr);
  * @param f_data Pointer to the t_data variable
  * @param arr Double-char-array that specifies an ambience object
 */
-int		add_ambience(t_amb *obj , char **arr);
+int		add_ambience(t_amb *obj, char **arr);
 /**
  * @brief Adds a camera object to the t_data struct
  * @return Returns an int flag to be used for error detection and management

@@ -101,7 +101,7 @@ void	lat_intsct(double *dist, t_coord ray, t_coord ori, t_cy *cy)
 	coeff[0] = pow(ray.x, 2) + pow(ray.y, 2);
 	coeff[1] = 2 * (ray.x * ori.x + ray.y * ori.y);
 	coeff[2] = pow(ori.x, 2) + pow(ori.y, 2)
-			- pow(cy->radius, 2);
+		- pow(cy->radius, 2);
 	discriminant = pow(coeff[1], 2) - 4 * coeff[0] * coeff[2];
 	if (discriminant >= 0)
 	{
