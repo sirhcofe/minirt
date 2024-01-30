@@ -13,4 +13,9 @@
 # define MAC_A 0
 # define MC_D 2
 
+// Arbitratry values, update later.
+# define MAC_1 42 // edit camera
+# define MAC_2 43 // edit light
+# define MAC_9 44 // previous object
+# define MAC_0 45 // next object
 #endif

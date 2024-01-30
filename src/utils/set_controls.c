@@ -28,16 +28,14 @@ void	ft_img_refresh(t_minirt *rt)
 
 void	rotate_cam(t_minirt *rt, int key)
 {
-	t_coord	x_axis;
-	t_coord	y_axis;
-	t_coord	z_axis;
+	t_coord	axis;
 	double	interval;
 
 	// setcoord here for x, y, z axis
-	set_coord(&y_axis, 1, 0, 0);
+	set_coord(&axis, 1, 0, 0);
 	interval = 0.174533;
 	if (key == MAC_RIGHT)
-		rt->file_data->camera.look = normalize(rotation(&rt->file_data->camera.look, interval, y_axis));
+		rt->file_data->camera.look = normalize(rotation(&rt->file_data->camera.look, interval, axis));
 	print_image(rt);
 	mlx_clear_window(rt->mlx, rt->mlx_win);
 	mlx_put_image_to_window(rt->mlx, rt->mlx_win, rt->img, 0, 0);
@@ -53,6 +51,10 @@ void	translate_cam(t_minirt *rt, int key)
 		rt->file_data->camera.point.x -= 1;
 	else if (key == MAC_RIGHT)
 		rt->file_data->camera.point.x += 1;
+	else if (key == MAC_W)
+		rt->file_data->camera.point.z += 1;
+	else if (key == MAC_S)
+		rt->file_data->camera.point.z -= 1;
 	print_image(rt);
 	mlx_clear_window(rt->mlx, rt->mlx_win);
 	mlx_put_image_to_window(rt->mlx, rt->mlx_win, rt->img, 0, 0);
@@ -64,7 +66,7 @@ int	key_press(int key, t_minirt *rt)
 	if (key == MAC_ESC || key == WIN_ESC)
 		close_program(rt);
 	if (key == MAC_UP || key == MAC_DOWN || key == MAC_LEFT
-		|| key == MAC_RIGHT)		
+		|| key == MAC_RIGHT || key == MAC_W || key == MAC_S)		
 		translate_cam(rt, key);
 	return (0);
 }
