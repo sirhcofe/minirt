@@ -144,6 +144,12 @@ typedef struct s_data
 	t_list	*objects;
 }	t_data;
 
+typedef struct s_edit
+{
+	int			flag;
+	t_object	*target;
+}	t_edit;
+
 typedef struct s_minirt
 {
 	void	*mlx;
@@ -156,6 +162,7 @@ typedef struct s_minirt
 	int		width;
 	int		height;
 	t_data	*file_data;
+	t_edit	editor;
 }	t_minirt;
 
 typedef struct s_intrsct

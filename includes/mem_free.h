@@ -36,5 +36,6 @@ void	free_data(t_minirt *rt);
  * @param head Double-char-array to be freed.
  */
 void	free_split(char **head);
+int	close_program(t_minirt *rt);
 
 #endif

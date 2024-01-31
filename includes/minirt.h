@@ -15,6 +15,10 @@
 
 # define BUFFER_SIZE 50
 # define MAX_INT 2147483647
+# define CAM_EDIT 1
+# define LIGHT_EDIT 2
+# define OBJ_EDIT 3
+# define NO_EDIT 0
 
 # include <stdlib.h>
 # include <stdio.h>
@@ -31,8 +35,7 @@
 # include "ray_tracing.h"
 # include "utils.h"
 # include "keys.h"
-
-void		set_controls(t_minirt *rt);
+# include "editor.h"
 
 /**
  * @brief Scrolls through the object linked list and returns the object that

@@ -11,11 +11,14 @@
 # define MAC_W 13
 # define MAC_S 1
 # define MAC_A 0
-# define MC_D 2
+# define MAC_D 2
+# define MAC_E 14
 
 // Arbitratry values, update later.
-# define MAC_1 42 // edit camera
-# define MAC_2 43 // edit light
-# define MAC_9 44 // previous object
-# define MAC_0 45 // next object
+# define MAC_1 18 // edit cam
+# define MAC_2 19 // edit light
+// see if I can implement the mouse on time.
+// # define MAC_9 44 // previous object
+// # define MAC_0 45 // next object
+# define MOUSE_1 1
 #endif

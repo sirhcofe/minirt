@@ -87,4 +87,8 @@ int		ft_isdouble(char *str);
 */
 char	*get_next_line(int fd);
 
+/****************************** set_controls.c ******************************/
+
+void	set_controls(t_minirt *rt);
+
 #endif

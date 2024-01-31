@@ -52,7 +52,10 @@ SRC			=	error.c					\
 				draw.c					\
 				print_img.c				\
 				ft_split_alt.c			\
-				free.c
+				free.c					\
+				editor.c				\
+				rotate.c				\
+				translate.c
 
 OBJS_DIR	=	objects/
 OBJS		=	$(addprefix $(OBJS_DIR), $(notdir $(SRC:.c=.o)))
@@ -67,6 +70,7 @@ SRC_DIR		=	$(LIBX)			\
 				src/ray_tracing	\
 				src/utils		\
 				src/parsing		\
+				src/editor
 
 vpath %.c $(SRC_DIR)
 

@@ -12,12 +12,6 @@
 
 #include "minirt.h"
 
-int	close_program(t_minirt *rt)
-{
-	free_data(rt);
-	exit(0);
-}
-
 void	ft_img_refresh(t_minirt *rt)
 {
 	mlx_destroy_image(rt->mlx, rt->img);
@@ -26,38 +20,23 @@ void	ft_img_refresh(t_minirt *rt)
 			&(rt->line_len), &rt->endian);
 }
 
-void	rotate_cam(t_minirt *rt, int key)
+void	switch_target(t_minirt *rt, int keycode)
 {
-	t_coord	axis;
-	double	interval;
-
-	// setcoord here for x, y, z axis
-	set_coord(&axis, 1, 0, 0);
-	interval = 0.174533;
-	if (key == MAC_RIGHT)
-		rt->file_data->camera.look = normalize(rotation(&rt->file_data->camera.look, interval, axis));
-	print_image(rt);
-	mlx_clear_window(rt->mlx, rt->mlx_win);
-	mlx_put_image_to_window(rt->mlx, rt->mlx_win, rt->img, 0, 0);
-}
-
-void	translate_cam(t_minirt *rt, int key)
-{
-	if (key == MAC_UP)
-		rt->file_data->camera.point.y += 1;
-	else if (key == MAC_DOWN)
-		rt->file_data->camera.point.y -= 1;
-	else if (key == MAC_LEFT)
-		rt->file_data->camera.point.x -= 1;
-	else if (key == MAC_RIGHT)
-		rt->file_data->camera.point.x += 1;
-	else if (key == MAC_W)
-		rt->file_data->camera.point.z += 1;
-	else if (key == MAC_S)
-		rt->file_data->camera.point.z -= 1;
-	print_image(rt);
-	mlx_clear_window(rt->mlx, rt->mlx_win);
-	mlx_put_image_to_window(rt->mlx, rt->mlx_win, rt->img, 0, 0);
+	if (rt->editor.flag == NO_EDIT)
+	{
+		ft_putstr_fd("Editor mode is not enabled\n", 1);
+		return ;
+	}
+	else if (keycode == MAC_1)
+	{
+		ft_putstr_fd("Editor target switched to Camera\n", 1);
+		rt->editor.flag = CAM_EDIT;
+	}
+	else if (keycode == MAC_2)
+	{
+		ft_putstr_fd("Editor target switched to Light\n", 1);
+		rt->editor.flag = LIGHT_EDIT;
+	}
 }
 
 int	key_press(int key, t_minirt *rt)
@@ -65,14 +44,37 @@ int	key_press(int key, t_minirt *rt)
 	ft_img_refresh(rt);
 	if (key == MAC_ESC || key == WIN_ESC)
 		close_program(rt);
-	if (key == MAC_UP || key == MAC_DOWN || key == MAC_LEFT
-		|| key == MAC_RIGHT || key == MAC_W || key == MAC_S)		
-		translate_cam(rt, key);
+	else if (key == MAC_E)
+		edit_mode(rt, key);
+	else if (key == MAC_1 || key == MAC_2)
+		switch_target(rt, key);
+	else if (key == MAC_UP || key == MAC_DOWN || key == MAC_LEFT
+		|| key == MAC_RIGHT || key == MAC_W || key == MAC_S)
+		key_translate(rt, key);
 	return (0);
+}
+
+int	mouse_press(int keycode, int x, int y, t_minirt *rt)
+{
+	size_t	ctr;
+	t_coord	ray_vector;
+	int		index;
+
+	if (x < 0 || y < 0 || rt->editor.flag == NO_EDIT || keycode != 1)
+		return (0);
+	ctr = y * rt->width + x;
+	ray_vector = get_ray_vector(rt, rt->file_data->camera, ctr);
+	index = get_touchy(rt->file_data, ray_vector);
+	if (index == -1)
+		return (0);
+	ft_putstr_fd("An object has been clicked!\n", 1);
+	rt->editor.target = get_object(rt->file_data->objects, index);
+	rt->editor.flag = OBJ_EDIT;
 }
 
 void	set_controls(t_minirt *rt)
 {
 	mlx_key_hook(rt->mlx_win, key_press, rt);
+	mlx_mouse_hook(rt->mlx_win, mouse_press, rt);
 	mlx_hook(rt->mlx_win, 17, 0, close_program, rt);
 }
