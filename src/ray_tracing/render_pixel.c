@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 06:03:58 by jthor             #+#    #+#             */
-/*   Updated: 2024/01/30 19:16:06 by chenlee          ###   ########.fr       */
+/*   Updated: 2024/02/01 13:48:59 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,11 @@ void	render_pixel(t_minirt *rt, int index, size_t ctr, t_coord ray_ori)
 	if (ft_inshadow(rt->file_data, intersect_pt, index, vectors[to_light]))
 	{
 		final.red = obj_color.red * rt->file_data->ambience.colour.red
-			* rt->file_data->ambience.ratio;
+			* rt->file_data->ambience.ratio * 255;
 		final.green = obj_color.green * rt->file_data->ambience.colour.green
-			* rt->file_data->ambience.ratio;
+			* rt->file_data->ambience.ratio * 255;
 		final.blue = obj_color.blue * rt->file_data->ambience.colour.blue
-			* rt->file_data->ambience.ratio;
+			* rt->file_data->ambience.ratio * 255;
 	}
 	else
 		final = phong(rt, obj_color, vectors);
