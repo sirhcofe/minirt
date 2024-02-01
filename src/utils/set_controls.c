@@ -70,6 +70,7 @@ int	mouse_press(int keycode, int x, int y, t_minirt *rt)
 	ft_putstr_fd("An object has been clicked!\n", 1);
 	rt->editor.target = get_object(rt->file_data->objects, index);
 	rt->editor.flag = OBJ_EDIT;
+	return (1);
 }
 
 void	set_controls(t_minirt *rt)

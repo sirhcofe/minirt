@@ -45,7 +45,7 @@ void	print_editor(t_minirt *rt)
 			if (index == -1)
 				void_pixel(rt, ctr);
 			else
-				render_pixel(rt, index, ctr);
+				render_pixel(rt, index, ctr, ray_vector);
 		}
 	}
 	else
