@@ -64,26 +64,26 @@ void	calc_vect(t_minirt *rt, t_object *obj, t_coord *vectors, t_coord intsct)
 				intsct));
 	vectors[to_viewer] = normalize(vect_subt(rt->file_data->camera.point,
 				intsct));
-	vectors[normal] = get_normal(obj, intsct, vectors[to_light]);
+	vectors[normal] = get_normal(obj, intsct, vectors[from_camera]);
 	vectors[reflect_dir] = reflect(vect_mult(vectors[to_light], -1.0),
 			vectors[normal]);
 }
 
-void	render_pixel(t_minirt *rt, int index, size_t ctr)
+void	render_pixel(t_minirt *rt, int index, size_t ctr, t_coord ray_ori)
 {
 	t_object	*obj;
 	t_rgb		obj_color;
 	t_coord		intersect_pt;
-	t_coord		vectors[4];
+	t_coord		vectors[5];
 	t_rgb		final;
 
 	obj = get_object(rt->file_data->objects, index);
 	obj_color = get_colour(obj);
 	intersect_pt = get_intsct_point(obj);
+	vectors[from_camera] = ray_ori;
 	calc_vect(rt, obj, vectors, intersect_pt);
 	if (ft_inshadow(rt->file_data, intersect_pt, index, vectors[to_light]))
 	{
-		printf("IN SHADOW\n");
 		final.red = obj_color.red * rt->file_data->ambience.colour.red
 			* rt->file_data->ambience.ratio;
 		final.green = obj_color.green * rt->file_data->ambience.colour.green

@@ -33,6 +33,7 @@ enum e_rt_rays
 	to_viewer = 1,
 	normal = 2,
 	reflect_dir = 3,
+	from_camera = 4
 };
 
 typedef struct s_rgb
