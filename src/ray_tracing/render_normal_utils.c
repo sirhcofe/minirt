@@ -65,14 +65,19 @@ t_coord	get_cy_normal(t_cy obj, t_coord intsct, t_coord axis_v)
 		return (intsct);
 }
 
-t_coord	get_normal(t_object *obj, t_coord intsct, t_coord to_light)
+t_coord	get_normal(t_object *obj, t_coord intsct, t_coord from_cam)
 {
 	t_coord	normal;
 
 	if (obj->e_idx == sp)
 		normal = normalize(vect_subt(intsct, obj->obj.sphere.center));
 	else if (obj->e_idx == pl)
-		normal = obj->obj.plane.normal_vector;
+	{
+		if (dot_prod(from_cam, obj->obj.plane.normal_vector) >= 0)
+			normal = vect_mult(obj->obj.plane.normal_vector, -1);
+		else
+			normal = obj->obj.plane.normal_vector;
+	}
 	else if (obj->e_idx == cy)
 		normal = get_cy_normal(obj->obj.cylinder, intsct,
 				obj->obj.cylinder.axis_vector);
