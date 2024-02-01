@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 00:06:02 by chenlee           #+#    #+#             */
-/*   Updated: 2023/09/08 16:23:03 by chenlee          ###   ########.fr       */
+/*   Updated: 2024/01/30 19:29:42 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	switch_target(t_minirt *rt, int keycode)
 int	key_press(int key, t_minirt *rt)
 {
 	ft_img_refresh(rt);
-	if (key == MAC_ESC || key == WIN_ESC)
+	if ((!IS_LINUX && key == MAC_ESC) || (IS_LINUX && key == WIN_ESC))
 		close_program(rt);
 	else if (key == MAC_E)
 		edit_mode(rt, key);

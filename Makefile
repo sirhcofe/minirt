@@ -6,17 +6,19 @@
 #    By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 21:28:59 by chenlee           #+#    #+#              #
-#    Updated: 2024/01/19 15:12:52 by chenlee          ###   ########.fr        #
+#    Updated: 2024/01/30 19:28:00 by chenlee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 UNAME		:=	$(shell uname)
 
 ifeq ($(UNAME), Linux)
+	OS = -DOS=1
 	LIBX = minilibx/minilibx_linux/
 	COMPILE = -L$(LIBX) -lmlx_Linux -L/usr/lib -I$(LIBX) -lXext -lX11 -lm -lz
 endif
 ifeq ($(UNAME), Darwin)
+	OS = -DOS=2
 	LIBX = minilibx/minilibx_macos/
 	COMPILE = -L$(LIBX) -lmlx -framework OpenGL -framework AppKit
 endif
@@ -86,11 +88,11 @@ $(NAME):		$(OBJS)
 $(OBJS_DIR)%.o:	%.c
 			@mkdir -p $(OBJS_DIR)
 			@echo "Compiling: $<"
-			@gcc $(FLAGS) -I$(LIBX) $(INCLUDES) -c $< -o $@
+			@gcc $(FLAGS) $(OS) -I$(LIBX) $(INCLUDES) -c $< -o $@
 
 minirt:		src/main2.c $(OBJS)
 			@echo "Compiling: src/main2.c"
-			@gcc $(FLAGS) -g3 src/main2.c -L. -lminirt -Llibft -lft $(INCLUDES) $(COMPILE) -o minirt
+			@gcc $(FLAGS) $(OS) -g3 src/main2.c -L. -lminirt -Llibft -lft $(INCLUDES) $(COMPILE) -o minirt
 
 clean:
 			@rm -rf objects resolution
