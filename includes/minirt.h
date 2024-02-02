@@ -25,6 +25,7 @@
 # define LIGHT_EDIT 2
 # define OBJ_EDIT 3
 # define NO_EDIT 0
+# define SHADOW_BIAS 1E-4
 
 # include <stdlib.h>
 # include <stdio.h>

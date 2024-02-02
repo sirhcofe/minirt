@@ -146,7 +146,7 @@ void	render_pixel(t_minirt *rt, int index, size_t ctr, t_coord ray_ori);
  * @retval 0 - The object is not in shadow.
  * @retval 1 - The object is in shadow.
  */
-int		ft_inshadow(t_data *f_dat, t_coord intsct_pt, int idx, t_coord to_lgt);
+int		ft_inshadow(t_data *f_dat, t_coord intsct_pt, int idx, t_coord *vects);
 
 /****************************** render_utils.c ******************************/
 
