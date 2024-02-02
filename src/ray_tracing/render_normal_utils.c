@@ -72,16 +72,13 @@ t_coord	get_normal(t_object *obj, t_coord intsct, t_coord from_cam)
 	if (obj->e_idx == sp)
 		normal = normalize(vect_subt(intsct, obj->obj.sphere.center));
 	else if (obj->e_idx == pl)
-	{
-		if (dot_prod(from_cam, obj->obj.plane.normal_vector) >= 0)
-			normal = vect_mult(obj->obj.plane.normal_vector, -1);
-		else
-			normal = obj->obj.plane.normal_vector;
-	}
+		normal = obj->obj.plane.normal_vector;
 	else if (obj->e_idx == cy)
 		normal = get_cy_normal(obj->obj.cylinder, intsct,
 				obj->obj.cylinder.axis_vector);
 	else
 		normal = get_co_normal(obj->obj.cone, intsct);
+	if (dot_prod(from_cam, normal) >= 0)
+		normal = vect_mult(normal, -1);
 	return (normal);
 }
