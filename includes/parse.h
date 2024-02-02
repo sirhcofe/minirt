@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jthor <jthor@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:11:22 by jthor             #+#    #+#             */
-/*   Updated: 2024/01/30 17:11:23 by jthor            ###   ########.fr       */
+/*   Updated: 2024/02/02 23:38:44 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,15 @@ int		add_cylinder(t_data *f_data, char **arr);
 
 /******************************* add_single.c *******************************/
 
+/**
+ * @brief Function calculates the local orientation vector of the camera object,
+ * whereby given its look vector, function generates up and right vector of the
+ * camera - useful for generating resultant rays for every pixels during
+ * rendering.
+ * @param camera The pointer to the camera object.
+ * @return Function does not return.
+*/
+void	calc_camera_orientation(t_cam *camera);
 /**
  * @brief Adds an ambience object to the t_data struct
  * @return An int flag to be used for error detection and management

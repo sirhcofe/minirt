@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 20:03:13 by jthor             #+#    #+#             */
-/*   Updated: 2023/11/04 15:01:01 by chenlee          ###   ########.fr       */
+/*   Updated: 2024/02/02 23:42:39 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,6 @@ int	add_ambience(t_amb *obj, char **arr)
 	return (0);
 }
 
-/**
- * @brief Function calculates the local orientation vector of the camera object,
- * whereby given its look vector, function generates up and right vector of the
- * camera - useful for generating resultant rays for every pixels during
- * rendering.
- * @param camera The pointer to the camera object.
- * @return Function does not return.
-*/
 void	calc_camera_orientation(t_cam *camera)
 {
 	t_coord	world_coord[3];
