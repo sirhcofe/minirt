@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   translate.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jthor <jthor@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 10:32:36 by jthor             #+#    #+#             */
-/*   Updated: 2024/01/31 10:32:41 by jthor            ###   ########.fr       */
+/*   Updated: 2024/02/02 22:31:09 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 void	translate_cam(t_minirt *rt, int key)
 {
-	if (key == MAC_UP)
+	if (key == UP)
 		rt->file_data->camera.point.y += 1;
-	else if (key == MAC_DOWN)
+	else if (key == DOWN)
 		rt->file_data->camera.point.y -= 1;
-	else if (key == MAC_LEFT)
+	else if (key == LEFT)
 		rt->file_data->camera.point.x -= 1;
-	else if (key == MAC_RIGHT)
+	else if (key == RIGHT)
 		rt->file_data->camera.point.x += 1;
-	else if (key == MAC_W)
+	else if (key == R_SQRB)
 		rt->file_data->camera.point.z += 1;
-	else if (key == MAC_S)
+	else if (key == L_SQRB)
 		rt->file_data->camera.point.z -= 1;
 	print_editor(rt);
 	mlx_clear_window(rt->mlx, rt->mlx_win);
@@ -33,17 +33,17 @@ void	translate_cam(t_minirt *rt, int key)
 
 void	translate_light(t_minirt *rt, int key)
 {
-	if (key == MAC_UP)
+	if (key == UP)
 		rt->file_data->light.point.y += 1;
-	else if (key == MAC_DOWN)
+	else if (key == DOWN)
 		rt->file_data->light.point.y -= 1;
-	else if (key == MAC_LEFT)
+	else if (key == LEFT)
 		rt->file_data->light.point.x -= 1;
-	else if (key == MAC_RIGHT)
+	else if (key == RIGHT)
 		rt->file_data->light.point.x += 1;
-	else if (key == MAC_W)
+	else if (key == R_SQRB)
 		rt->file_data->light.point.z += 1;
-	else if (key == MAC_S)
+	else if (key == L_SQRB)
 		rt->file_data->light.point.z -= 1;
 	print_editor(rt);
 	mlx_clear_window(rt->mlx, rt->mlx_win);
@@ -67,17 +67,17 @@ void	translate_obj(t_minirt *rt, int key)
 	t_coord	*obj_point;
 
 	obj_point = get_object_point(rt->editor.target);
-	if (key == MAC_UP)
+	if (key == UP)
 		obj_point->y += 1;
-	else if (key == MAC_DOWN)
+	else if (key == DOWN)
 		obj_point->y -= 1;
-	else if (key == MAC_LEFT)
+	else if (key == LEFT)
 		obj_point->x -= 1;
-	else if (key == MAC_RIGHT)
+	else if (key == RIGHT)
 		obj_point->x += 1;
-	else if (key == MAC_W)
+	else if (key == R_SQRB)
 		obj_point->z += 1;
-	else if (key == MAC_S)
+	else if (key == L_SQRB)
 		obj_point->z -= 1;
 	print_editor(rt);
 	mlx_clear_window(rt->mlx, rt->mlx_win);
@@ -86,7 +86,7 @@ void	translate_obj(t_minirt *rt, int key)
 
 void	key_translate(t_minirt *rt, int key)
 {
-	if (rt->editor.flag == NO_EDIT)
+	if (rt->editor.flag == EDIT_MODE)
 		return ;
 	else if (rt->editor.flag == CAM_EDIT)
 		translate_cam(rt, key);

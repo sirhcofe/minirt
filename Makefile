@@ -6,7 +6,7 @@
 #    By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 21:28:59 by chenlee           #+#    #+#              #
-#    Updated: 2024/01/30 19:28:00 by chenlee          ###   ########.fr        #
+#    Updated: 2024/02/02 22:54:12 by chenlee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ SRC			=	error.c					\
 				ft_split_alt.c			\
 				free.c					\
 				editor.c				\
+				editor_utils.c			\
 				rotate.c				\
 				translate.c
 

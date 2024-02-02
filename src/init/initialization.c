@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 16:16:57 by chenlee           #+#    #+#             */
-/*   Updated: 2024/01/14 01:05:26 by chenlee          ###   ########.fr       */
+/*   Updated: 2024/02/02 22:32:15 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_minirt	*init_mlx_window(void)
 	rt->img = mlx_new_image(rt->mlx, rt->width, rt->height);
 	rt->addr = mlx_get_data_addr(rt->img, &(rt->bits_per_pixel),
 			&(rt->line_len), &(rt->endian));
-	rt->editor.flag = NO_EDIT;
+	rt->editor.flag = NOT_EDIT;
 	return (rt);
 }
 

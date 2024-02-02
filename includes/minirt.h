@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:10:15 by jthor             #+#    #+#             */
-/*   Updated: 2024/01/30 19:29:23 by chenlee          ###   ########.fr       */
+/*   Updated: 2024/02/02 23:26:18 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@
 
 # define BUFFER_SIZE 50
 # define MAX_INT 2147483647
+# define NOT_EDIT -1
+# define EDIT_MODE 0
 # define CAM_EDIT 1
 # define LIGHT_EDIT 2
 # define OBJ_EDIT 3
-# define NO_EDIT 0
 
 # include <stdlib.h>
 # include <stdio.h>

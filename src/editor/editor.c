@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jthor <jthor@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 10:32:19 by jthor             #+#    #+#             */
-/*   Updated: 2024/01/31 10:32:20 by jthor            ###   ########.fr       */
+/*   Updated: 2024/02/02 23:19:53 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,24 @@ void	print_editor(t_minirt *rt)
 
 void	edit_mode(t_minirt *rt, int key)
 {
-	if (rt->editor.flag != NO_EDIT)
+	if (rt->editor.flag != NOT_EDIT)
 	{
-		ft_putstr_fd("Edit mode ended, press E to edit.\n", STDOUT_FILENO);
-		rt->editor.flag = NO_EDIT;
+		clear_fixed_line();
+		printf("\033[1;32mEditor mode OFF!\033[0m\n");
+		printf("\033[1;32mPress [E] to edit again!\033[0m\n\n");
+		rt->editor.flag = NOT_EDIT;
 		print_image(rt);
 		mlx_clear_window(rt->mlx, rt->mlx_win);
 		mlx_put_image_to_window(rt->mlx, rt->mlx_win, rt->img, 0, 0);
 	}
-	else if (rt->editor.flag == NO_EDIT)
+	else if (rt->editor.flag == NOT_EDIT)
 	{
-		ft_putstr_fd("Edit mode on\n", STDOUT_FILENO);
-		rt->editor.flag = CAM_EDIT;
+		system("clear");
+		printf("\033[1;32mEditor mode ON!\033[0m\n");
+		printf("Press [1] - edit camera\n      [2] - edit light\n");
+		printf("            Click on any object to transform them\n\n");
+		rt->editor.flag = EDIT_MODE;
+		set_editing_type(rt, 1);
 		print_editor(rt);
 		mlx_clear_window(rt->mlx, rt->mlx_win);
 		mlx_put_image_to_window(rt->mlx, rt->mlx_win, rt->img, 0, 0);
