@@ -45,7 +45,7 @@ int	key_press(int key, t_minirt *rt)
 	if ((!IS_LINUX && key == MAC_ESC) || (IS_LINUX && key == WIN_ESC))
 		close_program(rt);
 	else if (key == MAC_E)
-		edit_mode(rt, key);
+		edit_mode(rt);
 	else if (key == MAC_1 || key == MAC_2)
 		switch_target(rt, key);
 	else if (key == MAC_UP || key == MAC_DOWN || key == MAC_LEFT

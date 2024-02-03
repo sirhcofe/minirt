@@ -14,9 +14,9 @@
 # define MINIRT_H
 
 # if OS == 1
-	# define IS_LINUX 1
+#  define IS_LINUX 1
 # else
-	# define IS_LINUX 0
+#  define IS_LINUX 0
 # endif
 
 # define BUFFER_SIZE 50
@@ -25,7 +25,6 @@
 # define LIGHT_EDIT 2
 # define OBJ_EDIT 3
 # define NO_EDIT 0
-# define SHADOW_BIAS 1E-4
 
 # include <stdlib.h>
 # include <stdio.h>

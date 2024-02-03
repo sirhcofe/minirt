@@ -16,9 +16,7 @@ int	is_grid(t_minirt *rt, size_t ctr)
 {
 	int	x;
 	int	y;
-	int	spacing;
 
-	spacing = 5;
 	x = ctr % rt->width;
 	y = ctr / rt->width;
 	if (x % 5 == 0 && y % 5 == 0)
@@ -36,7 +34,7 @@ void	print_editor(t_minirt *rt)
 	if (rt->file_data->objects != NULL)
 	{
 		ctr = -1;
-		while (++ctr < (rt->height * rt->width))
+		while (++ctr < (size_t)(rt->height * rt->width))
 		{
 			if (is_grid(rt, ctr) == 0)
 				continue ;
@@ -52,7 +50,7 @@ void	print_editor(t_minirt *rt)
 		empty_protocol(rt);
 }
 
-void	edit_mode(t_minirt *rt, int key)
+void	edit_mode(t_minirt *rt)
 {
 	if (rt->editor.flag != NO_EDIT)
 	{

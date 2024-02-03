@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   keys.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jthor <jthor@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/03 17:06:43 by jthor             #+#    #+#             */
+/*   Updated: 2024/02/03 17:06:45 by jthor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef KEYS_H
 # define KEYS_H
 
@@ -14,11 +26,8 @@
 # define MAC_D 2
 # define MAC_E 14
 
-// Arbitratry values, update later.
 # define MAC_1 18 // edit cam
 # define MAC_2 19 // edit light
-// see if I can implement the mouse on time.
-// # define MAC_9 44 // previous object
-// # define MAC_0 45 // next object
+
 # define MOUSE_1 1
 #endif

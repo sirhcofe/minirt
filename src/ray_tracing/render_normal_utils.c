@@ -31,9 +31,9 @@ t_coord	get_co_normal(t_co obj, t_coord intsct)
 		slant_height_angle[1] = atan(obj.radius / obj.height);
 		dist_vert_to_intsct = vect_magnitude(obj.intsct, obj.vertex);
 		dist_axis_perp_intsct = dist_vert_to_intsct
-									/ cos(slant_height_angle[1]);
+			/ cos(slant_height_angle[1]);
 		point_on_axis = vect_add(obj.vertex,
-							vect_mult(obj.axis_vector, dist_axis_perp_intsct));
+				vect_mult(obj.axis_vector, dist_axis_perp_intsct));
 		normal = normalize(vect_subt(intsct, point_on_axis));
 		return (normal);
 	}
@@ -43,8 +43,6 @@ t_coord	get_co_normal(t_co obj, t_coord intsct)
 
 t_coord	get_cy_normal(t_cy obj, t_coord intsct, t_coord axis_v)
 {
-	double	dist;
-	t_coord	cross_res;
 	t_coord	p2p_vector;
 	t_coord	projection;
 	t_coord	subtract_projection;

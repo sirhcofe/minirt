@@ -27,7 +27,5 @@ void	put_pxl(t_minirt *rt, int x, int y, int colour)
 
 void	void_pixel(t_minirt *rt, int idx)
 {
-	int	colour;
-
 	put_pxl(rt, idx % rt->width, idx / rt->width, 0);
 }
