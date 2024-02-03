@@ -131,9 +131,10 @@ double	pl_intersection(t_coord ray_vector, t_coord ray_ori, t_pl *pl);
  * @param index The index of the object whose surface we are trying to colour.
  * @param ctr The current pixel we are looking at, before breaking it down to
  * (x, y) values.
+ * @param ray_ori The ray from the camera to the point on the object.
  * @return Function returns nothing.
  */
-void	render_pixel(t_minirt *rt, int index, size_t ctr);
+void	render_pixel(t_minirt *rt, int index, size_t ctr, t_coord ray_ori);
 /**
  * @brief Determines if that particular point is blocked from the light source.
  * @param f_dat Pointer to the t_data struct.
@@ -145,7 +146,7 @@ void	render_pixel(t_minirt *rt, int index, size_t ctr);
  * @retval 0 - The object is not in shadow.
  * @retval 1 - The object is in shadow.
  */
-int		ft_inshadow(t_data *f_dat, t_coord intsct_pt, int idx, t_coord to_lgt);
+int		ft_inshadow(t_data *f_dat, t_coord intsct_pt, int idx, t_coord *vects);
 
 /****************************** render_utils.c ******************************/
 

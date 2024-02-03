@@ -18,13 +18,13 @@ t_minirt	*init_mlx_window(void)
 
 	rt = malloc(sizeof(t_minirt));
 	rt->mlx = mlx_init();
-	rt->width = 640;
-	rt->height = 480;
+	rt->width = 1080;
+	rt->height = 720;
 	rt->mlx_win = mlx_new_window(rt->mlx, rt->width, rt->height, "minirt");
 	rt->img = mlx_new_image(rt->mlx, rt->width, rt->height);
 	rt->addr = mlx_get_data_addr(rt->img, &(rt->bits_per_pixel),
 			&(rt->line_len), &(rt->endian));
-	rt->file_data = malloc(sizeof(t_data));
+	rt->editor.flag = NO_EDIT;
 	return (rt);
 }
 

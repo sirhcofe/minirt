@@ -14,13 +14,17 @@
 # define MINIRT_H
 
 # if OS == 1
-	# define IS_LINUX 1
+#  define IS_LINUX 1
 # else
-	# define IS_LINUX 0
+#  define IS_LINUX 0
 # endif
 
 # define BUFFER_SIZE 50
 # define MAX_INT 2147483647
+# define CAM_EDIT 1
+# define LIGHT_EDIT 2
+# define OBJ_EDIT 3
+# define NO_EDIT 0
 
 # include <stdlib.h>
 # include <stdio.h>
@@ -36,8 +40,8 @@
 # include "parse.h"
 # include "ray_tracing.h"
 # include "utils.h"
-
-void		set_controls(t_minirt *rt);
+# include "keys.h"
+# include "editor.h"
 
 /**
  * @brief Scrolls through the object linked list and returns the object that

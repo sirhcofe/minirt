@@ -33,6 +33,7 @@ enum e_rt_rays
 	to_viewer = 1,
 	normal = 2,
 	reflect_dir = 3,
+	from_camera = 4
 };
 
 typedef struct s_rgb
@@ -144,6 +145,12 @@ typedef struct s_data
 	t_list	*objects;
 }	t_data;
 
+typedef struct s_edit
+{
+	int			flag;
+	t_object	*target;
+}	t_edit;
+
 typedef struct s_minirt
 {
 	void	*mlx;
@@ -156,6 +163,7 @@ typedef struct s_minirt
 	int		width;
 	int		height;
 	t_data	*file_data;
+	t_edit	editor;
 }	t_minirt;
 
 typedef struct s_intrsct

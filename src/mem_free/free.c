@@ -46,3 +46,17 @@ void	free_split(char **head)
 		free(head[i]);
 	free(head);
 }
+
+int	close_program(t_minirt *rt)
+{
+	free_data(rt);
+	exit(0);
+}
+
+// For testing purposes
+// int	close_program(t_minirt *rt)
+// {
+// 	free_data(rt);
+// 	system("leaks minirt");
+// 	exit(0);
+// }

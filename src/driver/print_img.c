@@ -21,14 +21,14 @@ void	print_image(t_minirt *rt)
 	if (rt->file_data->objects != NULL)
 	{
 		ctr = -1;
-		while (++ctr < (rt->height * rt->width))
+		while (++ctr < (size_t)(rt->height * rt->width))
 		{
 			ray_vector = get_ray_vector(rt, rt->file_data->camera, ctr);
 			index = get_touchy(rt->file_data, ray_vector);
 			if (index == -1)
 				void_pixel(rt, ctr);
 			else
-				render_pixel(rt, index, ctr);
+				render_pixel(rt, index, ctr, ray_vector);
 		}
 	}
 	else
@@ -38,10 +38,9 @@ void	print_image(t_minirt *rt)
 void	empty_protocol(t_minirt *rt)
 {
 	size_t	ctr;
-	int		colour;
 
 	ctr = -1;
-	while (++ctr < (rt->height * rt->width))
+	while (++ctr < (size_t)(rt->height * rt->width))
 		void_pixel(rt, ctr);
 }
 

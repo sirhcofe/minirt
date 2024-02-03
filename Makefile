@@ -24,7 +24,7 @@ ifeq ($(UNAME), Darwin)
 endif
 
 NAME		=	libminirt.a
-FLAGS		=	-fsanitize=address -g3
+FLAGS		=	-Wall -Wextra -Werror -fsanitize=address -g3
 
 # source files here #
 SRC			=	error.c					\
@@ -54,7 +54,9 @@ SRC			=	error.c					\
 				draw.c					\
 				print_img.c				\
 				ft_split_alt.c			\
-				free.c
+				free.c					\
+				editor.c				\
+				translate.c
 
 OBJS_DIR	=	objects/
 OBJS		=	$(addprefix $(OBJS_DIR), $(notdir $(SRC:.c=.o)))
@@ -69,6 +71,7 @@ SRC_DIR		=	$(LIBX)			\
 				src/ray_tracing	\
 				src/utils		\
 				src/parsing		\
+				src/editor
 
 vpath %.c $(SRC_DIR)
 
@@ -88,7 +91,7 @@ $(OBJS_DIR)%.o:	%.c
 
 minirt:		src/main2.c $(OBJS)
 			@echo "Compiling: src/main2.c"
-			@gcc $(FLAGS) $(OS) -g3 src/main2.c -L. -lminirt -Llibft -lft $(INCLUDES) $(COMPILE) -o minirt
+			@gcc $(FLAGS) $(OS) -g3 src/main2.c -L. -lminirt -Llibft -lft $(INCLUDES) $(COMPILE) -o miniRT
 
 clean:
 			@rm -rf objects resolution
