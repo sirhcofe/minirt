@@ -44,7 +44,7 @@ void	rotate_along_axis(t_cam *camera, t_coord axis, int key)
 
 	if (key == W || key == A || key == Z)
 		angle = -0.174533;
-	else if (key == S || key == D || key == C)
+	else
 		angle = 0.174533;
 	camera->look = normalize(rotation(&camera->look, angle, axis));
 	camera->up = normalize(rotation(&camera->up, angle, axis));

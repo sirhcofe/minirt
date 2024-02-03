@@ -38,7 +38,7 @@ void	error_free(int status, t_data *f_data)
 // {
 // 	ft_putstr_fd("Error\n", 2);
 // 	ft_putstr_fd(err_msg, 2);
-// 	system("leaks minirt");
+// 	system("leaks miniRT");
 // 	exit(EXIT_FAILURE);
 // }
 
@@ -53,6 +53,6 @@ void	error_free(int status, t_data *f_data)
 // 		ft_putstr_fd("More than one Camera, Light or Ambience object\n", 2);
 // 	ft_lstclear(&(f_data->objects), free_obj_list);
 // 	free(f_data);
-// 	system("leaks minirt");
+// 	system("leaks miniRT");
 // 	exit(EXIT_FAILURE);
 // }

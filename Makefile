@@ -24,7 +24,7 @@ ifeq ($(UNAME), Darwin)
 endif
 
 NAME		=	libminirt.a
-FLAGS		=	-Wall -Wextra -Werror -fsanitize=address -g3
+FLAGS		=	-Wall -Wextra -Werror
 
 # source files here #
 SRC			=	error.c					\
@@ -92,9 +92,9 @@ $(OBJS_DIR)%.o:	%.c
 			@echo "Compiling: $<"
 			@gcc $(FLAGS) $(OS) -I$(LIBX) $(INCLUDES) -c $< -o $@
 
-minirt:		src/main2.c $(OBJS)
-			@echo "Compiling: src/main2.c"
-			@gcc $(FLAGS) $(OS) -g3 src/main2.c -L. -lminirt -Llibft -lft $(INCLUDES) $(COMPILE) -o miniRT
+minirt:		src/main.c $(OBJS)
+			@echo "Compiling: src/main.c"
+			@gcc $(FLAGS) $(OS) -g3 src/main.c -L. -lminirt -Llibft -lft $(INCLUDES) $(COMPILE) -o miniRT
 
 clean:
 			@rm -rf objects resolution

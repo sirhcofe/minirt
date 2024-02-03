@@ -36,38 +36,20 @@ t_coord	*determine_target(t_minirt *rt)
 		return (NULL);
 }
 
-	// obj_point = get_object_point(rt->editor.target);
-	// if (key == UP)
-	// 	obj_point->y += 1;
-	// else if (key == DOWN)
-	// 	obj_point->y -= 1;
-	// else if (key == LEFT)
-	// 	obj_point->x -= 1;
-	// else if (key == RIGHT)
-	// 	obj_point->x += 1;
-	// else if (key == R_SQRB)
-	// 	obj_point->z += 1;
-	// else if (key == L_SQRB)
-	// 	obj_point->z -= 1;
-	// print_editor(rt);
-	// mlx_clear_window(rt->mlx, rt->mlx_win);
-	// mlx_put_image_to_window(rt->mlx, rt->mlx_win, rt->img, 0, 0);
-
-
 void	translate_point(t_coord *point, int key)
 {
 	if (key == UP)
-		point->y += 1;
+		point->y += 1.5;
 	else if (key == DOWN)
-		point->y -= 1;
+		point->y -= 1.5;
 	else if (key == LEFT)
-		point->x -= 1;
+		point->x -= 1.5;
 	else if (key == RIGHT)
-		point->x += 1;
+		point->x += 1.5;
 	else if (key == R_SQRB)
-		point->z += 1;
+		point->z += 1.5;
 	else if (key == L_SQRB)
-		point->z -= 1;
+		point->z -= 1.5;
 }
 
 void	key_translate(t_minirt *rt, int key)

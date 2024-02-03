@@ -50,9 +50,11 @@ int	key_press(int key, t_minirt *rt)
 		switch_target(rt, key);
 	if (rt->editor.flag != NOT_EDIT && rt->editor.flag != EDIT_MODE)
 	{
-		if (key == UP || key == DOWN || key == LEFT || key == RIGHT || key == L_SQRB || key == R_SQRB)
+		if (key == UP || key == DOWN || key == LEFT || key == RIGHT
+			|| key == L_SQRB || key == R_SQRB)
 			key_translate(rt, key);
-		if (key == W || key == S || key == A || key == D || key == Z || key == C)
+		if (key == W || key == S || key == A || key == D
+			|| key == Z || key == C)
 			key_rotate(rt, key);
 	}
 	return (0);

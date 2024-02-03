@@ -57,6 +57,6 @@ int	close_program(t_minirt *rt)
 // int	close_program(t_minirt *rt)
 // {
 // 	free_data(rt);
-// 	system("leaks minirt");
+// 	system("leaks miniRT");
 // 	exit(0);
 // }
