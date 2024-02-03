@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 01:06:55 by chenlee           #+#    #+#             */
-/*   Updated: 2024/01/19 15:10:40 by chenlee          ###   ########.fr       */
+/*   Updated: 2024/02/03 21:26:10 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,10 @@ double	calc_co_intersection(t_coord transltd[2], t_co *cone)
 		cone->intsct_type = 1;
 		return (lat_dist);
 	}
-	else
+	else if (endcap_dist > 0)
 		return (endcap_dist);
+	else
+		return (INFINITY);
 }
 
 /**
