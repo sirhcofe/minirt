@@ -14,9 +14,9 @@
 # define MINIRT_H
 
 # if OS == 1
-	# define IS_LINUX 1
+#  define IS_LINUX 1
 # else
-	# define IS_LINUX 0
+#  define IS_LINUX 0
 # endif
 
 # define BUFFER_SIZE 50

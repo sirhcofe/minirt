@@ -50,6 +50,13 @@ void	free_split(char **head)
 int	close_program(t_minirt *rt)
 {
 	free_data(rt);
-	// system("leaks minirt");
 	exit(0);
 }
+
+// For testing purposes
+// int	close_program(t_minirt *rt)
+// {
+// 	free_data(rt);
+// 	system("leaks minirt");
+// 	exit(0);
+// }

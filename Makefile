@@ -6,7 +6,7 @@
 #    By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 21:28:59 by chenlee           #+#    #+#              #
-#    Updated: 2024/02/03 15:24:51 by chenlee          ###   ########.fr        #
+#    Updated: 2024/02/03 17:43:45 by chenlee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ ifeq ($(UNAME), Darwin)
 endif
 
 NAME		=	libminirt.a
-FLAGS		=	-fsanitize=address -g3
+FLAGS		=	-Wall -Wextra -Werror -fsanitize=address -g3
 
 # source files here #
 SRC			=	error.c					\
@@ -94,7 +94,7 @@ $(OBJS_DIR)%.o:	%.c
 
 minirt:		src/main2.c $(OBJS)
 			@echo "Compiling: src/main2.c"
-			@gcc $(FLAGS) $(OS) -g3 src/main2.c -L. -lminirt -Llibft -lft $(INCLUDES) $(COMPILE) -o minirt
+			@gcc $(FLAGS) $(OS) -g3 src/main2.c -L. -lminirt -Llibft -lft $(INCLUDES) $(COMPILE) -o miniRT
 
 clean:
 			@rm -rf objects resolution

@@ -6,49 +6,11 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 10:32:36 by jthor             #+#    #+#             */
-/*   Updated: 2024/02/02 22:31:09 by chenlee          ###   ########.fr       */
+/*   Updated: 2024/02/03 17:50:08 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-void	translate_cam(t_minirt *rt, int key)
-{
-	if (key == UP)
-		rt->file_data->camera.point.y += 1;
-	else if (key == DOWN)
-		rt->file_data->camera.point.y -= 1;
-	else if (key == LEFT)
-		rt->file_data->camera.point.x -= 1;
-	else if (key == RIGHT)
-		rt->file_data->camera.point.x += 1;
-	else if (key == R_SQRB)
-		rt->file_data->camera.point.z += 1;
-	else if (key == L_SQRB)
-		rt->file_data->camera.point.z -= 1;
-	print_editor(rt);
-	mlx_clear_window(rt->mlx, rt->mlx_win);
-	mlx_put_image_to_window(rt->mlx, rt->mlx_win, rt->img, 0, 0);
-}
-
-void	translate_light(t_minirt *rt, int key)
-{
-	if (key == UP)
-		rt->file_data->light.point.y += 1;
-	else if (key == DOWN)
-		rt->file_data->light.point.y -= 1;
-	else if (key == LEFT)
-		rt->file_data->light.point.x -= 1;
-	else if (key == RIGHT)
-		rt->file_data->light.point.x += 1;
-	else if (key == R_SQRB)
-		rt->file_data->light.point.z += 1;
-	else if (key == L_SQRB)
-		rt->file_data->light.point.z -= 1;
-	print_editor(rt);
-	mlx_clear_window(rt->mlx, rt->mlx_win);
-	mlx_put_image_to_window(rt->mlx, rt->mlx_win, rt->img, 0, 0);
-}
 
 t_coord	*get_object_point(t_object *obj)
 {
@@ -62,36 +24,63 @@ t_coord	*get_object_point(t_object *obj)
 		return (&(obj->obj.cone.base_center));
 }
 
-void	translate_obj(t_minirt *rt, int key)
+t_coord	*determine_target(t_minirt *rt)
 {
-	t_coord	*obj_point;
+	if (rt->editor.flag == CAM_EDIT)
+		return (&(rt->file_data->camera.point));
+	else if (rt->editor.flag == LIGHT_EDIT)
+		return (&(rt->file_data->light.point));
+	else if (rt->editor.flag == OBJ_EDIT)
+		return (get_object_point(rt->editor.target));
+	else
+		return (NULL);
+}
 
-	obj_point = get_object_point(rt->editor.target);
+	// obj_point = get_object_point(rt->editor.target);
+	// if (key == UP)
+	// 	obj_point->y += 1;
+	// else if (key == DOWN)
+	// 	obj_point->y -= 1;
+	// else if (key == LEFT)
+	// 	obj_point->x -= 1;
+	// else if (key == RIGHT)
+	// 	obj_point->x += 1;
+	// else if (key == R_SQRB)
+	// 	obj_point->z += 1;
+	// else if (key == L_SQRB)
+	// 	obj_point->z -= 1;
+	// print_editor(rt);
+	// mlx_clear_window(rt->mlx, rt->mlx_win);
+	// mlx_put_image_to_window(rt->mlx, rt->mlx_win, rt->img, 0, 0);
+
+
+void	translate_point(t_coord *point, int key)
+{
 	if (key == UP)
-		obj_point->y += 1;
+		point->y += 1;
 	else if (key == DOWN)
-		obj_point->y -= 1;
+		point->y -= 1;
 	else if (key == LEFT)
-		obj_point->x -= 1;
+		point->x -= 1;
 	else if (key == RIGHT)
-		obj_point->x += 1;
+		point->x += 1;
 	else if (key == R_SQRB)
-		obj_point->z += 1;
+		point->z += 1;
 	else if (key == L_SQRB)
-		obj_point->z -= 1;
-	print_editor(rt);
-	mlx_clear_window(rt->mlx, rt->mlx_win);
-	mlx_put_image_to_window(rt->mlx, rt->mlx_win, rt->img, 0, 0);
+		point->z -= 1;
 }
 
 void	key_translate(t_minirt *rt, int key)
 {
-	if (rt->editor.flag == EDIT_MODE)
+	t_coord	*target_point;
+
+	if (rt->editor.flag == NOT_EDIT)
 		return ;
-	else if (rt->editor.flag == CAM_EDIT)
-		translate_cam(rt, key);
-	else if (rt->editor.flag == LIGHT_EDIT)
-		translate_light(rt, key);
-	else if (rt->editor.flag == OBJ_EDIT)
-		translate_obj(rt, key);
+	target_point = determine_target(rt);
+	translate_point(target_point, key);
+	if (rt->editor.flag == OBJ_EDIT && rt->editor.target->e_idx == co)
+		translate_point(&(rt->editor.target->obj.cone.vertex), key);
+	print_editor(rt);
+	mlx_clear_window(rt->mlx, rt->mlx_win);
+	mlx_put_image_to_window(rt->mlx, rt->mlx_win, rt->img, 0, 0);
 }
