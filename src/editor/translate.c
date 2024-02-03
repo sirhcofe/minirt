@@ -12,44 +12,6 @@
 
 #include "minirt.h"
 
-void	translate_cam(t_minirt *rt, int key)
-{
-	if (key == MAC_UP)
-		rt->file_data->camera.point.y += 1;
-	else if (key == MAC_DOWN)
-		rt->file_data->camera.point.y -= 1;
-	else if (key == MAC_LEFT)
-		rt->file_data->camera.point.x -= 1;
-	else if (key == MAC_RIGHT)
-		rt->file_data->camera.point.x += 1;
-	else if (key == MAC_W)
-		rt->file_data->camera.point.z += 1;
-	else if (key == MAC_S)
-		rt->file_data->camera.point.z -= 1;
-	print_editor(rt);
-	mlx_clear_window(rt->mlx, rt->mlx_win);
-	mlx_put_image_to_window(rt->mlx, rt->mlx_win, rt->img, 0, 0);
-}
-
-void	translate_light(t_minirt *rt, int key)
-{
-	if (key == MAC_UP)
-		rt->file_data->light.point.y += 1;
-	else if (key == MAC_DOWN)
-		rt->file_data->light.point.y -= 1;
-	else if (key == MAC_LEFT)
-		rt->file_data->light.point.x -= 1;
-	else if (key == MAC_RIGHT)
-		rt->file_data->light.point.x += 1;
-	else if (key == MAC_W)
-		rt->file_data->light.point.z += 1;
-	else if (key == MAC_S)
-		rt->file_data->light.point.z -= 1;
-	print_editor(rt);
-	mlx_clear_window(rt->mlx, rt->mlx_win);
-	mlx_put_image_to_window(rt->mlx, rt->mlx_win, rt->img, 0, 0);
-}
-
 t_coord	*get_object_point(t_object *obj)
 {
 	if (obj->e_idx == sp)
@@ -62,36 +24,45 @@ t_coord	*get_object_point(t_object *obj)
 		return (&(obj->obj.cone.base_center));
 }
 
-void	translate_obj(t_minirt *rt, int key)
+t_coord	*determine_target(t_minirt *rt)
 {
-	t_coord	*obj_point;
+	if (rt->editor.flag == CAM_EDIT)
+		return (&(rt->file_data->camera.point));
+	else if (rt->editor.flag == LIGHT_EDIT)
+		return (&(rt->file_data->light.point));
+	else if (rt->editor.flag == OBJ_EDIT)
+		return (get_object_point(rt->editor.target));
+	else
+		return (NULL);
+}
 
-	obj_point = get_object_point(rt->editor.target);
+void	translate_point(t_coord *point, int key)
+{
 	if (key == MAC_UP)
-		obj_point->y += 1;
+		point->y += 1;
 	else if (key == MAC_DOWN)
-		obj_point->y -= 1;
+		point->y -= 1;
 	else if (key == MAC_LEFT)
-		obj_point->x -= 1;
+		point->x -= 1;
 	else if (key == MAC_RIGHT)
-		obj_point->x += 1;
+		point->x += 1;
 	else if (key == MAC_W)
-		obj_point->z += 1;
+		point->z += 1;
 	else if (key == MAC_S)
-		obj_point->z -= 1;
-	print_editor(rt);
-	mlx_clear_window(rt->mlx, rt->mlx_win);
-	mlx_put_image_to_window(rt->mlx, rt->mlx_win, rt->img, 0, 0);
+		point->z -= 1;
 }
 
 void	key_translate(t_minirt *rt, int key)
 {
+	t_coord	*target_point;
+
 	if (rt->editor.flag == NO_EDIT)
 		return ;
-	else if (rt->editor.flag == CAM_EDIT)
-		translate_cam(rt, key);
-	else if (rt->editor.flag == LIGHT_EDIT)
-		translate_light(rt, key);
-	else if (rt->editor.flag == OBJ_EDIT)
-		translate_obj(rt, key);
+	target_point = determine_target(rt);
+	translate_point(target_point, key);
+	if (rt->editor.flag == OBJ_EDIT && rt->editor.target->e_idx == co)
+		translate_point(&(rt->editor.target->obj.cone.vertex), key);
+	print_editor(rt);
+	mlx_clear_window(rt->mlx, rt->mlx_win);
+	mlx_put_image_to_window(rt->mlx, rt->mlx_win, rt->img, 0, 0);
 }
