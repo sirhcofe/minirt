@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 00:06:02 by chenlee           #+#    #+#             */
-/*   Updated: 2024/02/02 23:29:51 by chenlee          ###   ########.fr       */
+/*   Updated: 2024/02/03 14:47:41 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	key_press(int key, t_minirt *rt)
 		switch_target(rt, key);
 	else if (key == UP || key == DOWN || key == LEFT || key == RIGHT || key == L_SQRB || key == R_SQRB)
 		key_translate(rt, key);
-	else if (key == W || key == S || key == A || key == D)
+	else if (key == W || key == S || key == A || key == D || key == Z || key == C)
 		key_rotate(rt, key);
 	return (0);
 }

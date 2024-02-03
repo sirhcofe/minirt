@@ -6,7 +6,7 @@
 #    By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 21:28:59 by chenlee           #+#    #+#              #
-#    Updated: 2024/02/02 22:54:12 by chenlee          ###   ########.fr        #
+#    Updated: 2024/02/03 15:24:51 by chenlee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,7 @@ SRC			=	error.c					\
 				editor.c				\
 				editor_utils.c			\
 				rotate.c				\
+				rotate_utils.c			\
 				translate.c
 
 OBJS_DIR	=	objects/

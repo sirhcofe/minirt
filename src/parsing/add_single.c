@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 20:03:13 by jthor             #+#    #+#             */
-/*   Updated: 2024/02/02 23:42:39 by chenlee          ###   ########.fr       */
+/*   Updated: 2024/02/03 14:09:29 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,25 @@ int	add_ambience(t_amb *obj, char **arr)
 	return (0);
 }
 
-void	calc_camera_orientation(t_cam *camera)
+void	get_up_right(t_cam *camera, t_coord rot_axis, int first_time, int bruh)
+{
+	if (first_time)
+	{
+		camera->up = normalize(rot_axis);
+		if (camera->up.y < 0.0001)
+			camera->up = vect_mult(camera->up, -1);
+		camera->right = cross_prod(camera->up, camera->look);
+	}
+	else
+	{
+		if (bruh == 1)
+			camera->right = cross_prod(camera->up, camera->look);
+		else
+			camera->up = cross_prod(camera->look, camera->right);
+	}
+}
+
+void	calc_camera_orientation(t_cam *camera, int first_time, int axis)
 {
 	t_coord	world_coord[3];
 	t_coord	rot_axis;
@@ -44,10 +62,7 @@ void	calc_camera_orientation(t_cam *camera)
 		camera->up = world_coord[1];
 	}
 	else
-	{
-		camera->up = rot_axis;
-		camera->right = cross_prod(camera->up, camera->look);
-	}
+		get_up_right(camera, rot_axis, first_time, axis);
 }
 
 int	add_camera(t_cam *obj, char **arr)
@@ -61,7 +76,7 @@ int	add_camera(t_cam *obj, char **arr)
 	obj->fov = assign_fov(&(obj->flag), arr[3]);
 	if (obj->flag == -1)
 		return (2);
-	calc_camera_orientation(obj);
+	calc_camera_orientation(obj, 1, 0);
 	obj->flag = 1;
 	return (0);
 }

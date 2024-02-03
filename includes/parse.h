@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:11:22 by jthor             #+#    #+#             */
-/*   Updated: 2024/02/02 23:38:44 by chenlee          ###   ########.fr       */
+/*   Updated: 2024/02/03 00:18:21 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,12 @@ int		add_cylinder(t_data *f_data, char **arr);
  * camera - useful for generating resultant rays for every pixels during
  * rendering.
  * @param camera The pointer to the camera object.
+ * @param first_time Boolean to determine if the function caller is setting
+ * camera orientation for the first time
+ * @param axis (Only used if !first_time) The axis of camera rotation
  * @return Function does not return.
 */
-void	calc_camera_orientation(t_cam *camera);
+void	calc_camera_orientation(t_cam *camera, int first_time, int axis);
 /**
  * @brief Adds an ambience object to the t_data struct
  * @return An int flag to be used for error detection and management

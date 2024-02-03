@@ -16,6 +16,8 @@
 	# define E 101
 	# define NUM_1 49
 	# define NUM_2 50
+	# define Z 122
+	# define C 99
 # else
 	# define ESC 53
 	# define UP 126
@@ -29,6 +31,8 @@
 	# define A 0
 	# define D 2
 	# define E 14
+	# define Z 6
+	# define C 8
 	// Arbitratry values, update later.
 	# define NUM_1 18 // edit cam
 	# define NUM_2 19 // edit light
