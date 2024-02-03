@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   translate.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jthor <jthor@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 10:32:36 by jthor             #+#    #+#             */
-/*   Updated: 2024/01/31 10:32:41 by jthor            ###   ########.fr       */
+/*   Updated: 2024/02/03 17:50:08 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,37 @@ t_coord	*determine_target(t_minirt *rt)
 		return (NULL);
 }
 
+	// obj_point = get_object_point(rt->editor.target);
+	// if (key == UP)
+	// 	obj_point->y += 1;
+	// else if (key == DOWN)
+	// 	obj_point->y -= 1;
+	// else if (key == LEFT)
+	// 	obj_point->x -= 1;
+	// else if (key == RIGHT)
+	// 	obj_point->x += 1;
+	// else if (key == R_SQRB)
+	// 	obj_point->z += 1;
+	// else if (key == L_SQRB)
+	// 	obj_point->z -= 1;
+	// print_editor(rt);
+	// mlx_clear_window(rt->mlx, rt->mlx_win);
+	// mlx_put_image_to_window(rt->mlx, rt->mlx_win, rt->img, 0, 0);
+
+
 void	translate_point(t_coord *point, int key)
 {
-	if (key == MAC_UP)
+	if (key == UP)
 		point->y += 1;
-	else if (key == MAC_DOWN)
+	else if (key == DOWN)
 		point->y -= 1;
-	else if (key == MAC_LEFT)
+	else if (key == LEFT)
 		point->x -= 1;
-	else if (key == MAC_RIGHT)
+	else if (key == RIGHT)
 		point->x += 1;
-	else if (key == MAC_W)
+	else if (key == R_SQRB)
 		point->z += 1;
-	else if (key == MAC_S)
+	else if (key == L_SQRB)
 		point->z -= 1;
 }
 
@@ -56,7 +74,7 @@ void	key_translate(t_minirt *rt, int key)
 {
 	t_coord	*target_point;
 
-	if (rt->editor.flag == NO_EDIT)
+	if (rt->editor.flag == NOT_EDIT)
 		return ;
 	target_point = determine_target(rt);
 	translate_point(target_point, key);

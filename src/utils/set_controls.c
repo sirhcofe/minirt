@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 00:06:02 by chenlee           #+#    #+#             */
-/*   Updated: 2024/01/30 19:29:42 by chenlee          ###   ########.fr       */
+/*   Updated: 2024/02/03 17:58:30 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,35 +22,39 @@ void	ft_img_refresh(t_minirt *rt)
 
 void	switch_target(t_minirt *rt, int keycode)
 {
-	if (rt->editor.flag == NO_EDIT)
+	if (rt->editor.flag == NOT_EDIT)
 	{
-		ft_putstr_fd("Editor mode is not enabled\n", 1);
+		printf("\033[31mEditor mode not enabled!\033[0m\n");
 		return ;
 	}
-	else if (keycode == MAC_1)
+	else if (keycode == NUM_1)
 	{
-		ft_putstr_fd("Editor target switched to Camera\n", 1);
 		rt->editor.flag = CAM_EDIT;
+		set_editing_type(rt, 0);
 	}
-	else if (keycode == MAC_2)
+	else if (keycode == NUM_2)
 	{
-		ft_putstr_fd("Editor target switched to Light\n", 1);
 		rt->editor.flag = LIGHT_EDIT;
+		set_editing_type(rt, 0);
 	}
 }
 
 int	key_press(int key, t_minirt *rt)
 {
 	ft_img_refresh(rt);
-	if ((!IS_LINUX && key == MAC_ESC) || (IS_LINUX && key == WIN_ESC))
+	if (key == ESC)
 		close_program(rt);
-	else if (key == MAC_E)
+	else if (key == E)
 		edit_mode(rt);
-	else if (key == MAC_1 || key == MAC_2)
+	else if (key == NUM_1 || key == NUM_2)
 		switch_target(rt, key);
-	else if (key == MAC_UP || key == MAC_DOWN || key == MAC_LEFT
-		|| key == MAC_RIGHT || key == MAC_W || key == MAC_S)
-		key_translate(rt, key);
+	if (rt->editor.flag != NOT_EDIT && rt->editor.flag != EDIT_MODE)
+	{
+		if (key == UP || key == DOWN || key == LEFT || key == RIGHT || key == L_SQRB || key == R_SQRB)
+			key_translate(rt, key);
+		if (key == W || key == S || key == A || key == D || key == Z || key == C)
+			key_rotate(rt, key);
+	}
 	return (0);
 }
 
@@ -60,16 +64,16 @@ int	mouse_press(int keycode, int x, int y, t_minirt *rt)
 	t_coord	ray_vector;
 	int		index;
 
-	if (x < 0 || y < 0 || rt->editor.flag == NO_EDIT || keycode != 1)
+	if (x < 0 || y < 0 || rt->editor.flag == NOT_EDIT || keycode != 1)
 		return (0);
 	ctr = y * rt->width + x;
 	ray_vector = get_ray_vector(rt, rt->file_data->camera, ctr);
 	index = get_touchy(rt->file_data, ray_vector);
 	if (index == -1)
 		return (0);
-	ft_putstr_fd("An object has been clicked!\n", 1);
-	rt->editor.target = get_object(rt->file_data->objects, index);
 	rt->editor.flag = OBJ_EDIT;
+	set_editing_type(rt, 0);
+	rt->editor.target = get_object(rt->file_data->objects, index);
 	return (1);
 }
 

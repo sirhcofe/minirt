@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 20:02:31 by jthor             #+#    #+#             */
-/*   Updated: 2023/11/04 21:11:54 by chenlee          ###   ########.fr       */
+/*   Updated: 2024/02/03 17:53:21 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	free_obj_list(void *node)
 	t_object	*t_node;
 
 	t_node = (t_object *)node;
-	free(node);
+	free(t_node);
 }
 
 void	free_data(t_minirt *rt)
