@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 00:06:02 by chenlee           #+#    #+#             */
-/*   Updated: 2024/02/03 17:51:27 by chenlee          ###   ########.fr       */
+/*   Updated: 2024/02/03 17:58:30 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,13 @@ int	key_press(int key, t_minirt *rt)
 		edit_mode(rt);
 	else if (key == NUM_1 || key == NUM_2)
 		switch_target(rt, key);
-	else if (key == UP || key == DOWN || key == LEFT || key == RIGHT || key == L_SQRB || key == R_SQRB)
-		key_translate(rt, key);
-	else if (key == W || key == S || key == A || key == D || key == Z || key == C)
-		key_rotate(rt, key);
+	if (rt->editor.flag != NOT_EDIT && rt->editor.flag != EDIT_MODE)
+	{
+		if (key == UP || key == DOWN || key == LEFT || key == RIGHT || key == L_SQRB || key == R_SQRB)
+			key_translate(rt, key);
+		if (key == W || key == S || key == A || key == D || key == Z || key == C)
+			key_rotate(rt, key);
+	}
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: chenlee <chenlee@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 15:12:58 by chenlee           #+#    #+#             */
-/*   Updated: 2024/02/03 15:50:04 by chenlee          ###   ########.fr       */
+/*   Updated: 2024/02/03 18:08:36 by chenlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	rotate_cylinder(t_cy *cy, t_coord axis, double angle)
 void	rotate_plane(t_pl *pl, t_coord axis, double angle)
 {
 	pl->normal_vector = normalize(rotation(&pl->normal_vector, angle, axis));
-	pl->point = normalize(rotation(&pl->normal_vector, angle, axis));
 }
 
 void	rotate_cone(t_co *co, t_coord axis, double angle)
